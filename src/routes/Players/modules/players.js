@@ -33,11 +33,40 @@ export function cancelEdit () {
 
 export function savePlayer () {
   // TODO save changes to server...
+  return (dispatch, getState) => {
+  return new Promise((resolve) => {
 
-  console.log('savePlayer o day sau')
-  return {
-    type: PLAYERS_SAVE,
-  }
+    const players = [...getState().playersApp.players]
+    const newScores1 = [...getState().playersApp.playerEditing.scores_day1]
+    const newScores2 = [...getState().playersApp.playerEditing.scores_day2]
+    const playerId = getState().playersApp.playerEditing.id
+    const playerName = getState().playersApp.playerEditing.name
+    const playerRetired = getState().playersApp.playerEditing.retired
+    console.log("newScores2",newScores2)
+  fetch('https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players/'+playerId, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({"scores_day1":newScores1.map(Number),"name":playerName,"retired":playerRetired,"scores_day2":newScores2.map(Number) })
+    })
+  .then(res => {})
+  .then(players => {
+
+    dispatch({
+      type: PLAYERS_SAVE,
+
+    })
+
+  })
+})
+}
+
+
+
+
+
 }
 
 export function changeScore (idx, score, pos) {
@@ -90,8 +119,8 @@ const ACTION_HANDLERS = {
       loading: false,
       players: players.map(p => ({
         ...p,
-        id: p.id, 
-        name: p.name, 
+        id: p.id,
+        name: p.name,
         isEditing: false,
         scores_day1: p.scores_day1,
         scores_day2: p.scores_day2,
@@ -133,13 +162,13 @@ const ACTION_HANDLERS = {
     console.log("newScores1", newScores1)
     console.log('action.payload.score',action.payload.score)
 
-
+  //  let score = action.payload.score==""?-1:action.payload.score
+  console.log("action.payload.score:", action.payload.score);
     if(action.payload.pos===1){
       newScores1[action.payload.idx] = action.payload.score
     }else{
       newScores2[action.payload.idx] = action.payload.score
     }
-  
      console.log('change score')
     console.log(newScores1)
     console.log(newScores2)
@@ -160,16 +189,7 @@ const ACTION_HANDLERS = {
     const playerName = state.playerEditing.name
     const playerRetired = state.playerEditing.retired
 
-    fetch('https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players/'+playerId, {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({"scores_day1":newScores1,"name":playerName,"retired":playerRetired,"scores_day2":newScores2 })
-      })
-    .then(res => {})
-    .then(players => {})
+
 
 
     const playerIdx = players.findIndex(p => p.id === state.playerEditing.id)
