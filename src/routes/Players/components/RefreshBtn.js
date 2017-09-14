@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const RefreshBtn = ({ loading, fetchPlayers }) => (
-  <button type='button'
-    className='btn btn-primary'
-    disabled={loading}
-    onClick={fetchPlayers}>Refresh</button>
+const RefreshBtn = ({ changePlayerByDay }) => (
+  <select className="select-day" onChange={e => changePlayerByDay(e.target.value)}>
+            <option value="0">All</option>
+            <option value="1">Day 1</option>
+            <option value="2">Day 2</option>
+          </select>
 )
 
 RefreshBtn.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  fetchPlayers: PropTypes.func.isRequired,
+  changePlayerByDay: PropTypes.func.isRequired,
 }
 
 export default RefreshBtn

@@ -4,7 +4,7 @@ import PlayerShowContainer from '../containers/PlayerShowContainer'
 import PropTypes from 'prop-types'
 
 function Player (props) {
-  console.log('aaaa');
+  console.log('aaaa',props);
   if (props.isEditing) {
     return <PlayerEditContainer />
   }
@@ -12,7 +12,9 @@ function Player (props) {
 }
 
 const PlayerList = ({ players }) => (
+  
   <div className="div_parent">
+    
     {players.map(p =>
       <Player key={p.id} {...p} />
     )}

@@ -15,11 +15,6 @@ export const PageLayout = ({ children }) => (
           <div className="infoText"><span>
                2017年9月21日 〜 22日</span></div>
           <div className="infoText"><a href="http://sp.golfnetwork.co.jp/tcp/" target="_black"><span>http://sp.golfnetwork.co.jp/tcp/</span></a></div>
-          <select>
-            <option value="0">All</option>
-            <option value="1">Day 1</option>
-            <option value="2">Day 2</option>
-          </select>
         </div>
       </div>
       <div id="holeinfo">

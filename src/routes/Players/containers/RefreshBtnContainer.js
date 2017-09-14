@@ -1,13 +1,13 @@
 import { connect } from 'react-redux'
 import RefreshBtn from '../components/RefreshBtn'
-import { fetchPlayers } from '../modules/players'
+import { changePlayerByDay } from '../modules/players'
 
 const mapStateToProps = state => ({
   loading: state.playersApp.loading
 })
 
 const mapDispatchToProps = {
-  fetchPlayers
+  changePlayerByDay
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RefreshBtn)

@@ -69,7 +69,12 @@ class PlayerShow extends React.Component {
 
   }
   render() {
-const { id, name,retired, optionDisplay, scores_day1,scores_day2,total1,score1,total2,score2,total_2day, editPlayer } = this.props
+const { id, name,retired, optionDisplay, scores_day1,scores_day2, editPlayer } = this.props
+    let total1 = scores_day1.reduce((a,b)=> a+b,0)
+    let score1= scores_day1.reduce((a,b)=> a+b,0) - 52
+    let total2= scores_day2.reduce((a,b)=> a+b,0)
+    let score2= scores_day2.reduce((a,b)=> a+b,0) - 52
+    let total_2day= (scores_day1.reduce((a,b)=> a+b,0) - 52) + (scores_day2.reduce((a,b)=> a+b,0) - 52)
     return (
         <div>
           <div className="playerscorefield">

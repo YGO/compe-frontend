@@ -7,9 +7,14 @@ const mapDispatchToProps = dispatch => ({
   editPlayer: id => {
     dispatch(editPlayer(id))
   },
+
 })
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+
+	
+
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerShow)
 
