@@ -5,6 +5,7 @@ const PLAYERS_SAVE = 'PLAYERS_SAVE'
 const PLAYERS_CHANGE_SCORE = 'PLAYERS_CHANGE_SCORE'
 const PLAYERS_FETCH_REQUEST = 'PLAYERS_FETCH_REQUEST'
 const PLAYERS_FETCH_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -45,6 +46,7 @@ export function changeScore (idx, score, pos) {
   console.log(idx)
   console.log('change pos')
   console.log(pos)
+
   return {
     type: PLAYERS_CHANGE_SCORE,
     payload: { idx: idx, score: score, pos: pos }
@@ -128,13 +130,16 @@ const ACTION_HANDLERS = {
      console.log('PLAYERS_CHANGE_SCORE1')
     const newScores1 = [...state.playerEditing.scores_day1]
     const newScores2 = [...state.playerEditing.scores_day2]
-    
-   
+    console.log("newScores1", newScores1)
+    console.log('action.payload.score',action.payload.score)
+
+
     if(action.payload.pos===1){
       newScores1[action.payload.idx] = action.payload.score
     }else{
       newScores2[action.payload.idx] = action.payload.score
     }
+  
      console.log('change score')
     console.log(newScores1)
     console.log(newScores2)
@@ -148,25 +153,31 @@ const ACTION_HANDLERS = {
     }
   },
   [PLAYERS_SAVE]: (state, action) => {
-    console.log('PLAYERS_SAVE1')
     const players = [...state.players]
     const newScores1 = [...state.playerEditing.scores_day1]
     const newScores2 = [...state.playerEditing.scores_day2]
-    console.log('players ne')
-    console.log(players)
-    console.log('score here')
+    const playerId = state.playerEditing.id
+    const playerName = state.playerEditing.name
+    const playerRetired = state.playerEditing.retired
+
+    fetch('https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players/'+playerId, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"scores_day1":newScores1,"name":playerName,"retired":playerRetired,"scores_day2":newScores2 })
+      })
+    .then(res => {})
+    .then(players => {})
+
+
     const playerIdx = players.findIndex(p => p.id === state.playerEditing.id)
     players[playerIdx] = {
       ...state.playerEditing,
       isEditing: false
     }
-    console.log('stay here')
-    console.log(playerIdx)
     return {
-      // ...state,
-      // players: players,
-      // playerEditing: null,
-
       ...state,
       players: players,
       playerEditing: {
