@@ -1,7 +1,9 @@
-const PLAYERS_INIT = 'PLAYERS_INIT'
+
 const PLAYERS_EDIT = 'PLAYERS_EDIT'
 const PLAYERS_CANCEL_EDIT = 'PLAYERS_CANCEL_EDIT'
 const PLAYERS_SAVE = 'PLAYERS_SAVE'
+const PLAYERS_CHANGE_NAME = 'PLAYERS_CHANGE_NAME'
+const PLAYERS_CHANGE_RETIRED = 'PLAYERS_CHANGE_RETIRED'
 const PLAYERS_CHANGE_SCORE = 'PLAYERS_CHANGE_SCORE'
 const PLAYERS_FETCH_REQUEST = 'PLAYERS_FETCH_REQUEST'
 const PLAYERS_FETCH_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
@@ -9,14 +11,7 @@ const PLAYERS_FETCH_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function initPlayers (players) {
-  console.log('testnew')
-  console.log(players)
-  return {
-    type: PLAYERS_INIT,
-    payload: players
-  }
-}
+
 
 export function editPlayer (id) {
   return {
@@ -43,92 +38,86 @@ export function savePlayer () {
     const playerName = getState().playersApp.playerEditing.name
     const playerRetired = getState().playersApp.playerEditing.retired
     console.log("newScores2",newScores2)
-  fetch('https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players/'+playerId, {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({"scores_day1":newScores1.map(Number),"name":playerName,"retired":playerRetired,"scores_day2":newScores2.map(Number) })
+    fetch('https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players/'+playerId, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"scores_day1":newScores1.map(Number),"name":playerName,"retired":playerRetired,"scores_day2":newScores2.map(Number) })
+      })
+      .then(res => {})
+      .then(players => {
+
+        dispatch({
+          type: PLAYERS_SAVE,
+
+        })
+
+      })
     })
-  .then(res => {})
-  .then(players => {
-
-    dispatch({
-      type: PLAYERS_SAVE,
-
-    })
-
-  })
-})
-}
-
-
-
-
-
-}
-
-export function changeScore (idx, score, pos) {
-  console.log('change Score')
-  console.log(score)
-  console.log(idx)
-  console.log('change pos')
-  console.log(pos)
-
-  return {
-    type: PLAYERS_CHANGE_SCORE,
-    payload: { idx: idx, score: score, pos: pos }
   }
 }
 
+export function changeRetired (retired) {
+  console.log('changeRetired', retired)
+  return {
+    type: PLAYERS_CHANGE_RETIRED,
+    payload: {retired: retired }
+  }
+}
+export function changeName (name) {
+  console.log('change name: ', name)
+  
+  return {
+    type: PLAYERS_CHANGE_NAME,
+    payload: {name: name}
+  }
+}
+
+export function changeScore (idx, score, row) {
+  console.log('change Score')
+  console.log(score)
+  console.log(idx)
+  console.log('change row')
+  console.log(row)
+
+  return {
+    type: PLAYERS_CHANGE_SCORE,
+    payload: { idx: idx, score: score, row: row }
+  }
+}
 export const fetchPlayers = () => {
   return (dispatch, getState) => {
-    return new Promise((resolve) => {
-      dispatch({
-        type: PLAYERS_FETCH_REQUEST,
-      })
-      setTimeout(() => {
-        // TODO get newPlayers from API
-        const newPlayers = getState().playersApp.players.map(p => {
-          return {
-            ...p,
-            scores: randomScores()
-          }
-        })
+    dispatch({
+      type: PLAYERS_FETCH_REQUEST,
+    })
+    return fetch('https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players')
+      .then(res => res.json())
+      .then(players => {
+        const newPlayers = players.map(p => ({
+          ...p,
+          id: p.id,
+          name: p.name,
+          isEditing: false,
+          scores_day1: p.scores_day1,
+          scores_day2: p.scores_day2,
+        }))
         dispatch({
           type: PLAYERS_FETCH_SUCCESS,
           payload: newPlayers,
         })
-        resolve()
-      }, 1000)
-    })
+      })
   }
 }
+
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 
 const ACTION_HANDLERS = {
-  [PLAYERS_INIT]: (state, action) => {
-    const players = action.payload
-
-    return {
-      ...initialState,
-      loading: false,
-      players: players.map(p => ({
-        ...p,
-        id: p.id,
-        name: p.name,
-        isEditing: false,
-        scores_day1: p.scores_day1,
-        scores_day2: p.scores_day2,
-
-      })),
-    }
-  },
-
+ 
   [PLAYERS_EDIT]: (state, action) => {
     console.log('PLAYERS_EDIT1')
     const playerToEdit = state.players.find(p => p.id === action.payload)
@@ -154,17 +143,33 @@ const ACTION_HANDLERS = {
       playerEditing: null,
     }
   },
+[PLAYERS_CHANGE_NAME]: (state, action) => {
+    console.log('PLAYERS_CHANGE_NAME')
+    return {
+      ...state,
+      playerEditing: {
+        ...state.playerEditing,
+        name: action.payload.name,
+      }
+    }
+  },
+  [PLAYERS_CHANGE_RETIRED]: (state, action) => {
+   
+    return {
+      ...state,
+      playerEditing: {
+        ...state.playerEditing,
+        retired: action.payload.retired,
+      }
+    }
+  },
   [PLAYERS_CHANGE_SCORE]: (state, action) => {
-
-     console.log('PLAYERS_CHANGE_SCORE1')
     const newScores1 = [...state.playerEditing.scores_day1]
     const newScores2 = [...state.playerEditing.scores_day2]
-    console.log("newScores1", newScores1)
-    console.log('action.payload.score',action.payload.score)
 
   //  let score = action.payload.score==""?-1:action.payload.score
   console.log("action.payload.score:", action.payload.score);
-    if(action.payload.pos===1){
+    if(action.payload.row===1){
       newScores1[action.payload.idx] = action.payload.score
     }else{
       newScores2[action.payload.idx] = action.payload.score
@@ -228,10 +233,6 @@ const ACTION_HANDLERS = {
 // Utility
 // ------------------------------------
 
-function randomScores () {
-  console.log('randomScores1')
-  return Array(18).fill().map(_ => Math.floor(Math.random() * (8 - 3) + 3))
-}
 
 // ------------------------------------
 // Reducer

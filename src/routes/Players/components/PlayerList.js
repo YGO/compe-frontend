@@ -12,7 +12,7 @@ function Player (props) {
 }
 
 const PlayerList = ({ players }) => (
-  <div>
+  <div className="div_parent">
     {players.map(p =>
       <Player key={p.id} {...p} />
     )}

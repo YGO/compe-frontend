@@ -1,26 +1,3 @@
-@import 'base';
-@import '~bootstrap/scss/bootstrap.scss';
-
-// Some best-practice CSS that's useful for most apps
-// Just remove them if they're not what you want
-html {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-
 body {
   padding: 0;
   margin: 0;
@@ -196,7 +173,7 @@ body {
   box-sizing: border-box;
 }
 
-.playerscorefield:nth-child(2) {
+.div_parent div:first-child .playerscorefield:nth-child(1) {
   margin-top: 220px;
 }
 
@@ -332,8 +309,8 @@ input[type="number"] {
   height: 40px;
   border-right: solid 1px;
 }
-	.playertotal{width: 53px;}
-	.playerscore{width: 51px;}
+  .playertotal{width: 53px;}
+  .playerscore{width: 51px;}
 .playertotal > span, .playerscore > span {
   width: 52px;
   letter-spacing: normal;
@@ -343,28 +320,28 @@ input[type="number"] {
 .clear {
   clear: both;
 }
-	
-	#edit_row{
-		width: 52px;
-	}
-	.edit_row{
+  
+  #edit_row{
+    width: 52px;
+  }
+  .edit_row{
 
-	  width: 53px;
-	  height: 82px;
-	  line-height: 82px;
-	  letter-spacing: normal;
-	  border-bottom: solid 1px;
-	  border-right: solid 1px;
-	  text-align: center;
-	  font-weight: bold;
-	  font-size: 23px;
-		
-	}
-	.edit_row a{
-		border: 1px black solid;
-		font-size: 11px;
-		color: black;
-		border-radius: 3px;
-		text-decoration: none;
-		padding: 3px;
-	}
+    width: 53px;
+    height: 82px;
+    line-height: 82px;
+    letter-spacing: normal;
+    border-bottom: solid 1px;
+    border-right: solid 1px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 23px;
+    
+  }
+  .edit_row a{
+    border: 1px black solid;
+    font-size: 11px;
+    color: black;
+    border-radius: 3px;
+    text-decoration: none;
+    padding: 3px;
+  }

@@ -1,43 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-  
-      // console.log('savellla')
-      // fetch('https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players/7eg4a120-555', {
-      // method: 'PUT',
-      // headers: {
-      //   'Accept': 'application/json, text/plain, */*',
-      //   'Content-Type': 'application/json'
-      // },
-      // body: JSON.stringify({"scores_day1":[1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"name":"aaaa","retired":true,"scores_day2":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2] })
-      // })
-      // .then(res => {})
-      // .then(players => {
-      //   dispatch(savePlayer()
-      // })
-
-
-const PlayerEdit = ({ player, cancelEdit, savePlayer, changeScore }) => (
-  <div className='row'>
-    <div className='col'>
-      <div className='row'>
-        <div className='col-auto'>{player.name}</div>
-        <div className='col-auto'>
-          <a href='#' onClick={cancelEdit}>Cancel</a>
-          | <a href='#' onClick={savePlayer}>Save</a>
-        </div>
-      </div>
-      <div className='row'>
+const PlayerEdit = ({ player, cancelEdit, savePlayer, changeScore, changeName,changeRetired }) => (
+  <div>
+    <div className="playerscorefield">
+      <div className="player"><span className="name"><input width="20" key={player.id} value={player.name}
+              onChange={e => changeName(e.target.value)} /></span></div>
+      <div className="day1"><span>
+           1日目</span>
         {player.scores_day1.map((s, idx) =>
-          <input key={'p_' + player.id + 's_' + idx} value={s} className='col'
-            onChange={e => changeScore(idx, e.target.value, 1)} />
-        )}
+            <div className="score">
+            <input className="scoretext calculation" name="test" key={'s1_' + player.id + 's_' + idx} value={s}
+              onChange={e => changeScore(idx, e.target.value, 1)} />
+          </div>
+          )}
+        
+        <div className="playertotal"><span>76</span></div>
+        <div className="playerscore"><span>4</span></div>
       </div>
-        <div className='row'>
+      <div className="day2"><span>
+           2日目</span>
         {player.scores_day2.map((s, idx) =>
-          <input key={'p_' + player.id + 's_' + idx} value={s} className='col'
-            onChange={e => changeScore(idx, e.target.value, 2)} />
-        )}
+            <div className="score">
+            <input className="scoretext calculation" name="test" key={'s2_' + player.id + 's_' + idx} value={s}
+              onChange={e => changeScore(idx, e.target.value, 2)} />
+          </div>
+          )}
+        
+        <div className="playertotal"><span>75</span></div>
+        <div className="playerscore"><span>3</span></div>
+      </div>
+      <div className="scoretotal">7</div>
+      <div className="dns PlayStart">
+        <input type="checkbox" checked={player.retired? true: false}  onChange={e => changeRetired(e.target.checked)} />
+      </div>
+      <div className="edit_row">
+        <a href='#' onClick={cancelEdit}>Cancel</a><br/><a href='#' onClick={savePlayer}>Save</a>
       </div>
     </div>
   </div>
@@ -48,6 +46,8 @@ PlayerEdit.propTypes = {
   cancelEdit: PropTypes.func.isRequired,
   savePlayer: PropTypes.func.isRequired,
   changeScore: PropTypes.func.isRequired,
+  changeName: PropTypes.func.isRequired,
+  changeRetired: PropTypes.func.isRequired
 }
 
 export default PlayerEdit

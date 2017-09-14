@@ -2,28 +2,41 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const PlayerShow = ({ id, name,retired, scores_day1,scores_day2, editPlayer }) => (
-  <div className='row'>
-    <div className='col'>
-      <div className='row'>
-        <div className='col-auto'>{name}</div>
-        <div className='col-auto'>
-          <a href='#' onClick={() => editPlayer(id)}>Edit</a>
-        </div>
-      </div>
-      
-      
-      <div className='row'>
-        {scores_day1.map((s, idx) =>
-          <input key={idx} value={s} className='col' disabled />
+<div>
+  <div className="playerscorefield">
+      <div className="player"><span className="name">{name}</span></div>
+      <div className="day1"><span>
+           1日目</span>
+          
+        {scores_day1.map((s, idx) =>   
+          <div className="score">
+            <input className="scoretext calculation" name="test" key={idx} value={s}  disabled />
+          </div>
         )} 
+        <div className="playertotal"><span>76</span></div>
+        <div className="playerscore"><span>4</span></div>
       </div>
-      <div className='row'>
-        {scores_day2.map((s2, idx2) =>
-          <input key={idx2} value={s2} className='col' disabled />
-        )}
+      <div className="day2"><span>
+           2日目</span>
+        {scores_day2.map((s, idx) =>   
+          <div className="score">
+            <input className="scoretext calculation" name="test" key={idx} value={s}  disabled />
+          </div>
+        )} 
+        
+        <div className="playertotal"><span>75</span></div>
+        <div className="playerscore"><span>3</span></div>
       </div>
-    </div>
+      <div className="scoretotal">7</div>
+      <div className="dns PlayStart">
+        <input type="checkbox" checked={retired? true: false} disabled />
+      </div>
+      <div className="edit_row">
+        <a href='#' onClick={() => editPlayer(id)}>Edit</a>
+      </div>
   </div>
+  <div className='clear'></div>
+</div>
 )
 
 PlayerShow.propTypes = {

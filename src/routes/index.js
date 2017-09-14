@@ -6,7 +6,7 @@ import PlayersRoute from './Players'
 export const createRoutes = (store) => ({
   path        : '/',
   component   : CoreLayout,
-  indexRoute  : Home,
+  indexRoute  : PlayersRoute(store),
   childRoutes : [
     CounterRoute(store),
     PlayersRoute(store),

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { cancelEdit, changeScore, savePlayer } from '../modules/players'
+import { cancelEdit, changeScore, savePlayer, changeName, changeRetired } from '../modules/players'
 import PlayerEdit from '../components/PlayerEdit'
 
 const mapDispatchToProps = dispatch => {
@@ -10,8 +10,15 @@ const mapDispatchToProps = dispatch => {
     savePlayer: () => {
       dispatch(savePlayer())
     },
-    changeScore: (idx, score, pos) => {
-      dispatch(changeScore(idx, score, pos))
+    changeScore: (idx, score, row) => {
+      dispatch(changeScore(idx, score, row))
+    },
+    changeName: (name) => {
+      dispatch(changeName(name))
+    },
+    changeRetired: (retired) => {
+      console.log('retire container',retired)
+      dispatch(changeRetired(retired))
     },
   }
 }
