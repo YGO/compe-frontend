@@ -4,6 +4,7 @@ import PlayerShowContainer from '../containers/PlayerShowContainer'
 import PropTypes from 'prop-types'
 
 function Player (props) {
+  console.log('aaaa');
   if (props.isEditing) {
     return <PlayerEditContainer />
   }

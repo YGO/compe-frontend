@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { editPlayer } from '../modules/players'
 import PlayerShow from '../components/PlayerShow'
+import React, { Component } from "react";
 
 const mapDispatchToProps = dispatch => ({
   editPlayer: id => {
@@ -11,3 +12,4 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({})
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerShow)
+

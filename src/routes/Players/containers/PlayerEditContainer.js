@@ -10,8 +10,8 @@ const mapDispatchToProps = dispatch => {
     savePlayer: () => {
       dispatch(savePlayer())
     },
-    changeScore: (idx, score) => {
-      dispatch(changeScore(idx, score))
+    changeScore: (idx, score, pos) => {
+      dispatch(changeScore(idx, score, pos))
     },
   }
 }

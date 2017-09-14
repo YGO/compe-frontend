@@ -1,13 +1,21 @@
+const PLAYERS_INIT = 'PLAYERS_INIT'
 const PLAYERS_EDIT = 'PLAYERS_EDIT'
 const PLAYERS_CANCEL_EDIT = 'PLAYERS_CANCEL_EDIT'
 const PLAYERS_SAVE = 'PLAYERS_SAVE'
 const PLAYERS_CHANGE_SCORE = 'PLAYERS_CHANGE_SCORE'
 const PLAYERS_FETCH_REQUEST = 'PLAYERS_FETCH_REQUEST'
 const PLAYERS_FETCH_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
-
 // ------------------------------------
 // Actions
 // ------------------------------------
+export function initPlayers (players) {
+  console.log('testnew')
+  console.log(players)
+  return {
+    type: PLAYERS_INIT,
+    payload: players
+  }
+}
 
 export function editPlayer (id) {
   return {
@@ -24,15 +32,22 @@ export function cancelEdit () {
 
 export function savePlayer () {
   // TODO save changes to server...
+
+  console.log('savePlayer o day sau')
   return {
     type: PLAYERS_SAVE,
   }
 }
 
-export function changeScore (idx, score) {
+export function changeScore (idx, score, pos) {
+  console.log('change Score')
+  console.log(score)
+  console.log(idx)
+  console.log('change pos')
+  console.log(pos)
   return {
     type: PLAYERS_CHANGE_SCORE,
-    payload: { idx: idx, score: score }
+    payload: { idx: idx, score: score, pos: pos }
   }
 }
 
@@ -65,7 +80,26 @@ export const fetchPlayers = () => {
 // ------------------------------------
 
 const ACTION_HANDLERS = {
+  [PLAYERS_INIT]: (state, action) => {
+    const players = action.payload
+
+    return {
+      ...initialState,
+      loading: false,
+      players: players.map(p => ({
+        ...p,
+        id: p.id, 
+        name: p.name, 
+        isEditing: false,
+        scores_day1: p.scores_day1,
+        scores_day2: p.scores_day2,
+
+      })),
+    }
+  },
+
   [PLAYERS_EDIT]: (state, action) => {
+    console.log('PLAYERS_EDIT1')
     const playerToEdit = state.players.find(p => p.id === action.payload)
 
     return {
@@ -77,7 +111,9 @@ const ACTION_HANDLERS = {
       playerEditing: { ...playerToEdit },
     }
   },
+
   [PLAYERS_CANCEL_EDIT]: (state, action) => {
+    console.log('PLAYERS_CANCEL_EDIT1')
     return {
       ...state,
       players: state.players.map(p => ({
@@ -88,38 +124,67 @@ const ACTION_HANDLERS = {
     }
   },
   [PLAYERS_CHANGE_SCORE]: (state, action) => {
-    const newScores = [...state.playerEditing.scores]
-    newScores[action.payload.idx] = action.payload.score
 
+     console.log('PLAYERS_CHANGE_SCORE1')
+    const newScores1 = [...state.playerEditing.scores_day1]
+    const newScores2 = [...state.playerEditing.scores_day2]
+    
+   
+    if(action.payload.pos===1){
+      newScores1[action.payload.idx] = action.payload.score
+    }else{
+      newScores2[action.payload.idx] = action.payload.score
+    }
+     console.log('change score')
+    console.log(newScores1)
+    console.log(newScores2)
     return {
       ...state,
       playerEditing: {
         ...state.playerEditing,
-        scores: newScores,
+        scores_day1: newScores1,
+        scores_day2: newScores2,
       }
     }
   },
   [PLAYERS_SAVE]: (state, action) => {
+    console.log('PLAYERS_SAVE1')
     const players = [...state.players]
+    const newScores1 = [...state.playerEditing.scores_day1]
+    const newScores2 = [...state.playerEditing.scores_day2]
+    console.log('players ne')
+    console.log(players)
+    console.log('score here')
     const playerIdx = players.findIndex(p => p.id === state.playerEditing.id)
     players[playerIdx] = {
       ...state.playerEditing,
       isEditing: false
     }
-
+    console.log('stay here')
+    console.log(playerIdx)
     return {
+      // ...state,
+      // players: players,
+      // playerEditing: null,
+
       ...state,
       players: players,
-      playerEditing: null,
+      playerEditing: {
+        ...state.playerEditing,
+        scores_day1: newScores1,
+        scores_day2: newScores2,
+      }
     }
   },
   [PLAYERS_FETCH_REQUEST]: (state, action) => {
+    console.log('PLAYERS_FETCH_REQUEST1')
     return {
       ...state,
       loading: true,
     }
   },
   [PLAYERS_FETCH_SUCCESS]: (state, action) => {
+    console.log('PLAYERS_FETCH_SUCCESS1')
     return {
       ...state,
       players: action.payload,
@@ -133,6 +198,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 
 function randomScores () {
+  console.log('randomScores1')
   return Array(18).fill().map(_ => Math.floor(Math.random() * (8 - 3) + 3))
 }
 
@@ -140,27 +206,15 @@ function randomScores () {
 // Reducer
 // ------------------------------------
 
+
 const initialState = {
-  players: [
-    {
-      id: '1',
-      name: 'Test1',
-      scores: randomScores(),
-      isEditing: false,
-    },
-    {
-      id: '2',
-      name: 'Test2',
-      scores: randomScores(),
-      isEditing: false,
-    },
-  ],
-  loading: false,
+  players: [],
+  loading: true,
   playerEditing: null,
 }
 
+
 export default function playersReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
-
   return handler ? handler(state, action) : state
 }
