@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { cancelEdit, changeScore, savePlayer, changeName, changeRetired } from '../modules/players'
+import { cancelEdit, changeScore, savePlayer, changeRetired } from '../modules/players'
 import PlayerEdit from '../components/PlayerEdit'
 
 const mapDispatchToProps = dispatch => {
