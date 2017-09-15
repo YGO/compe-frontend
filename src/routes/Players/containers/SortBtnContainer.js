@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import RefreshBtn from '../components/RefreshBtn'
+import SortBtn from '../components/SortBtn'
 import { changePlayerByDay } from '../modules/players'
 
 const mapStateToProps = state => ({
@@ -10,4 +10,4 @@ const mapDispatchToProps = {
   changePlayerByDay
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RefreshBtn)
+export default connect(mapStateToProps, mapDispatchToProps)(SortBtn)

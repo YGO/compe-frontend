@@ -175,7 +175,7 @@ body {
 
 .div_parent div:first-child .playerscorefield:nth-child(1) {
   margin-top: 220px;
-}
+  }
 
 .playerscorefield .score:nth-child(19) {
   border: 0;
@@ -236,8 +236,6 @@ div.day2 > span {
 
 .scoretotal {
   width: 51px;
-  height: 82px;
-  line-height: 82px;
   letter-spacing: normal;
   border-bottom: solid 1px;
   border-right: solid 1px;
@@ -246,6 +244,7 @@ div.day2 > span {
   font-size: 23px;
 }
 
+  
 .dns {
   width: 51px;
   height: 82px;
@@ -326,7 +325,7 @@ input[type="number"] {
   }
   .edit_row{
 
-    width: 53px;
+    width: 54px;
     height: 82px;
     line-height: 82px;
     letter-spacing: normal;
@@ -335,16 +334,14 @@ input[type="number"] {
     text-align: center;
     font-weight: bold;
     font-size: 23px;
-    
+    position: relative;
   }
-  .edit_row a{
-    border: 1px black solid;
-    font-size: 11px;
-    color: black;
-    border-radius: 3px;
-    text-decoration: none;
-    padding: 3px;
-  }
+  .onerow .scoretotal, .onerow .dns, .onerow .edit_row{ height: 41px;line-height: 41px;}
+  .tworow .scoretotal, .tworow .dns, .tworow .edit_row{ height: 82px;line-height: 82px;}
+  .onerow .day1{border-bottom: solid 1px #555;}
+  .onerow .player > span {height: 40px;}  
+  .tworow .player > span {height: 81px;}  
+
   .select-day{
   	position:absolute;
   	top:0;

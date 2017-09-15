@@ -1,137 +1,110 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import CancelButton from '../images/cancel-button.png'
+import EditButton from '../images/edit-button.png'
+import SaveButton from '../images/save-button.png'
 
 class PlayerShow extends React.Component {
   
   renderPlayer(id, name,retired, optionDisplay, scores_day1,scores_day2,total1,score1,total2,score2,total_2day, editPlayer){
-
     if(optionDisplay==0){
 
       return (
-     [
-         <div className="day1"><span>
-           1日目</span>
-          
-          {scores_day1.map((s, idx) =>   
-            <div className="score">
-              <input className="scoretext calculation" name="test" key={idx} value={s}  disabled />
-            </div>
-          )} 
-          <div className="playertotal"><span>{total1}</span></div>
-          <div className="playerscore"><span>{score1}</span></div>
-        </div>,
-        <div className="day2"><span>
-             2日目</span>
-          {scores_day2.map((s, idx) =>   
-            <div className="score">
-              <input className="scoretext calculation" name="test" key={idx} value={s}  disabled />
-            </div>
-          )} 
-          
-          <div className="playertotal"><span>{total2}</span></div>
-          <div className="playerscore"><span>{score2}</span></div>
-        </div>
-       ]
-      )
-
-    }
-    else if(optionDisplay==1){
-      return (
-        <div className="day1"><span>
-           1日目</span>
-          
-          {scores_day1.map((s, idx) =>   
-            <div className="score">
-              <input className="scoretext calculation" name="test" key={idx} value={s}  disabled />
-            </div>
-          )} 
-          <div className="playertotal"><span>{total1}</span></div>
-          <div className="playerscore"><span>{score1}</span></div>
-        </div>
-      )
-    }
-    else if(optionDisplay==2){
-      return (
-        <div className="day2"><span>
-           2日目</span>
-        {scores_day2.map((s, idx) =>   
-          <div className="score">
-            <input className="scoretext calculation" name="test" key={idx} value={s}  disabled />
-          </div>
-        )} 
-        
-        <div className="playertotal"><span>{total2}</span></div>
-        <div className="playerscore"><span>{score2}</span></div>
-      </div>
-      )
-    }
-
-  }
-  render() {
-const { id, name,retired, optionDisplay, scores_day1,scores_day2,total1,score1,total2,score2,total_2day, editPlayer } = this.props
-    return (
         <div>
-          <div className="playerscorefield">
-              <div className="player"><span className="name">{name}-{optionDisplay}</span></div>      
-                
-            {this.renderPlayer(id, name,retired, optionDisplay, scores_day1,scores_day2,total1,score1,total2,score2,total_2day, editPlayer)}
-
-              <div className="scoretotal">{total_2day}</div>
+          <div className="playerscorefield tworow">
+              <div className="player"><span className="name">{name}-{optionDisplay}</span></div>  
+         <div className="day1"><span>1日目</span>
+            {scores_day1.map((s, idx) =>   
+              <div className="score">
+                <input className="scoretext calculation" name="test" key={'s1_' + id + 's_' + idx}  value={s}  disabled />
+              </div>
+            )} 
+            <div className="playertotal"><span>{total1}</span></div>
+            <div className="playerscore"><span>{score1}</span></div>
+          </div>
+          <div className="day2"><span>2日目</span>
+            {scores_day2.map((s, idx) =>   
+              <div className="score">
+                <input className="scoretext calculation" name="test" key={'s2_' + id + 's_' + idx} value={s}  disabled />
+              </div>
+            )} 
+            
+            <div className="playertotal"><span>{total2}</span></div>
+            <div className="playerscore"><span>{score2}</span></div>
+          </div>
+          <div className="scoretotal">{total_2day}</div>
               <div className="dns PlayStart">
                 <input type="checkbox" checked={retired? true: false} disabled />
               </div>
               <div className="edit_row">
-                <a href='#' onClick={() => editPlayer(id)}>Edit</a>
+                <a href='#' onClick={() => editPlayer(id)}><img src={EditButton} /></a>
+              </div>
+          </div>
+          <div className='clear'></div>
+        </div>
+      
+      )
+
+    }else if(optionDisplay==1){
+      return (
+        <div>
+          <div className="playerscorefield onerow">
+              <div className="player"><span className="name">{name}-{optionDisplay}</span></div>  
+          <div className="day1"><span>1日目</span>
+            {scores_day1.map((s, idx) =>   
+              <div className="score">
+                <input className="scoretext calculation" name="test" key={'s1_' + id + 's_' + idx} value={s}  disabled />
+              </div>
+            )} 
+            <div className="playertotal"><span>{total1}</span></div>
+            <div className="playerscore"><span>{score1}</span></div>
+          </div>
+          <div className="scoretotal">{total_2day}</div>
+              <div className="dns PlayStart">
+                <input type="checkbox" checked={retired? true: false} disabled />
+              </div>
+              <div className="edit_row">
+                <a href='#' onClick={() => editPlayer(id)}><img src={EditButton} /></a>
               </div>
           </div>
           <div className='clear'></div>
         </div>
       )
+    }
+    else if(optionDisplay==2){
+      return (
+        <div>
+          <div className="playerscorefield onerow">
+              <div className="player"><span className="name">{name}-{optionDisplay}</span></div>
+              <div className="day2"><span>2日目</span>
+                {scores_day2.map((s, idx) =>   
+                  <div className="score">
+                    <input className="scoretext calculation" name="test" key={'s2_' + id + 's_' + idx} value={s}  disabled />
+                  </div>
+                )} 
+                <div className="playertotal"><span>{total2}</span></div>
+                <div className="playerscore"><span>{score2}</span></div>
+              </div>
+              <div className="scoretotal">{total_2day}</div>
+                  <div className="dns PlayStart">
+                    <input type="checkbox" checked={retired? true: false} disabled />
+                  </div>
+                  <div className="edit_row">
+                    <a href='#' onClick={() => editPlayer(id)}><img src={EditButton} /></a>
+                  </div>
+              </div>
+              <div className='clear'></div>
+          </div>
+      )
+    }
+  }
+  render() {
+    const { id, name,retired, optionDisplay, scores_day1,scores_day2,total1,score1,total2,score2,total_2day, editPlayer } = this.props
+    return (     
+            this.renderPlayer(id, name,retired, optionDisplay, scores_day1,scores_day2,total1,score1,total2,score2,total_2day, editPlayer)
+      )
   }
 }
-
-const PlayerDefaut = ({ id, name,retired, optionDisplay, scores_day1,scores_day2, editPlayer }) => (
- 
- 
-<div>
-  <div className="playerscorefield">
-      <div className="player"><span className="name">{name}-{optionDisplay}</span></div>
-       
-
-        <div className="day1"><span>
-           1日目</span>
-          
-        {scores_day1.map((s, idx) =>   
-          <div className="score">
-            <input className="scoretext calculation" name="test" key={idx} value={s}  disabled />
-          </div>
-        )} 
-        <div className="playertotal"><span>76</span></div>
-        <div className="playerscore"><span>4</span></div>
-      </div>
-      <div className="day2"><span>
-           2日目</span>
-        {scores_day2.map((s, idx) =>   
-          <div className="score">
-            <input className="scoretext calculation" name="test" key={idx} value={s}  disabled />
-          </div>
-        )} 
-        
-        <div className="playertotal"><span>75</span></div>
-        <div className="playerscore"><span>3</span></div>
-      </div>
-      <div className="scoretotal">7</div>
-      <div className="dns PlayStart">
-        <input type="checkbox" checked={retired? true: false} disabled />
-      </div>
-      <div className="edit_row">
-        <a href='#' onClick={() => editPlayer(id)}>Edit</a>
-      </div>
-  </div>
-  <div className='clear'></div>
-</div>
-)
 
 PlayerShow.propTypes = {
   id: PropTypes.string.isRequired,

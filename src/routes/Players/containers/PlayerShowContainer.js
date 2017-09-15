@@ -11,9 +11,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-
-	
-
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerShow)
