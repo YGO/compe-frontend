@@ -12,7 +12,6 @@ const dynamicSort =(property) => {
     }
 }
 function Player (props) {
-    console.log("props",props);
   if (props.isEditing) {
     return <PlayerEditContainer />
   }
@@ -20,9 +19,7 @@ function Player (props) {
 }
 
 const PlayerList = ({ players,optionDisplay }) => (
-
-  <div className="div_parent">
-
+  <div className='div_parent'>
     {players.sort(dynamicSort(optionDisplay)).map(p =>
       <Player key={p.id} {...p} />
     )}

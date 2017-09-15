@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const RefreshBtn = ({ changePlayerByDay }) => (
-  <select className="select-day" onChange={e => changePlayerByDay(e.target.value)}>
+  <select className='select-day' onChange={e => changePlayerByDay(e.target.value)}>
 
-            <option selected value="1">Day 1</option>
-            <option value="2">Day 2</option>
+            <option defaultValue value='day1'>Day 1</option>
+            <option value='day2'>Day 2</option>
           </select>
 )
 
