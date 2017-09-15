@@ -96,10 +96,10 @@ export const fetchPlayers = () => {
           scores_day1: p.scores_day1,
           scores_day2: p.scores_day2,
           total1: p.scores_day1.reduce((a,b)=> a+b,0),
-          score1: p.scores_day1.reduce((a,b)=> a+b,0) - 52,
+          score1: p.scores_day1.reduce((a,b)=> a+b,0) - 72,
           total2: p.scores_day2.reduce((a,b)=> a+b,0),
-          score2: p.scores_day2.reduce((a,b)=> a+b,0) - 52,
-          total_2day: (p.scores_day1.reduce((a,b)=> a+b,0) - 52) + (p.scores_day2.reduce((a,b)=> a+b,0) - 52),
+          score2: p.scores_day2.reduce((a,b)=> a+b,0) - 72,
+          total_2day: (p.scores_day1.reduce((a,b)=> a+b,0) - 72) + (p.scores_day2.reduce((a,b)=> a+b,0) - 72),
           optionDisplay: "0"
         }))
         dispatch({
@@ -168,10 +168,10 @@ const ACTION_HANDLERS = {
       newScores2[action.payload.idx] = action.payload.score
     }
     let total1 =  newScores1.map(Number).reduce((a,b)=> a+b,0)
-    let score1 =  newScores1.map(Number).reduce((a,b)=> a+b,0) - 52
+    let score1 =  newScores1.map(Number).reduce((a,b)=> a+b,0) - 72
     let total2=  newScores2.map(Number).reduce((a,b)=> a+b,0)
-    let score2 =  newScores2.map(Number).reduce((a,b)=> a+b,0) - 52
-    let total_2day = (newScores1.map(Number).reduce((a,b)=> a+b,0) - 52) + (newScores2.map(Number).reduce((a,b)=> a+b,0) - 52)
+    let score2 =  newScores2.map(Number).reduce((a,b)=> a+b,0) - 72
+    let total_2day = (newScores1.map(Number).reduce((a,b)=> a+b,0) - 72) + (newScores2.map(Number).reduce((a,b)=> a+b,0) - 72)
     
     return {
       ...state,
