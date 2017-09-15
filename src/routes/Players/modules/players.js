@@ -10,7 +10,6 @@ const PLAYERS_BY_DAY= 'PLAYERS_BY_DAY'
 const URL_UPDATE = 'https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players/'
 const URL_GET_LIST =  'https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players'
 
-
 // ------------------------------------
 // Actions
 // ------------------------------------
