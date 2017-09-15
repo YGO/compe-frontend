@@ -1,6 +1,7 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
 import PropTypes from 'prop-types'
+import SortBtnContainer from '../../routes/Players/containers/SortBtnContainer'
 
 export const PageLayout = ({ children }) => (
   <div id="mainContent">  
@@ -14,6 +15,7 @@ export const PageLayout = ({ children }) => (
           <div className="infoText"><span>
                2017年9月21日 〜 22日</span></div>
           <div className="infoText"><a href="http://sp.golfnetwork.co.jp/tcp/" target="_black"><span>http://sp.golfnetwork.co.jp/tcp/</span></a></div>
+          <SortBtnContainer />
         </div>
       </div>
       <div id="holeinfo">
@@ -85,7 +87,8 @@ export const PageLayout = ({ children }) => (
       <div id="score"><span>score</span></div>
       <div id="scoretotal"><span>合計</span></div>
       <div id="dns"><span>棄権</span></div> 
-      <div id="edit_row"><span>Edit</span></div>        
+      <div id="edit_row"><span>Edit</span></div>
+
     </div>
     {children}
   </div>          

@@ -7,6 +7,10 @@ const PLAYERS_CHANGE_SCORE = 'PLAYERS_CHANGE_SCORE'
 const PLAYERS_FETCH_REQUEST = 'PLAYERS_FETCH_REQUEST'
 const PLAYERS_FETCH_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
 const PLAYERS_BY_DAY= 'PLAYERS_BY_DAY'
+const URL_UPDATE = 'https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players/'
+const URL_GET_LIST =  'https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players'
+
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -35,7 +39,7 @@ export function savePlayer () {
     const playerId = getState().playersApp.playerEditing.id
     const playerName = getState().playersApp.playerEditing.name
     const playerRetired = getState().playersApp.playerEditing.retired
-    fetch('https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players/'+playerId, {
+    fetch(URL_UPDATE+playerId, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -82,7 +86,7 @@ export const fetchPlayers = () => {
     dispatch({
       type: PLAYERS_FETCH_REQUEST,
     })
-    return fetch('https://lyywnpoayb.execute-api.ap-northeast-1.amazonaws.com/staging/players')
+    return fetch(URL_GET_LIST)
       .then(res => res.json())
       .then(players => {
         const newPlayers = players.map(p => ({
@@ -159,17 +163,17 @@ const ACTION_HANDLERS = {
   [PLAYERS_CHANGE_SCORE]: (state, action) => {
     const newScores1 = [...state.playerEditing.scores_day1]
     const newScores2 = [...state.playerEditing.scores_day2]
-    let total1 =  newScores1.map(Number).reduce((a,b)=> a+b,0)
-    let score1 =  newScores1.map(Number).reduce((a,b)=> a+b,0) - 52
-    let total2=  newScores2.map(Number).reduce((a,b)=> a+b,0)
-    let score2 =  newScores2.map(Number).reduce((a,b)=> a+b,0) - 52
-    let total_2day = (newScores1.map(Number).reduce((a,b)=> a+b,0) - 52) + (newScores2.map(Number).reduce((a,b)=> a+b,0) - 52)
     if(action.payload.row===1){
       newScores1[action.payload.idx] = action.payload.score
     }else{
       newScores2[action.payload.idx] = action.payload.score
     }
-
+    let total1 =  newScores1.map(Number).reduce((a,b)=> a+b,0)
+    let score1 =  newScores1.map(Number).reduce((a,b)=> a+b,0) - 52
+    let total2=  newScores2.map(Number).reduce((a,b)=> a+b,0)
+    let score2 =  newScores2.map(Number).reduce((a,b)=> a+b,0) - 52
+    let total_2day = (newScores1.map(Number).reduce((a,b)=> a+b,0) - 52) + (newScores2.map(Number).reduce((a,b)=> a+b,0) - 52)
+    
     return {
       ...state,
       playerEditing: {
