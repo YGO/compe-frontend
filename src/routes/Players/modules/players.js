@@ -29,20 +29,20 @@ export function cancelEdit () {
 export function savePlayer () {
   // TODO save changes to server...
   return (dispatch, getState) => {
-  return new Promise((resolve) => {
-    const players = [...getState().playersApp.players]
-    const newScores1 = [...getState().playersApp.playerEditing.scores_day1]
-    const newScores2 = [...getState().playersApp.playerEditing.scores_day2]
-    const playerId = getState().playersApp.playerEditing.id
-    const playerName = getState().playersApp.playerEditing.name
-    const playerRetired = getState().playersApp.playerEditing.retired
-    fetch(URL_UPDATE+playerId, {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({"scores_day1":newScores1.map(Number),"name":playerName,"retired":playerRetired,"scores_day2":newScores2.map(Number) })
+    return new Promise((resolve) => {
+      const players = [...getState().playersApp.players]
+      const newScores1 = [...getState().playersApp.playerEditing.scores_day1]
+      const newScores2 = [...getState().playersApp.playerEditing.scores_day2]
+      const playerId = getState().playersApp.playerEditing.id
+      const playerName = getState().playersApp.playerEditing.name
+      const playerRetired = getState().playersApp.playerEditing.retired
+      fetch(URL_UPDATE+playerId, {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"scores_day1":newScores1.map(Number),"name":playerName,"retired":playerRetired,"scores_day2":newScores2.map(Number) })
       })
       .then(res => {})
       .then(players => {
@@ -50,7 +50,6 @@ export function savePlayer () {
           type: PLAYERS_SAVE,
 
         })
-
       })
     })
   }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 class PlayerShow extends React.Component {
   
-  renderPlayer(id, name,retired, scores_day1,scores_day2, editPlayer){
+  renderPlayer(id, name, retired, scores_day1, scores_day2, editPlayer){
     let total1 = scores_day1.map(Number).reduce((a,b)=> a+b,0)
     let score1= scores_day1.map(Number).reduce((a,b)=> a+b,0) - 72
     let total2= scores_day2.map(Number).reduce((a,b)=> a+b,0)
