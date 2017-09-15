@@ -12,7 +12,7 @@ class PlayerShow extends React.Component {
       return (
         <div>
           <div className="playerscorefield tworow">
-            <div className="player"><span className="name">{name}-{optionDisplay}</span></div>  
+            <div className="player"><span className="name">{name}</span></div>  
             <div className="day1" key={`#day1${id}`}><span>1日目</span>
               {scores_day1.map((s, idx) =>   
                 <div className="score" key={`#day1box${id}${idx}`}>
@@ -47,7 +47,7 @@ class PlayerShow extends React.Component {
       return (
         <div>
           <div className="playerscorefield onerow">
-              <div className="player"><span className="name">{name}-{optionDisplay}</span></div>  
+              <div className="player"><span className="name">{name}</span></div>  
           <div className="day1" key={`#day1${id}`}><span>1日目</span>
             {scores_day1.map((s, idx) =>   
               <div className="score" key={`#day1box${id}${idx}`}>
@@ -73,7 +73,7 @@ class PlayerShow extends React.Component {
       return (
         <div>
           <div className="playerscorefield onerow">
-              <div className="player"><span className="name">{name}-{optionDisplay}</span></div>
+              <div className="player"><span className="name">{name}</span></div>
               <div className="day2" key={`#day2${id}`}><span>2日目</span>
                 {scores_day2.map((s, idx) =>   
                   <div className="score" key={`#day2box${id}${idx}`}>
