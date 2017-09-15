@@ -100,7 +100,7 @@ export const fetchPlayers = () => {
           total2: p.scores_day2.reduce((a,b)=> a+b,0),
           score2: p.scores_day2.reduce((a,b)=> a+b,0) - 52,
           total_2day: (p.scores_day1.reduce((a,b)=> a+b,0) - 52) + (p.scores_day2.reduce((a,b)=> a+b,0) - 52),
-          optionDisplay: 0
+          optionDisplay: "0"
         }))
         dispatch({
           type: PLAYERS_FETCH_SUCCESS,

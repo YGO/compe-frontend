@@ -7,7 +7,7 @@ import SaveButton from '../images/save-button.png'
 class PlayerShow extends React.Component {
   
   renderPlayer(id, name,retired, optionDisplay, scores_day1,scores_day2,total1,score1,total2,score2,total_2day, editPlayer){
-    if(optionDisplay==0){
+    if(optionDisplay==="0"){
 
       return (
         <div>
@@ -43,7 +43,7 @@ class PlayerShow extends React.Component {
           <div className='clear'></div>
         </div> 
       )
-    }else if(optionDisplay==1){
+    }else if(optionDisplay==="1"){
       return (
         <div>
           <div className="playerscorefield onerow">
@@ -69,7 +69,7 @@ class PlayerShow extends React.Component {
         </div>
       )
     }
-    else if(optionDisplay==2){
+    else if(optionDisplay==="2"){
       return (
         <div>
           <div className="playerscorefield onerow">
@@ -77,7 +77,7 @@ class PlayerShow extends React.Component {
               <div className="day2" key={`#day2${id}`}><span>2日目</span>
                 {scores_day2.map((s, idx) =>   
                   <div className="score" key={`#day2box${id}${idx}`}>
-                    <input className="scoretext calculation" name="test" key={`#day1${id}${idx}`}  disabled />
+                    <input className="scoretext calculation" name="test" key={`#day1${id}${idx}`} value={s} disabled />
                   </div>
                 )} 
                 <div className="playertotal"><span>{total2}</span></div>
@@ -111,7 +111,7 @@ PlayerShow.propTypes = {
   scores_day1: PropTypes.array.isRequired,
   scores_day2: PropTypes.array.isRequired,
   editPlayer: PropTypes.func.isRequired,
-  optionDisplay:PropTypes.number.isRequired,
+  optionDisplay:PropTypes.string.isRequired,
 }
 
 export default PlayerShow
