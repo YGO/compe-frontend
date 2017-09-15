@@ -1,7 +1,7 @@
 import React from 'react'
-import PlayerListContainer from '../containers/PlayerListContainer'
-import DaySelectorContainer from '../containers/DaySelectorContainer'
 import holes from '../../../../data/holes'
+import DaySelector from './DaySelector'
+import PlayerList from './PlayerList'
 
 const PlayersView = () => (
   <div id='mainContent'>
@@ -17,7 +17,7 @@ const PlayersView = () => (
           <div className='infoText'><a href='http://sp.golfnetwork.co.jp/tcp/'
                                        target='_black'><span>http://sp.golfnetwork.co.jp/tcp/</span></a>
           </div>
-          <DaySelectorContainer/>
+          <DaySelector/>
         </div>
       </div>
       <div id='holeinfo'>
@@ -51,7 +51,7 @@ const PlayersView = () => (
 
     </div>
     <div>
-      <PlayerListContainer/>
+      <PlayerList/>
     </div>
   </div>
 )

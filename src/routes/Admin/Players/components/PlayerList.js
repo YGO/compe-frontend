@@ -1,16 +1,31 @@
+import { connect } from 'react-redux'
 import React from 'react'
-import PlayerEditContainer from '../containers/PlayerEditContainer'
-import PlayerShowContainer from '../containers/PlayerShowContainer'
 import PropTypes from 'prop-types'
+import PlayerEdit from './PlayerEdit'
+import PlayerShow from './PlayerShow'
+
+const mapDispatchToProps = {}
+
+const mapStateToProps = state => {
+  const sortDay = state.playersApp.sortDay
+
+  return {
+    players: state.playersApp.players,
+    playersCompare: (a, b) => {
+      const k = `sort_order_day${sortDay}`
+      return a[k] > b[k] ? 1 : -1
+    }
+  }
+}
 
 function Player (props) {
   if (props.isEditing) {
-    return <PlayerEditContainer />
+    return <PlayerEdit/>
   }
-  return <PlayerShowContainer {...props} />
+  return <PlayerShow {...props} />
 }
 
-const PlayerList = ({ players, playersCompare }) => (
+const PlayerList = ({players, playersCompare}) => (
   <div className='div_parent'>
     {players.sort(playersCompare).map(p =>
       <Player key={p.id} {...p} />
@@ -29,4 +44,4 @@ Player.propTypes = {
   isEditing: PropTypes.bool.isRequired,
 }
 
-export default PlayerList
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerList)

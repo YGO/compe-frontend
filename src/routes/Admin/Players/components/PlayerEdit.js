@@ -1,5 +1,40 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {
+  cancelEdit,
+  changeRetired,
+  changeScore,
+  savePlayer
+} from '../modules/players'
+import { calcTotals } from '../../../../services/score.service'
+import { connect } from 'react-redux'
+
+const mapDispatchToProps = dispatch => {
+  return {
+    cancelEdit: () => {
+      dispatch(cancelEdit())
+    },
+    savePlayer: () => {
+      dispatch(savePlayer())
+    },
+    changeScore: (idx, score, row) => {
+      dispatch(changeScore(idx, score, row))
+    },
+    changeRetired: (retired) => {
+      dispatch(changeRetired(retired))
+    },
+  }
+}
+
+const mapStateToProps = state => {
+  const player = state.playersApp.playerEditing
+  const totals = calcTotals(player.scores_day1, player.scores_day2)
+
+  return {
+    ...totals,
+    player: player,
+  }
+}
 
 const PlayerEdit = ({
                       // props
@@ -71,4 +106,4 @@ PlayerEdit.propTypes = {
   totalScore: PropTypes.number.isRequired,
 }
 
-export default PlayerEdit
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerEdit)
