@@ -98,7 +98,7 @@ export const fetchPlayers = () => {
           total2: p.scores_day2.reduce((a,b)=> a+b,0),
           score2: p.scores_day2.reduce((a,b)=> a+b,0) - 72,
           total_2day: (p.scores_day1.reduce((a,b)=> a+b,0) - 72) + (p.scores_day2.reduce((a,b)=> a+b,0) - 72),
-          optionDisplay: "0"
+
         }))
         dispatch({
           type: PLAYERS_FETCH_SUCCESS,
@@ -141,14 +141,15 @@ const ACTION_HANDLERS = {
   [PLAYERS_BY_DAY]: (state, action) => {
     return {
       ...state,
+      optionDisplay: action.payload.optionDisplay=="1"?"sort_order_day1":"sort_order_day2",
       players: state.players.map(p => ({
         ...p,
-        optionDisplay: action.payload.optionDisplay
+
       }))
     }
   },
   [PLAYERS_CHANGE_RETIRED]: (state, action) => {
-   
+
     return {
       ...state,
       playerEditing: {
@@ -170,7 +171,7 @@ const ACTION_HANDLERS = {
     let total2=  newScores2.map(Number).reduce((a,b)=> a+b,0)
     let score2 =  newScores2.map(Number).reduce((a,b)=> a+b,0) - 72
     let total_2day = (newScores1.map(Number).reduce((a,b)=> a+b,0) - 72) + (newScores2.map(Number).reduce((a,b)=> a+b,0) - 72)
-    
+
     return {
       ...state,
       playerEditing: {
@@ -215,8 +216,9 @@ const ACTION_HANDLERS = {
   [PLAYERS_FETCH_SUCCESS]: (state, action) => {
     return {
       ...state,
-      players: action.payload,   
+      players: action.payload,
       loading: false,
+      optionDisplay: "sort_order_day1"
     }
   },
 }
