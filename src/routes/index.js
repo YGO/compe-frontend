@@ -1,6 +1,4 @@
 import CoreLayout from '../layouts/PageLayout/PageLayout'
-import Home from './Home'
-import CounterRoute from './Counter'
 import PlayersRoute from './Players'
 
 export const createRoutes = (store) => ({
@@ -8,8 +6,7 @@ export const createRoutes = (store) => ({
   component   : CoreLayout,
   indexRoute  : PlayersRoute(store),
   childRoutes : [
-    CounterRoute(store),
-    PlayersRoute(store),
+    PlayersRoute(store)
   ]
 })
 

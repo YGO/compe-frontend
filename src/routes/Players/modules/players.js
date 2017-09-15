@@ -164,14 +164,12 @@ const ACTION_HANDLERS = {
     let total2=  newScores2.map(Number).reduce((a,b)=> a+b,0)
     let score2 =  newScores2.map(Number).reduce((a,b)=> a+b,0) - 52
     let total_2day = (newScores1.map(Number).reduce((a,b)=> a+b,0) - 52) + (newScores2.map(Number).reduce((a,b)=> a+b,0) - 52)
-    console.log(total1,score1,total2,score2,total_2day)
     if(action.payload.row===1){
       newScores1[action.payload.idx] = action.payload.score
     }else{
       newScores2[action.payload.idx] = action.payload.score
     }
 
-  players
     return {
       ...state,
       playerEditing: {

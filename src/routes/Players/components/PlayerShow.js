@@ -12,48 +12,46 @@ class PlayerShow extends React.Component {
       return (
         <div>
           <div className="playerscorefield tworow">
-              <div className="player"><span className="name">{name}-{optionDisplay}</span></div>  
-         <div className="day1"><span>1日目</span>
-            {scores_day1.map((s, idx) =>   
-              <div className="score">
-                <input className="scoretext calculation" name="test" key={'s1_' + id + 's_' + idx}  value={s}  disabled />
-              </div>
-            )} 
-            <div className="playertotal"><span>{total1}</span></div>
-            <div className="playerscore"><span>{score1}</span></div>
-          </div>
-          <div className="day2"><span>2日目</span>
-            {scores_day2.map((s, idx) =>   
-              <div className="score">
-                <input className="scoretext calculation" name="test" key={'s2_' + id + 's_' + idx} value={s}  disabled />
-              </div>
-            )} 
-            
-            <div className="playertotal"><span>{total2}</span></div>
-            <div className="playerscore"><span>{score2}</span></div>
-          </div>
-          <div className="scoretotal">{total_2day}</div>
-              <div className="dns PlayStart">
-                <input type="checkbox" checked={retired? true: false} disabled />
-              </div>
-              <div className="edit_row">
-                <a href='#' onClick={() => editPlayer(id)}><img src={EditButton} /></a>
-              </div>
+            <div className="player"><span className="name">{name}-{optionDisplay}</span></div>  
+            <div className="day1" key={`#day1${id}`}><span>1日目</span>
+              {scores_day1.map((s, idx) =>   
+                <div className="score" key={`#day1box${id}${idx}`}>
+                  <input className="scoretext calculation" name="test" key={`#day1${id}${idx}`}  value={s}  disabled />
+                </div>
+              )} 
+              <div className="playertotal"><span>{total1}</span></div>
+              <div className="playerscore"><span>{score1}</span></div>
+            </div>
+            <div className="day2" key={`#day2${id}`}><span>2日目</span>
+              {scores_day2.map((s, idx) =>   
+                <div className="score" key={`#day2box${id}${idx}`}>
+                  <input className="scoretext calculation" name="test" key={`#day2${id}${idx}`} value={s}  disabled />
+                </div>
+              )} 
+              
+              <div className="playertotal"><span>{total2}</span></div>
+              <div className="playerscore"><span>{score2}</span></div>
+            </div>
+            <div className="scoretotal">{total_2day}</div>
+            <div className="dns PlayStart">
+              <input type="checkbox" checked={retired? true: false} disabled />
+            </div>
+            <div className="edit_row">
+              <a href='#' onClick={() => editPlayer(id)}><img src={EditButton} /></a>
+            </div>
           </div>
           <div className='clear'></div>
-        </div>
-      
+        </div> 
       )
-
     }else if(optionDisplay==1){
       return (
         <div>
           <div className="playerscorefield onerow">
               <div className="player"><span className="name">{name}-{optionDisplay}</span></div>  
-          <div className="day1"><span>1日目</span>
+          <div className="day1" key={`#day1${id}`}><span>1日目</span>
             {scores_day1.map((s, idx) =>   
-              <div className="score">
-                <input className="scoretext calculation" name="test" key={'s1_' + id + 's_' + idx} value={s}  disabled />
+              <div className="score" key={`#day1box${id}${idx}`}>
+                <input className="scoretext calculation" name="test" key={`#day1${id}${idx}`} value={s}  disabled />
               </div>
             )} 
             <div className="playertotal"><span>{total1}</span></div>
@@ -76,10 +74,10 @@ class PlayerShow extends React.Component {
         <div>
           <div className="playerscorefield onerow">
               <div className="player"><span className="name">{name}-{optionDisplay}</span></div>
-              <div className="day2"><span>2日目</span>
+              <div className="day2" key={`#day2${id}`}><span>2日目</span>
                 {scores_day2.map((s, idx) =>   
-                  <div className="score">
-                    <input className="scoretext calculation" name="test" key={'s2_' + id + 's_' + idx} value={s}  disabled />
+                  <div className="score" key={`#day2box${id}${idx}`}>
+                    <input className="scoretext calculation" name="test" key={`#day1${id}${idx}`}  disabled />
                   </div>
                 )} 
                 <div className="playertotal"><span>{total2}</span></div>
