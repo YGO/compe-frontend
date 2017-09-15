@@ -1,12 +1,13 @@
-import CoreLayout from '../layouts/PageLayout/PageLayout'
-import PlayersRoute from './Players'
+import BaseLayout from '../layouts/BaseLayout'
+import AdminRoute from './Admin'
 
 export const createRoutes = (store) => ({
   path        : '/',
-  component   : CoreLayout,
-  indexRoute  : PlayersRoute(store),
+  component   : BaseLayout,
+  // TODO leaders board wil be added index
+  // indexRoute  : PlayersRoute(store),
   childRoutes : [
-    PlayersRoute(store)
+    AdminRoute(store)
   ]
 })
 

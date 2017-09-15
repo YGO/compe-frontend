@@ -10,11 +10,9 @@ function Player (props) {
   return <PlayerShowContainer {...props} />
 }
 
-const PlayerList = ({ players }) => (
-  
-  <div className="div_parent">
-    
-    {players.map(p =>
+const PlayerList = ({ players, playersCompare }) => (
+  <div className='div_parent'>
+    {players.sort(playersCompare).map(p =>
       <Player key={p.id} {...p} />
     )}
   </div>
@@ -24,6 +22,7 @@ PlayerList.propTypes = {
   players: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
   }).isRequired).isRequired,
+  playersCompare: PropTypes.func.isRequired,
 }
 
 Player.propTypes = {
