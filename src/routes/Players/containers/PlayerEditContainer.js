@@ -14,7 +14,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(changeScore(idx, score, row))
     },
     changeRetired: (retired) => {
-      console.log('retire container',retired)
       dispatch(changeRetired(retired))
     },
   }
