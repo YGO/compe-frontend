@@ -37,7 +37,7 @@ class PlayerEdit extends React.Component {
                 <input type="checkbox" checked={player.retired? true: false}  onChange={e => changeRetired(e.target.checked)} />
               </div>
               <div className="edit_row">
-                <a href='#' onClick={savePlayer}><img src={SaveButton} /></a> <a href='#' onClick={cancelEdit}><img src={CancelButton} /></a>
+                <a  onClick={savePlayer}><img src={SaveButton} /></a> <a  onClick={cancelEdit}><img src={CancelButton} /></a>
               </div>
           </div>
           <div className='clear'></div>
@@ -64,7 +64,7 @@ class PlayerEdit extends React.Component {
                 <input type="checkbox" checked={player.retired? true: false}  onChange={e => changeRetired(e.target.checked)} />
               </div>
               <div className="edit_row">
-                <a href='#' onClick={savePlayer}><img src={SaveButton} /></a> <a href='#' onClick={cancelEdit}><img src={CancelButton} /></a>
+                <a  onClick={savePlayer}><img src={SaveButton} /></a> <a  onClick={cancelEdit}><img src={CancelButton} /></a>
               </div>
           </div>
           <div className='clear'></div>
@@ -90,7 +90,7 @@ class PlayerEdit extends React.Component {
                     <input type="checkbox" checked={player.retired? true: false}  onChange={e => changeRetired(e.target.checked)} />
                   </div>
                   <div className="edit_row">
-                    <a href='#' onClick={savePlayer}><img src={SaveButton} /></a> <a href='#' onClick={cancelEdit}><img src={CancelButton} /></a>
+                    <a onClick={savePlayer}><img src={SaveButton} /></a> <a  onClick={cancelEdit}><img src={CancelButton} /></a>
                   </div>
               </div>
               <div className='clear'></div>

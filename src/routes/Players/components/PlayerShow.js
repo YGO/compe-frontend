@@ -37,7 +37,7 @@ class PlayerShow extends React.Component {
               <input type="checkbox" checked={retired? true: false} disabled />
             </div>
             <div className="edit_row">
-              <a href='#' onClick={() => editPlayer(id)}><img src={EditButton} /></a>
+              <a onClick={() => editPlayer(id)}><img src={EditButton} /></a>
             </div>
           </div>
           <div className='clear'></div>
@@ -62,7 +62,7 @@ class PlayerShow extends React.Component {
                 <input type="checkbox" checked={retired? true: false} disabled />
               </div>
               <div className="edit_row">
-                <a href='#' onClick={() => editPlayer(id)}><img src={EditButton} /></a>
+                <a onClick={() => editPlayer(id)}><img src={EditButton} /></a>
               </div>
           </div>
           <div className='clear'></div>
@@ -88,7 +88,7 @@ class PlayerShow extends React.Component {
                     <input type="checkbox" checked={retired? true: false} disabled />
                   </div>
                   <div className="edit_row">
-                    <a href='#' onClick={() => editPlayer(id)}><img src={EditButton} /></a>
+                    <a onClick={() => editPlayer(id)}><img src={EditButton} /></a>
                   </div>
               </div>
               <div className='clear'></div>
