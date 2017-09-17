@@ -1,10 +1,9 @@
-import PlayersRoute from './Players'
+import PlayersRoute from './players'
 import BaseLayout from '../../layouts/BaseLayout'
 
 export const createRoutes = (store) => ({
   path        : 'admin',
   component   : BaseLayout,
-  // indexRoute  : PlayersRoute(store),
   childRoutes : [
     PlayersRoute(store)
   ]

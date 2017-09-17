@@ -1,5 +1,5 @@
 import BaseLayout from '../layouts/BaseLayout'
-import AdminRoute from './Admin'
+import AdminRoute from './admin'
 
 export const createRoutes = (store) => ({
   path        : '/',

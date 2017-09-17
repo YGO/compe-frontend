@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
-import PlayerEdit from './PlayerEdit'
-import PlayerShow from './PlayerShow'
+import PlayerEdit from './player-edit.component'
+import PlayerShow from './player-show.component'
 
 const mapDispatchToProps = {}
 
@@ -26,7 +26,7 @@ function Player (props) {
 }
 
 const PlayerList = ({players, playersCompare}) => (
-  <div className='div_parent'>
+  <div>
     {players.sort(playersCompare).map(p =>
       <Player key={p.id} {...p} />
     )}

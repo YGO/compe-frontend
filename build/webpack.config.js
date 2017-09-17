@@ -103,7 +103,7 @@ const extractStyles = new ExtractTextPlugin({
 })
 
 config.module.rules.push({
-  test: /\.(sass|scss)$/,
+  test: /\.css$/,
   loader: extractStyles.extract({
     fallback: 'style-loader',
     use: [
@@ -128,15 +128,6 @@ config.module.rules.push({
           },
         },
       },
-      {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: project.sourcemaps,
-          includePaths: [
-            inProjectSrc('styles'),
-          ],
-        },
-      }
     ],
   })
 })

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { changeSortDay } from '../modules/players'
+import { changeSortDay } from '../modules/player.module'
 
 const mapStateToProps = state => ({
   loading: state.playersApp.loading
@@ -11,9 +11,10 @@ const mapDispatchToProps = {
   changeSortDay: changeSortDay
 }
 
-const DaySelector = ({ changeSortDay }) => (
-  <select className='select-day'
-    onChange={e => changeSortDay(e.target.value)}>
+const DaySelector = ({changeSortDay}) => (
+  <select className='custom-select'
+          onChange={e => changeSortDay(e.target.value)}>
+    <option value='1'>並び順</option>
     <option value='1'>1日目</option>
     <option value='2'>2日目</option>
   </select>
