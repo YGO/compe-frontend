@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { changeSortDay } from '../modules/player.module'
 
 const mapStateToProps = state => ({
-  loading: state.playersApp.loading
+  loading: state.adminPlayers.loading
 })
 
 const mapDispatchToProps = {

@@ -1,5 +1,5 @@
 import PlayersRoute from './players'
-import BaseLayout from '../../layouts/BaseLayout'
+import BaseLayout from '../../layouts/base-layout.component'
 
 export const createRoutes = (store) => ({
   path        : 'admin',

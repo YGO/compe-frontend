@@ -28,12 +28,12 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  const player = state.playersApp.playerEditing
+  const player = state.adminPlayers.playerEditing
   const totals = calcTotals(player.scores_day1, player.scores_day2)
 
   return {
     ...totals,
-    loading: state.playersApp.loading,
+    loading: state.adminPlayers.loading,
     player: player,
   }
 }
@@ -64,7 +64,7 @@ const PlayerEdit = ({
         <div className='col-auto'>
           {totalStrokes} ({totalScore})
         </div>
-        <div className='col-auto'>
+        <div className='col-auto mr-auto'>
           <div className='form-check'>
             <label className='form-check-label'>
               <input className='form-check-input' type='checkbox'

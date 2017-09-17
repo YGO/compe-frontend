@@ -5,7 +5,7 @@ import PlayerList from './player-list.component'
 import style from './player.style'
 import Helmet from 'react-helmet/es/Helmet'
 
-const PlayersView = () => (
+const PlayerIndex = () => (
   <div className='container'>
     <Helmet>
       <title>スコア入力 | 第19回 PGAティーチングプロ選手権大会</title>
@@ -57,7 +57,7 @@ const PlayersView = () => (
     <section id='players' style={style.section}>
       <div>
         <h2>出場選手一覧</h2>
-        <div className='row'>
+        <div className='row' style={style.daySelectorRow}>
           <div className='col-auto mr-auto'/>
           <div className='col-auto'>
             <DaySelector/>
@@ -70,4 +70,4 @@ const PlayersView = () => (
 )
 
 // noinspection JSUnusedGlobalSymbols
-export default PlayersView
+export default PlayerIndex

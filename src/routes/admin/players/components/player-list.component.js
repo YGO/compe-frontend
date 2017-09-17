@@ -7,10 +7,10 @@ import PlayerShow from './player-show.component'
 const mapDispatchToProps = {}
 
 const mapStateToProps = state => {
-  const sortDay = state.playersApp.sortDay
+  const sortDay = state.adminPlayers.sortDay
 
   return {
-    players: state.playersApp.players,
+    players: state.adminPlayers.players,
     playersCompare: (a, b) => {
       const k = `sort_order_day${sortDay}`
       return a[k] > b[k] ? 1 : -1

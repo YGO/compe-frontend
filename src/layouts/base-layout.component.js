@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const PageLayout = ({ children }) => (
+export const BaseLayout = ({ children }) => (
   <div>{children}</div>
 )
-PageLayout.propTypes = {
+BaseLayout.propTypes = {
   children: PropTypes.node,
 }
 
-export default PageLayout
+export default BaseLayout

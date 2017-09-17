@@ -5,11 +5,11 @@ export default (store) => ({
   path: 'players',
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
-      const PlayersView = require('./components/player-index.component').default
+      const PlayerIndex = require('./components/player-index.component').default
       const reducer = require('./modules/player.module').default
-      injectReducer(store, {key: 'playersApp', reducer})
+      injectReducer(store, {key: 'adminPlayers', reducer})
       fetchPlayers()(store.dispatch)
-      cb(null, PlayersView)
+      cb(null, PlayerIndex)
     }, 'players')
   }
 })

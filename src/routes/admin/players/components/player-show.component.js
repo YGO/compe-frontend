@@ -40,7 +40,7 @@ const PlayerShow = ({
         <div className='col-auto'>
           {totalStrokes} ({totalScore})
         </div>
-        <div className='col-auto'>
+        <div className='col-auto mr-auto'>
           <div className='form-check disabled'>
             <label className='form-check-label'>
               <input className='form-check-input' type='checkbox'
@@ -50,7 +50,7 @@ const PlayerShow = ({
         </div>
         <div className='col-auto'>
           <button type='button' className='btn btn-link' style={style.ctrlBtn}
-                  onClick={() => editPlayer(id)}>編集
+                  onClick={() => editPlayer(id)}>スコア編集
           </button>
         </div>
       </div>

@@ -12,7 +12,7 @@ const style = {
     textAlign: 'center',
   },
   ctrlBtn: {
-    marginTop: '-5px',
+    marginTop: '-4px',
     cursor: 'pointer'
   },
   scoreTable: {
@@ -21,6 +21,9 @@ const style = {
   scoreTableHeader: {
     textAlign: 'center',
   },
+  daySelectorRow: {
+    marginBottom: '8px',
+  }
 }
 
 export default style

@@ -32,7 +32,7 @@ export function cancelEdit () {
 
 export function savePlayer () {
   return (dispatch, getState) => {
-    const p = getState().playersApp.playerEditing
+    const p = getState().adminPlayers.playerEditing
 
     dispatch({
       type: PLAYERS_SAVE_REQUEST
