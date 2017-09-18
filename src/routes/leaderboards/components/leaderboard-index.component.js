@@ -1,8 +1,8 @@
-import DaySelector from './day-selector.component'
+
 import React from 'react'
 import holes from '../../../data/holes'
-import PlayerList from './player-list.component'
-import style from './player.style'
+import PlayerList from './leaderboard-list.component'
+import style from './leaderboard.style'
 import Helmet from 'react-helmet/es/Helmet'
 
 const PlayerIndex = () => (
@@ -59,9 +59,7 @@ const PlayerIndex = () => (
         <h2>出場選手一覧</h2>
         <div className='row' style={style.daySelectorRow}>
           <div className='col-auto mr-auto'/>
-          <div className='col-auto'>
-            <DaySelector/>
-          </div>
+
         </div>
         <PlayerList/>
       </div>

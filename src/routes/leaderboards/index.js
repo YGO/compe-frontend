@@ -5,7 +5,7 @@ export default (store) => ({
   path: 'leaderboards',
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
-      const PlayerIndex = require('./components/player-index.component').default
+      const PlayerIndex = require('./components/leaderboard-index.component').default
       const reducer = require('./modules/leaderboard.module').default
       injectReducer(store, {key: 'leaderBoards', reducer})
       fetchPlayers()(store.dispatch)

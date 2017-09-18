@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
-import PlayerEdit from './player-edit.component'
-import PlayerShow from './player-show.component'
+import PlayerShow from './leaderboard-show.component'
 
 const mapDispatchToProps = {}
 
@@ -10,24 +9,17 @@ const mapStateToProps = state => {
   const sortDay = state.leaderBoards.sortDay
 
   return {
-    players: state.leaderBoards.players,
-    playersCompare: (a, b) => {
-      const k = `sort_order_day${sortDay}`
-      return a[k] > b[k] ? 1 : -1
-    }
+    players: state.leaderBoards.players
   }
 }
 
 function Player (props) {
-  if (props.isEditing) {
-    return <PlayerEdit/>
-  }
   return <PlayerShow {...props} />
 }
 
-const PlayerList = ({players, playersCompare}) => (
+const PlayerList = ({players}) => (
   <div>
-    {players.sort(playersCompare).map(p =>
+    {players.map(p =>
       <Player key={p.id} {...p} />
     )}
   </div>
@@ -36,12 +28,9 @@ const PlayerList = ({players, playersCompare}) => (
 PlayerList.propTypes = {
   players: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
-  playersCompare: PropTypes.func.isRequired,
+  }).isRequired).isRequired
 }
 
-Player.propTypes = {
-  isEditing: PropTypes.bool.isRequired,
-}
+Player.propTypes = {}
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerList)

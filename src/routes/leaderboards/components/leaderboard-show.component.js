@@ -3,13 +3,30 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { editPlayer } from '../modules/leaderboard.module'
 import { calcTotals } from '../../../services/score.service'
-import style from './player.style'
+import style from './leaderboard.style'
+import holes from '../../../data/holes'
 
-const mapDispatchToProps = dispatch => ({
-  editPlayer: (id) => {
-    dispatch(editPlayer(id))
-  },
-})
+
+function FinalPoint (current,par) {
+  let score = current - par
+  switch(true) {
+    case (score >= 3):
+      return score
+    case (score == 2):
+      return 2
+    case (score == 1):
+      return 1
+    case (score == 0):
+      return '-'
+    case (score == -1):
+      return -1
+    case (score <= -2):
+      return score
+  }
+}
+
+
+const mapDispatchToProps = dispatch => ({})
 
 const mapStateToProps = (state, props) => {
   return calcTotals(props.scores_day1, props.scores_day2)
@@ -29,7 +46,6 @@ const PlayerShow = ({
                       totalScoreDay2,
                       totalScore,
                       // actions
-                      editPlayer,
                     }) => (
   <div className='row'>
     <div className='col'>
@@ -65,9 +81,8 @@ const PlayerShow = ({
             <tbody>
             <tr>
               {scores_day1.map((s, idx) =>
-                <td key={`PlayerShow-p${id}-s${idx}-d1`}>
-                  <input type='text' value={s} style={style.scoreInput}
-                         disabled/>
+                <td key={`PlayerShow-p${id}-s${idx}-d2`}>
+                  {FinalPoint(s,holes[idx].par)}
                 </td>
               )}
               <td>{totalStrokesDay1}</td>
@@ -75,8 +90,7 @@ const PlayerShow = ({
             <tr>
               {scores_day2.map((s, idx) =>
                 <td key={`PlayerShow-p${id}-s${idx}-d2`}>
-                  <input type='text' value={s} style={style.scoreInput}
-                         disabled/>
+                  {FinalPoint(s,holes[idx].par)}
                 </td>
               )}
               <td>{totalStrokesDay2}</td>
@@ -95,7 +109,6 @@ PlayerShow.propTypes = {
   retired: PropTypes.bool.isRequired,
   scores_day1: PropTypes.array.isRequired,
   scores_day2: PropTypes.array.isRequired,
-  editPlayer: PropTypes.func.isRequired,
   totalStrokesDay1: PropTypes.number.isRequired,
   totalStrokesDay2: PropTypes.number.isRequired,
   totalStrokes: PropTypes.number.isRequired,
