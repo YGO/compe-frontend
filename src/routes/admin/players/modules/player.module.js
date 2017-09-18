@@ -1,9 +1,17 @@
+import {
+  listPlayer,
+  updatePlayer
+} from '../../../../repositories/player.repository'
+
 const PLAYERS_EDIT = 'PLAYERS_EDIT'
 const PLAYERS_CANCEL_EDIT = 'PLAYERS_CANCEL_EDIT'
-const PLAYERS_SAVE = 'PLAYERS_SAVE'
+const PLAYERS_SAVE_REQUEST = 'PLAYERS_SAVE_REQUEST'
+const PLAYERS_SAVE_SUCCESS = 'PLAYERS_SAVE_SUCCESS'
+const PLAYERS_CHANGE_RETIRED = 'PLAYERS_CHANGE_RETIRED'
 const PLAYERS_CHANGE_SCORE = 'PLAYERS_CHANGE_SCORE'
 const PLAYERS_FETCH_REQUEST = 'PLAYERS_FETCH_REQUEST'
 const PLAYERS_FETCH_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
+const PLAYERS_CHANGE_SORT_DAY = 'PLAYERS_CHANGE_SORT_DAY'
 
 // ------------------------------------
 // Actions
@@ -23,40 +31,57 @@ export function cancelEdit () {
 }
 
 export function savePlayer () {
-  // TODO save changes to server...
-  return {
-    type: PLAYERS_SAVE,
+  return (dispatch, getState) => {
+    const p = getState().adminPlayers.playerEditing
+
+    dispatch({
+      type: PLAYERS_SAVE_REQUEST
+    })
+
+    updatePlayer(p)
+      .then(() => dispatch({
+        type: PLAYERS_SAVE_SUCCESS
+      }))
   }
 }
 
-export function changeScore (idx, score) {
+export function changeRetired (retired) {
+  return {
+    type: PLAYERS_CHANGE_RETIRED,
+    payload: {retired: retired}
+  }
+}
+
+export function changeSortDay (sortDay) {
+  return {
+    type: PLAYERS_CHANGE_SORT_DAY,
+    payload: sortDay
+  }
+}
+
+export function changeScore (idx, score, day) {
   return {
     type: PLAYERS_CHANGE_SCORE,
-    payload: { idx: idx, score: score }
+    payload: {idx: idx, score: score, day: day}
   }
 }
 
 export const fetchPlayers = () => {
   return (dispatch, getState) => {
-    return new Promise((resolve) => {
-      dispatch({
-        type: PLAYERS_FETCH_REQUEST,
-      })
-      setTimeout(() => {
-        // TODO get newPlayers from API
-        const newPlayers = getState().playersApp.players.map(p => {
-          return {
-            ...p,
-            scores: randomScores()
-          }
-        })
+    dispatch({
+      type: PLAYERS_FETCH_REQUEST,
+    })
+
+    return listPlayer()
+      .then(players => {
         dispatch({
           type: PLAYERS_FETCH_SUCCESS,
-          payload: newPlayers,
+          payload: players.map(p => ({
+            ...p,
+            isEditing: false,
+          })),
         })
-        resolve()
-      }, 1000)
-    })
+      })
   }
 }
 
@@ -74,9 +99,10 @@ const ACTION_HANDLERS = {
         ...p,
         isEditing: p.id === action.payload
       })),
-      playerEditing: { ...playerToEdit },
+      playerEditing: {...playerToEdit},
     }
   },
+
   [PLAYERS_CANCEL_EDIT]: (state, action) => {
     return {
       ...state,
@@ -87,19 +113,52 @@ const ACTION_HANDLERS = {
       playerEditing: null,
     }
   },
+
+  [PLAYERS_CHANGE_SORT_DAY]: (state, action) => {
+    return {
+      ...state,
+      sortDay: action.payload,
+    }
+  },
+
+  [PLAYERS_CHANGE_RETIRED]: (state, action) => {
+    return {
+      ...state,
+      playerEditing: {
+        ...state.playerEditing,
+        retired: action.payload.retired,
+      }
+    }
+  },
+
   [PLAYERS_CHANGE_SCORE]: (state, action) => {
-    const newScores = [...state.playerEditing.scores]
-    newScores[action.payload.idx] = action.payload.score
+    const newScores1 = [...state.playerEditing.scores_day1]
+    const newScores2 = [...state.playerEditing.scores_day2]
+
+    if (action.payload.day === 1) {
+      newScores1[action.payload.idx] = action.payload.score
+    } else {
+      newScores2[action.payload.idx] = action.payload.score
+    }
 
     return {
       ...state,
       playerEditing: {
         ...state.playerEditing,
-        scores: newScores,
+        scores_day1: newScores1,
+        scores_day2: newScores2,
       }
     }
   },
-  [PLAYERS_SAVE]: (state, action) => {
+
+  [PLAYERS_SAVE_REQUEST]: (state, action) => {
+    return {
+      ...state,
+      loading: true,
+    }
+  },
+
+  [PLAYERS_SAVE_SUCCESS]: (state, action) => {
     const players = [...state.players]
     const playerIdx = players.findIndex(p => p.id === state.playerEditing.id)
     players[playerIdx] = {
@@ -111,14 +170,17 @@ const ACTION_HANDLERS = {
       ...state,
       players: players,
       playerEditing: null,
+      loading: false
     }
   },
+
   [PLAYERS_FETCH_REQUEST]: (state, action) => {
     return {
       ...state,
       loading: true,
     }
   },
+
   [PLAYERS_FETCH_SUCCESS]: (state, action) => {
     return {
       ...state,
@@ -129,38 +191,18 @@ const ACTION_HANDLERS = {
 }
 
 // ------------------------------------
-// Utility
-// ------------------------------------
-
-function randomScores () {
-  return Array(18).fill().map(_ => Math.floor(Math.random() * (8 - 3) + 3))
-}
-
-// ------------------------------------
 // Reducer
 // ------------------------------------
 
 const initialState = {
-  players: [
-    {
-      id: '1',
-      name: 'Test1',
-      scores: randomScores(),
-      isEditing: false,
-    },
-    {
-      id: '2',
-      name: 'Test2',
-      scores: randomScores(),
-      isEditing: false,
-    },
-  ],
+  players: [],
   loading: false,
   playerEditing: null,
+  sortDay: 1,
 }
 
+// noinspection JSUnusedGlobalSymbols
 export default function playersReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
-
   return handler ? handler(state, action) : state
 }

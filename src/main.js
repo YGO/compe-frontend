@@ -1,8 +1,9 @@
-import 'bootstrap';
 import React from 'react'
 import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
-import './styles/main.scss'
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+// import './styles/main.css'
 
 // Store Initialization
 // ------------------------------------
@@ -13,11 +14,11 @@ const store = createStore(window.__INITIAL_STATE__)
 const MOUNT_NODE = document.getElementById('root')
 
 let render = () => {
-  const App = require('./components/App').default
+  const App = require('./components/app.component').default
   const routes = require('./routes/index').default(store)
 
   ReactDOM.render(
-    <App store={store} routes={routes} />,
+    <App store={store} routes={routes}/>,
     MOUNT_NODE
   )
 }
@@ -30,7 +31,7 @@ if (__DEV__) {
     const renderError = (error) => {
       const RedBox = require('redbox-react').default
 
-      ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
+      ReactDOM.render(<RedBox error={error}/>, MOUNT_NODE)
     }
 
     render = () => {
@@ -44,13 +45,13 @@ if (__DEV__) {
 
     // Setup hot module replacement
     module.hot.accept([
-      './components/App',
-      './routes/index',
-    ], () =>
-      setImmediate(() => {
-        ReactDOM.unmountComponentAtNode(MOUNT_NODE)
-        render()
-      })
+        './components/app.component',
+        './routes/index',
+      ], () =>
+        setImmediate(() => {
+          ReactDOM.unmountComponentAtNode(MOUNT_NODE)
+          render()
+        })
     )
   }
 }
