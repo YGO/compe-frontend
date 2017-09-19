@@ -3,6 +3,7 @@ import React from 'react'
 import holes from '../../../data/holes'
 import PlayerList from './leaderboard-list.component'
 import style from './leaderboard.style'
+import images from './leaderboard.image'
 import Helmet from 'react-helmet/es/Helmet'
 
 const PlayerIndex = () => (
@@ -84,7 +85,7 @@ const PlayerIndex = () => (
 
     <div className='row'>
      <div className='col-sm-6 col-xs-12'>
-        <div className='col-sm-2'><img alt='icon' className='gnlogo img-responsive' src='img/golf_network_icon-905f306dbd529e187465916e6f544751af5043812dea5fd8a55709bd5f37033a.png' /></div>
+        <div className='col-sm-2'><img alt='icon' className='gnlogo img-responsive' src={images.icon} style={style.logoGn} /></div>
         <div className='col-sm-8'>  <div>
           
         <p className='catchword'>あなたのゴルフライフをもっと楽しく<br />
@@ -95,7 +96,7 @@ const PlayerIndex = () => (
      </div>
       <div className='col-sm-6 col-xs-12'>
       
-      <div className='store-icons'> <a href='https://play.google.com/store/apps/details?id=com.asai24.golf'><img alt='googleplay' src='img/google-play-badge-03c1ac7c085172e36466038568db5a5a9929516acfe977f4038731cd3e837b2d.png' width='135' /></a> <a href='https://itunes.apple.com/jp/app/gorufusukoa-guan-li-gorufu/id561067103?mt=8'><img alt='appstore' src='img/appstore-25178aeef6eb6b83b96f5f2d004eda3bffbb37122de64afbaef7107b384a4132.svg'/></a> </div>
+      <div className='store-icons'> <a href='https://play.google.com/store/apps/details?id=com.asai24.golf'><img alt='googleplay' src={images.googlePlay} width='135' /></a> <a href='https://itunes.apple.com/jp/app/gorufusukoa-guan-li-gorufu/id561067103?mt=8'><img alt='appstore' src={images.appStore}/></a> </div>
       </div>
     </div>
     </div>

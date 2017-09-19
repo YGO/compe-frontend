@@ -2,7 +2,6 @@ import { injectReducer } from '../../store/reducers'
 import { fetchPlayers } from './modules/leaderboard.module'
 
 export default (store) => ({
-  path: 'leaderboards',
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
       const PlayerIndex = require('./components/leaderboard-index.component').default

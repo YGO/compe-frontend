@@ -1,3 +1,5 @@
+import images from './leaderboard.image'
+
 const style = {
   section: {
     marginTop: '16px',
@@ -41,6 +43,7 @@ const style = {
   },
   scoreTableHeader: {
     textAlign: 'center',
+    background: '#ddd'
   },
   daySelectorRow: {
     marginBottom: '8px',
@@ -99,7 +102,7 @@ const style = {
     padding: '10px 0 30px 0',
     minHeight: '300px',
     margin: '0px 0px 10px',
-    background: '#284666 url(/assets/hero-01-cef38db….jpg) no-repeat center center',
+    background: '#284666 url('+images.banner+') no-repeat center center',
     backgroundSize: 'cover',
     color: '#fff',
     zIndex:'0',
@@ -111,11 +114,45 @@ const style = {
     padding: '3px 0px',
     width: '100%'
   },
+  logoGn:{
+    width: '48px',
+    height: '48px',
+    float: 'left',
+    marginRight: '12px'
+  },
   footer: {
     backgroundColor: '#A6A6A6',
     padding: '24px 24px',
     color: '#fff',
-}
+  },
+  rank1:{
+    backgroundColor: '#f89406',
+    color:'#fff',
+    paddingLeft: '9px',
+    paddingRight: '9px',
+    borderRadius: '9px'
+  },
+  rank2:{
+    backgroundColor: '#999',
+    color:'#fff',
+    paddingLeft: '9px',
+    paddingRight: '9px',
+    borderRadius: '9px'
+  },
+  rank3:{
+    backgroundColor: '#b94a48',
+    color:'#fff',
+    paddingLeft: '9px',
+    paddingRight: '9px',
+    borderRadius: '9px'
+  },
+  rank4:{
+    backgroundColor: '#333',
+    color:'#fff',
+    paddingLeft: '9px',
+    paddingRight: '9px',
+    borderRadius: '9px'
+  }
 
 }
 

@@ -7,31 +7,38 @@ import style from './leaderboard.style'
 import holes from '../../../data/holes'
 
 
-function FinalPoint (current,par) {
+function FinalPoint (current,par,row,id,idx) {
   let score = current - par
-  console.log(style)
   switch(true) {
     case (score >= 3):
-      return <td style={style.overWbogey}>{score}</td>
+      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.overWbogey}>{score}</td>
     case (score == 2):
-      return <td style={style.wbogey}>{score}</td>
+      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.wbogey}>{score}</td>
     case (score == 1):
-      return <td style={style.bogey}>{score}</td>
+      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.bogey}>{score}</td>
     case (score == 0):
-      return <td style={style.par}>-</td>
+      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.par}>-</td>
     case (score == -1):
-      return <td style={style.birdie}>{score}</td>
+      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.birdie}>{score}</td>
     case (score <= -2):
-      return <td style={style.underBirdie}>{score}</td>
+      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.underBirdie}>{score}</td>
+  }
+}
+function CheckRank (rank) {
+  switch(true) {
+    case (rank === 1):
+      return <span style={style.rank1}>{rank}</span> 
+    case (rank === 2):
+      return <span style={style.rank2}>{rank}</span> 
+    case (rank === 3):
+      return <span style={style.rank3}>{rank}</span> 
+    case (rank >= 4):
+      return <span style={style.rank4}>{rank}</span> 
   }
 }
 
-
 const mapDispatchToProps = dispatch => ({})
 
-const mapStateToProps = (state, props) => {
-  //return calcTotals(props.scores_day1, props.scores_day2)
-}
 
 const PlayerShow = ({
                       // props
@@ -50,6 +57,8 @@ const PlayerShow = ({
                       totalScoreDay1,
                       totalScoreDay2,
                       totalScore,
+                      rank,
+                      thru
                       // actions
                     }) => (
 
@@ -64,11 +73,11 @@ const PlayerShow = ({
                  style={style.scoreTable}>
         <tbody>
           <tr style={style.tableTd}>
-            <td style={style.tableTd14} >1</td>
+            <td style={style.tableTd14} >{CheckRank(rank)}</td>
             <td style={style.tableTd40}>{name}</td>
             <td style={style.tableTd14}>{totalScore}</td>
             <td style={style.tableTd14}>&nbsp;</td>
-            <td style={style.tableTd14}>F</td>
+            <td style={style.tableTd14}>{thru}</td>
           </tr>
           <tr >
             <td >1日目</td>
@@ -91,11 +100,11 @@ const PlayerShow = ({
                 <tbody>
                   <tr>
                     {scores_day1.slice(0,9).map((s, idx) =>
-                        FinalPoint(s,holes[idx].par)
+                        FinalPoint(s,holes[idx].par,2,id,idx)
                     )}
                     <td>{totalOutStrokesDay1}</td>
                     {scores_day1.slice(0,9).map((s, idx) =>
-                        FinalPoint(s,holes[idx].par)
+                        FinalPoint(s,holes[idx].par,1,id,idx+9)
                     )}
                     <td>{totalInStrokesDay1}</td>
                   </tr> 
@@ -125,11 +134,11 @@ const PlayerShow = ({
                 <tbody>
                   <tr>
                     {scores_day2.slice(0,9).map((s, idx) =>
-                        FinalPoint(s,holes[idx].par)
+                        FinalPoint(s,holes[idx].par,2,id,idx)
                     )}
                     <td>{totalOutStrokesDay2}</td>
                     {scores_day2.slice(0,9).map((s, idx) =>
-                        FinalPoint(s,holes[idx].par)
+                        FinalPoint(s,holes[idx].par,2,id,idx+9)
                     )}
                     <td>{totalInStrokesDay2}</td>
                   </tr> 
@@ -161,4 +170,4 @@ PlayerShow.propTypes = {
   totalScore: PropTypes.number.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerShow)
+export default connect(null, mapDispatchToProps)(PlayerShow)
