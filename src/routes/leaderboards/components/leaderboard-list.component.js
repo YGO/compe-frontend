@@ -15,8 +15,8 @@ const mapStateToProps = state => {
       if(a[k1] === b[k1])
         return a[k2]-b[k2]
       else if(a[k1])
-          return -1;
-      else return 1;
+          return 1
+      else return -1
     }
   }
 }
