@@ -5,7 +5,6 @@ import { editPlayer } from '../modules/leaderboard.module'
 import { calcTotals } from '../../../services/score.service'
 import style from './leaderboard.style'
 import holes from '../../../data/holes'
-import ToggleDisplay from 'react-toggle-display'
 
 function FinalPoint (current,par,row,id,idx) {
   let score = current - par
