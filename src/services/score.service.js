@@ -31,10 +31,6 @@ export const   calcTHRU = (scoresDay1,scoresDay2,retired) =>{
       return 'F';
   }
 
-  if (!scoresDay1 || scoresDay1.length < 1) {
-      return 0;
-  }
-
   let dataValueDay1 = scoresDay1.filter(x => x>0);
   let dataValueDay2 = scoresDay2.filter(x => x>0);
   let index = scoresDay1.lastIndexOf(dataValueDay1[dataValueDay1.length-1])
