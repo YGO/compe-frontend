@@ -9,19 +9,20 @@ import holes from '../../../data/holes'
 
 function FinalPoint (current,par) {
   let score = current - par
+  console.log(style)
   switch(true) {
     case (score >= 3):
-      return score
+      return <td style={style.overWbogey}>{score}</td>
     case (score == 2):
-      return 2
+      return <td style={style.wbogey}>{score}</td>
     case (score == 1):
-      return 1
+      return <td style={style.bogey}>{score}</td>
     case (score == 0):
-      return '-'
+      return <td style={style.par}>-</td>
     case (score == -1):
-      return -1
+      return <td style={style.birdie}>{score}</td>
     case (score <= -2):
-      return score
+      return <td style={style.underBirdie}>{score}</td>
   }
 }
 
@@ -90,19 +91,14 @@ const PlayerShow = ({
                 <tbody>
                   <tr>
                     {scores_day1.slice(0,9).map((s, idx) =>
-                      <td key={`PlayerShow-p${id}-s${idx}-d2`}>
-                        {FinalPoint(s,holes[idx].par)}
-                      </td>
+                        FinalPoint(s,holes[idx].par)
                     )}
                     <td>{totalOutStrokesDay1}</td>
                     {scores_day1.slice(0,9).map((s, idx) =>
-                      <td key={`PlayerShow-p${id}-s${idx}-d2`}>
-                        {FinalPoint(s,holes[idx].par)}
-                      </td>
+                        FinalPoint(s,holes[idx].par)
                     )}
-                    <td>{totalOutStrokesDay2}</td>
-                  </tr>
-                  
+                    <td>{totalInStrokesDay1}</td>
+                  </tr> 
                 </tbody>
               </table>
             </td>
@@ -129,19 +125,14 @@ const PlayerShow = ({
                 <tbody>
                   <tr>
                     {scores_day2.slice(0,9).map((s, idx) =>
-                      <td key={`PlayerShow-p${id}-s${idx}-d2`}>
-                        {FinalPoint(s,holes[idx].par)}
-                      </td>
+                        FinalPoint(s,holes[idx].par)
                     )}
                     <td>{totalOutStrokesDay2}</td>
-                    {scores_day2.slice(9,18).map((s, idx) =>
-                      <td key={`PlayerShow-p${id}-s${idx}-d2`}>
-                        {FinalPoint(s,holes[idx].par)}
-                      </td>
+                    {scores_day2.slice(0,9).map((s, idx) =>
+                        FinalPoint(s,holes[idx].par)
                     )}
                     <td>{totalInStrokesDay2}</td>
-                  </tr>
-                  
+                  </tr> 
                 </tbody>
               </table>
             </td>

@@ -45,6 +45,24 @@ const style = {
   daySelectorRow: {
     marginBottom: '8px',
   },
+  overWbogey: {
+    backgroundColor: 'rgb(58, 58, 58)'
+  },
+  wbogey: {
+    backgroundColor: 'rgb(33, 86, 5)'
+  },
+  bogey: {
+    backgroundColor: 'rgb(4, 51, 119)'
+  },
+  par: {
+    backgroundColor: 'rgb(5, 162, 211)'
+  },
+  birdie: {
+    backgroundColor: 'rgb(247, 147, 30)'
+  },
+  underBirdie: {
+    backgroundColor: 'rgb(252, 26, 58)'
+  },
   scoreBogey: {
     color:'#043377'
   },
