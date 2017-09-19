@@ -29,7 +29,7 @@ function FinalPoint (current,par) {
 const mapDispatchToProps = dispatch => ({})
 
 const mapStateToProps = (state, props) => {
-  return calcTotals(props.scores_day1, props.scores_day2)
+  //return calcTotals(props.scores_day1, props.scores_day2)
 }
 
 const PlayerShow = ({
