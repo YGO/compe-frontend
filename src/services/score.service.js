@@ -25,3 +25,16 @@ export const calcTotals = (scoresDay1, scoresDay2) => {
     totalScore: totalScore,
   }
 }
+
+export const calcTotalForList = (list) => {
+ 
+  return list.map(p => ({
+    ...p,
+    totalStrokesDay1: p.scores_day1.map(Number).reduce((a, b) => a + b),
+    totalStrokesDay2: p.scores_day2.map(Number).reduce((a, b) => a + b),
+    totalStrokes: (p.scores_day1.map(Number).reduce((a, b) => a + b)) + (p.scores_day2.map(Number).reduce((a, b) => a + b)),
+    totalScoreDay1: (p.scores_day1.map(Number).reduce((a, b) => a + b) - 72),
+    totalScoreDay2: (p.scores_day2.map(Number).reduce((a, b) => a + b) - 72),
+    totalScore: (p.scores_day1.map(Number).reduce((a, b) => a + b) - 72) + (p.scores_day2.map(Number).reduce((a, b) => a + b) - 72),
+  }))
+}
