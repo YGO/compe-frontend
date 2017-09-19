@@ -26,34 +26,27 @@ export const calcTotals = (scoresDay1, scoresDay2) => {
 
   }
 }
-export const   calcTHRU = (pScoreDate1,pScoreDate2,pRetired) =>{
- //console.log("chamy:",pScoreDate1,pScoreDate2)
-  if (pRetired) {
+export const   calcTHRU = (scoresDay1,scoresDay2,retired) =>{
+  if (retired) {
       return 'F';
   }
 
-  if (!pScoreDate1 || pScoreDate1.length < 1) {
+  if (!scoresDay1 || scoresDay1.length < 1) {
       return 0;
   }
 
-//console.log(pScoreDate1,pScoreDate1.filter(x => x>0))
-let arrayDate1 = pScoreDate1.filter(x => x>0);
-let arrayDate2 = pScoreDate2.filter(x => x>0);
+  let dataValueDay1 = scoresDay1.filter(x => x>0);
+  let dataValueDay2 = scoresDay2.filter(x => x>0);
+  let index = scoresDay1.lastIndexOf(dataValueDay1[dataValueDay1.length-1])
+  let index2 = scoresDay2.lastIndexOf(dataValueDay2[dataValueDay2.length-1])
 
-//console.log(arrayDate1[arrayDate1.length-1],arrayDate2[arrayDate2.length-1])
-  let index = pScoreDate1.lastIndexOf(arrayDate1[arrayDate1.length-1]);
-  let index2 = pScoreDate2.lastIndexOf(arrayDate2[arrayDate2.length-1]);
-//console.log(index,index2)
-if(index==-1&&index2==-1)
- return '-';
-if((index==17&&index2==-1) || (index==17&&index2==17))
- return 'F';
-
-if(index>0&&index2>0)
-  return index2+1;
-if(index==0||index2==0)
-return 1;
-return index>0?index+1:index2+1;
+  if(index==-1&&index2==-1)
+   return '-'
+  if((index==17&&scoresDay1[0]>0&&index2==-1) || (index==17&&scoresDay1[0]>0&&index2==17&&scoresDay2[0]>0))
+   return 'F'
+  if(index>0&&index2>0) return index2+1
+  if(index==0||index2==0) return 1
+  return index>0?index+1:index2+1
 
 
 }
