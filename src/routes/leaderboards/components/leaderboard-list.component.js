@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import PlayerShow from './leaderboard-show.component'
 import { calcTotalForList } from '../../../services/score.service'
+
 const mapDispatchToProps = {}
 
 const mapStateToProps = state => {
@@ -26,33 +27,8 @@ function Player (props) {
   return <PlayerShow {...props} />
 }
 
-class PlayerList extends React.Component {
-  contructor(){
-    num = 1
-    temp = 0
-    rank =  0
-  }
-  
-  render() {
-    const {players, playersCompare} = this.props
-    return (
-       <div>
-        {players.sort(playersCompare).map(p =>
-          if(p.totalScore !== this.temp){
-            this.rank = this.rank + this.num
-          }
-          this.temp = p.totalScore
-          this.num++
-          <Player key={p.id} {...p, rank:rank} />
-        )}
-      </div>
-    )
-  } 
-}
 
- 
-
-const PlayerList2 = ({players, playersCompare}) => (
+const PlayerList = ({players, playersCompare}) => (
   <div>
     {players.sort(playersCompare).map(p =>
       <Player key={p.id} {...p} />

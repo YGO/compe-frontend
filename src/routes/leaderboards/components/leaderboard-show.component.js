@@ -41,62 +41,115 @@ const PlayerShow = ({
                       scores_day2,
                       totalStrokesDay1,
                       totalStrokesDay2,
+                      totalOutStrokesDay1,
+                      totalOutStrokesDay2,
+                      totalInStrokesDay1,
+                      totalInStrokesDay2,
                       totalStrokes,
                       totalScoreDay1,
                       totalScoreDay2,
                       totalScore,
                       // actions
                     }) => (
+
+
+
   <div className='row'>
+  
     <div className='col'>
-      <div className='row' style={style.playerRow}>
-        <div className='col-auto'>
-          <span className='font-weight-bold'>{name}</span>
-        </div>
-        <div className='col-auto'>
-          {totalStrokes} ({totalScore})
-        </div>
-        <div className='col-auto mr-auto'>
-          <div className='form-check disabled'>
-            <label className='form-check-label'>
-              <input className='form-check-input' type='checkbox'
-                     checked={retired} disabled/> 棄権
-            </label>
-          </div>
-        </div>
-      </div>
-      <div className='row'>
+      <div className='row name'>
         <div className='col'>
-          <table className='table table-sm table-bordered'
+        <table className='table table-sm table-bordered'
                  style={style.scoreTable}>
-            <thead>
-            <tr>
-              {[...Array(18)].map((_, idx) =>
-                <th key={`PlayerShow-h${idx}`}
-                    style={style.scoreTableHeader}>{idx + 1}</th>
-              )}
-              <th style={style.scoreTableHeader}>合計</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              {scores_day1.map((s, idx) =>
-                <td key={`PlayerShow-p${id}-s${idx}-d2`}>
-                  {FinalPoint(s,holes[idx].par)}
-                </td>
-              )}
-              <td>{totalStrokesDay1}</td>
-            </tr>
-            <tr>
-              {scores_day2.map((s, idx) =>
-                <td key={`PlayerShow-p${id}-s${idx}-d2`}>
-                  {FinalPoint(s,holes[idx].par)}
-                </td>
-              )}
-              <td>{totalStrokesDay2}</td>
-            </tr>
-            </tbody>
-          </table>
+        <tbody>
+          <tr style={style.tableTd}>
+            <td style={style.tableTd14} >1</td>
+            <td style={style.tableTd40}>{name}</td>
+            <td style={style.tableTd14}>{totalScore}</td>
+            <td style={style.tableTd14}>&nbsp;</td>
+            <td style={style.tableTd14}>F</td>
+          </tr>
+          <tr >
+            <td >1日目</td>
+            <td colSpan='4'>
+              <table width='100%' className='table table-sm table-bordered' style={style.scoreTableHeader}>
+                <thead>
+                  <tr>
+                    {[...Array(9)].map((_, idx) =>
+                      <th key={`PlayerShow-h${idx}`}
+                          style={style.scoreTableHeader}>{idx + 1}</th>
+                    )}
+                    <th style={style.scoreTableHeader}>OUT</th>
+                    {[...Array(9)].map((_, idx) =>
+                      <th key={`PlayerShow-h${idx}`}
+                          style={style.scoreTableHeader}>{idx + 10}</th>
+                    )}
+                    <th style={style.scoreTableHeader}>IN</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {scores_day1.slice(0,9).map((s, idx) =>
+                      <td key={`PlayerShow-p${id}-s${idx}-d2`}>
+                        {FinalPoint(s,holes[idx].par)}
+                      </td>
+                    )}
+                    <td>{totalOutStrokesDay1}</td>
+                    {scores_day1.slice(0,9).map((s, idx) =>
+                      <td key={`PlayerShow-p${id}-s${idx}-d2`}>
+                        {FinalPoint(s,holes[idx].par)}
+                      </td>
+                    )}
+                    <td>{totalOutStrokesDay2}</td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </td>
+
+          </tr>
+          <tr>
+            <td >2日目</td>
+            <td colSpan='4'>
+              <table width='100%' className='table table-sm table-bordered' style={style.scoreTableHeader}>
+                <thead>
+                  <tr>
+                    {[...Array(9)].map((_, idx) =>
+                      <th key={`PlayerShow-h${idx}`}
+                          style={style.scoreTableHeader}>{idx + 1}</th>
+                    )}
+                    <th style={style.scoreTableHeader}>OUT</th>
+                    {[...Array(9)].map((_, idx) =>
+                      <th key={`PlayerShow-h${idx}`}
+                          style={style.scoreTableHeader}>{idx + 10}</th>
+                    )}
+                    <th style={style.scoreTableHeader}>IN</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {scores_day2.slice(0,9).map((s, idx) =>
+                      <td key={`PlayerShow-p${id}-s${idx}-d2`}>
+                        {FinalPoint(s,holes[idx].par)}
+                      </td>
+                    )}
+                    <td>{totalOutStrokesDay2}</td>
+                    {scores_day2.slice(9,18).map((s, idx) =>
+                      <td key={`PlayerShow-p${id}-s${idx}-d2`}>
+                        {FinalPoint(s,holes[idx].par)}
+                      </td>
+                    )}
+                    <td>{totalInStrokesDay2}</td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
         </div>
       </div>
     </div>

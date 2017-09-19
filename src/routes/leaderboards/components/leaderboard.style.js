@@ -5,6 +5,23 @@ const style = {
   playerRow: {
     fontSize: '1.2em',
   },
+  tableTd:{
+    padding: '8px',
+    lineHeight: '20px',
+    borderTop: '1px solid #ddd'
+  },
+  tableTd14:{
+    width:'14%',
+    padding: '8px',
+    lineHeight: '20px',
+    borderTop: '1px solid #ddd'
+  },
+  tableTd40:{
+    width:'40%',
+    padding: '8px',
+    lineHeight: '20px',
+    borderTop: '1px solid #ddd'
+  },
   scoreInput: {
     width: '32px',
     height: 'auto',
@@ -15,6 +32,10 @@ const style = {
     marginTop: '-4px',
     cursor: 'pointer'
   },
+  scoreTableTop: {
+    textAlign: 'center',
+    marginBottom: '0'
+  },
   scoreTable: {
     textAlign: 'center',
   },
@@ -23,7 +44,61 @@ const style = {
   },
   daySelectorRow: {
     marginBottom: '8px',
-  }
+  },
+  scoreBogey: {
+    color:'#043377'
+  },
+  scorePar: {
+    color:'#05a2d3'
+  },
+  scoreBirdie: {
+    color:'#f7931e'
+  },
+  scoreBirdie: {
+    color:'#f7931e'
+  },
+  rankHeader:{
+    color: '#fff',
+    backgroundColor: '#01A5A3',
+    textAlign: 'center',
+  },
+  rankCol1:{
+    display: 'table-cell',
+    verticalAlign: 'middle',
+    fontWeight: 'bold',
+    width: '14%',
+  },
+  rankCol2:{
+    display: 'table-cell',
+    verticalAlign: 'middle',
+    fontWeight: 'bold',
+    width: '40%',
+  },
+  hero:{
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+    padding: '10px 0 30px 0',
+    minHeight: '300px',
+    margin: '0px 0px 10px',
+    background: '#284666 url(/assets/hero-01-cef38db….jpg) no-repeat center center',
+    backgroundSize: 'cover',
+    color: '#fff',
+    zIndex:'0',
+    overflow: 'hidden',
+    boxSizing: 'border-box',
+  },
+  rankRow:{
+    display: 'table',
+    padding: '3px 0px',
+    width: '100%'
+  },
+  footer: {
+    backgroundColor: '#A6A6A6',
+    padding: '24px 24px',
+    color: '#fff',
+}
+
 }
 
 export default style
