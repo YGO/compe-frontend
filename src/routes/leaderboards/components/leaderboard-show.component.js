@@ -37,6 +37,8 @@ function CheckRank (rank) {
       return <span style={style.rank3}>{rank}</span> 
     case (rank >= 4):
       return <span style={style.rank4}>{rank}</span> 
+    case (rank === '-'):
+      return <span style={style.rank4}>-</span> 
   }
 }
 
@@ -102,12 +104,13 @@ const PlayerShow = ({
                 </thead>
                 <tbody>
                   <tr>
+
                     {scores_day1.slice(0,9).map((s, idx) =>
-                        FinalPoint(s,holes[idx].par,2,id,idx)
+                      FinalPoint(s,holes[idx].par,1,id,idx)
                     )}
                     <td>{totalOutStrokesDay1}</td>
                     {scores_day1.slice(9,18).map((s, idx) =>
-                        FinalPoint(s,holes[idx].par,1,id,idx+9)
+                      FinalPoint(s,holes[idx+9].par,1,id,idx+9)
                     )}
                     <td>{totalInStrokesDay1}</td>
                   </tr> 
@@ -136,11 +139,11 @@ const PlayerShow = ({
                 <tbody>
                   <tr>
                     {scores_day2.slice(0,9).map((s, idx) =>
-                        FinalPoint(s,holes[idx].par,2,id,idx)
+                      FinalPoint(s,holes[idx].par,2,id,idx)
                     )}
                     <td>{totalOutStrokesDay2}</td>
                     {scores_day2.slice(9,18).map((s, idx) =>
-                        FinalPoint(s,holes[idx].par,2,id,idx+9)
+                      FinalPoint(s,holes[idx+9].par,2,id,idx+9)
                     )}
                     <td>{totalInStrokesDay2}</td>
                   </tr> 

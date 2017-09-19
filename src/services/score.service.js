@@ -27,6 +27,7 @@ export const calcTotals = (scoresDay1, scoresDay2) => {
   }
 }
 export const   calcTHRU = (pScoreDate1,pScoreDate2,pRetired) =>{
+ //console.log("chamy:",pScoreDate1,pScoreDate2)
   if (pRetired) {
       return 'F';
   }
@@ -35,24 +36,26 @@ export const   calcTHRU = (pScoreDate1,pScoreDate2,pRetired) =>{
       return 0;
   }
 
-  var element;
-  for (var i = 0; i < pScoreDate1.length; i++) {
-     element = pScoreDate1[i];
-      if (element == 0) {
-          return i;
-      }
-  }
+//console.log(pScoreDate1,pScoreDate1.filter(x => x>0))
+let arrayDate1 = pScoreDate1.filter(x => x>0);
+let arrayDate2 = pScoreDate2.filter(x => x>0);
 
-  if (pScoreDate2) {
-      for (var i = 0; i < pScoreDate2.length; i++) {
-      element = pScoreDate2[i];
-          if (element == 0) {
-              return i;
-          }
-      }
-  }
+//console.log(arrayDate1[arrayDate1.length-1],arrayDate2[arrayDate2.length-1])
+  let index = pScoreDate1.lastIndexOf(arrayDate1[arrayDate1.length-1]);
+  let index2 = pScoreDate2.lastIndexOf(arrayDate2[arrayDate2.length-1]);
+//console.log(index,index2)
+if(index==-1&&index2==-1)
+ return '-';
+if((index==17&&index2==-1) || (index==17&&index2==17))
+ return 'F';
 
-  return 'F';
+if(index>0&&index2>0)
+  return index2+1;
+if(index==0||index2==0)
+return 1;
+return index>0?index+1:index2+1;
+
+
 }
 export const calcTotalForListAndSort = (list) => {
 
@@ -70,7 +73,9 @@ export const calcTotalForListAndSort = (list) => {
   });
 
   let listWithRank =  listWithTotal.map((p, i) => {
-
+    if(p.retired==true) {
+      return Object.assign(p, {rank:"-"});
+    }
     if(p.totalScore!=lastScore) {
 
       rank = i+1;
