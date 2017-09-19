@@ -26,7 +26,33 @@ function Player (props) {
   return <PlayerShow {...props} />
 }
 
-const PlayerList = ({players, playersCompare}) => (
+class PlayerList extends React.Component {
+  contructor(){
+    num = 1
+    temp = 0
+    rank =  0
+  }
+  
+  render() {
+    const {players, playersCompare} = this.props
+    return (
+       <div>
+        {players.sort(playersCompare).map(p =>
+          if(p.totalScore !== this.temp){
+            this.rank = this.rank + this.num
+          }
+          this.temp = p.totalScore
+          this.num++
+          <Player key={p.id} {...p, rank:rank} />
+        )}
+      </div>
+    )
+  } 
+}
+
+ 
+
+const PlayerList2 = ({players, playersCompare}) => (
   <div>
     {players.sort(playersCompare).map(p =>
       <Player key={p.id} {...p} />
