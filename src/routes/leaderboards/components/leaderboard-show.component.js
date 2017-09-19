@@ -5,23 +5,27 @@ import { editPlayer } from '../modules/leaderboard.module'
 import { calcTotals } from '../../../services/score.service'
 import style from './leaderboard.style'
 import holes from '../../../data/holes'
-
+import ToggleDisplay from 'react-toggle-display'
 
 function FinalPoint (current,par,row,id,idx) {
   let score = current - par
-  switch(true) {
-    case (score >= 3):
-      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.overWbogey}>{score}</td>
-    case (score == 2):
-      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.wbogey}>{score}</td>
-    case (score == 1):
-      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.bogey}>{score}</td>
-    case (score == 0):
-      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.par}>-</td>
-    case (score == -1):
-      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.birdie}>{score}</td>
-    case (score <= -2):
-      return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.underBirdie}>{score}</td>
+  if(current == 0){
+    return <td key={`PlayerShow-p${id}-s${idx}-d{row}`}></td>
+  }else{
+    switch(true) {
+      case (score >= 3):
+        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.overWbogey}>{score}</td>
+      case (score == 2):
+        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.wbogey}>{score}</td>
+      case (score == 1):
+        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.bogey}>{score}</td>
+      case (score == 0):
+        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.par}>-</td>
+      case (score == -1):
+        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.birdie}>{score}</td>
+      case (score <= -2):
+        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.underBirdie}>{score}</td>
+    }
   }
 }
 function CheckRank (rank) {
@@ -79,7 +83,7 @@ const PlayerShow = ({
             <td style={style.tableTd14}>&nbsp;</td>
             <td style={style.tableTd14}>{thru}</td>
           </tr>
-          <tr >
+          <tr>
             <td >1日目</td>
             <td colSpan='4'>
               <table width='100%' className='table table-sm table-bordered' style={style.scoreTableHeader}>
@@ -103,7 +107,7 @@ const PlayerShow = ({
                         FinalPoint(s,holes[idx].par,2,id,idx)
                     )}
                     <td>{totalOutStrokesDay1}</td>
-                    {scores_day1.slice(0,9).map((s, idx) =>
+                    {scores_day1.slice(9,18).map((s, idx) =>
                         FinalPoint(s,holes[idx].par,1,id,idx+9)
                     )}
                     <td>{totalInStrokesDay1}</td>
@@ -111,7 +115,6 @@ const PlayerShow = ({
                 </tbody>
               </table>
             </td>
-
           </tr>
           <tr>
             <td >2日目</td>
@@ -137,7 +140,7 @@ const PlayerShow = ({
                         FinalPoint(s,holes[idx].par,2,id,idx)
                     )}
                     <td>{totalOutStrokesDay2}</td>
-                    {scores_day2.slice(0,9).map((s, idx) =>
+                    {scores_day2.slice(9,18).map((s, idx) =>
                         FinalPoint(s,holes[idx].par,2,id,idx+9)
                     )}
                     <td>{totalInStrokesDay2}</td>
@@ -145,7 +148,6 @@ const PlayerShow = ({
                 </tbody>
               </table>
             </td>
-
           </tr>
         </tbody>
       </table>
