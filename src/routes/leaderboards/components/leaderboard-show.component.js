@@ -1,50 +1,27 @@
 import { connect } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { editPlayer } from '../modules/leaderboard.module'
-import { calcTotals } from '../../../services/score.service'
-import style from './leaderboard.style'
+import Radium from 'radium'
 import holes from '../../../data/holes'
-
-function FinalPoint (current,par,row,id,idx) {
-  let score = current - par
-  if(current == 0){
-    return <td key={`PlayerShow-p${id}-s${idx}-d{row}`}></td>
-  }else{
-    switch(true) {
-      case (score >= 3):
-        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.overWbogey}>{score}</td>
-      case (score == 2):
-        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.wbogey}>{score}</td>
-      case (score == 1):
-        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.bogey}>{score}</td>
-      case (score == 0):
-        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.par}>-</td>
-      case (score == -1):
-        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.birdie}>{score}</td>
-      case (score <= -2):
-        return <td key={`PlayerShow-p${id}-s${idx}-d{row}`} style={style.underBirdie}>{score}</td>
-    }
-  }
-}
-function CheckRank (rank) {
-  switch(true) {
-    case (rank === 1):
-      return <span style={style.rank1}>{rank}</span> 
-    case (rank === 2):
-      return <span style={style.rank2}>{rank}</span> 
-    case (rank === 3):
-      return <span style={style.rank3}>{rank}</span> 
-    case (rank >= 4):
-      return <span style={style.rank4}>{rank}</span> 
-    case (rank === '-'):
-      return <span style={style.rank4}>-</span> 
-  }
-}
+import style from './leaderboard.style'
 
 const mapDispatchToProps = dispatch => ({})
 
+const pars = holes.map(h => h.par)
 
+const scoreToStr = score => {
+  const s = Number(score)
+  if (s === 0) return '-'
+  if (s > 0) return `+${s}`
+  return `${s}`
+}
+
+const strokeToScore = (stroke, idx) => {
+  if (stroke === 0) return null
+  return stroke - pars[idx]
+}
+
+// noinspection JSPotentiallyInvalidConstructorUsage
 const PlayerShow = ({
                       // props
                       id,
@@ -67,93 +44,136 @@ const PlayerShow = ({
                       // actions
                     }) => (
 
-
-
-  <div className='row'>
-  
-    <div className='col'>
-      <div className='row name'>
-        <div className='col'>
-        <table className='table table-sm table-bordered'
-                 style={style.scoreTable}>
-        <tbody>
-          <tr style={style.tableTd}>
-            <td style={style.tableTd14} >{CheckRank(rank)}</td>
-            <td style={style.tableTd40}>{name}</td>
-            <td style={style.tableTd14}>{totalScore}</td>
-            <td style={style.tableTd14}>&nbsp;</td>
-            <td style={style.tableTd14}>{thru}</td>
-          </tr>
-          <tr>
-            <td >1日目</td>
-            <td colSpan='4'>
-              <table width='100%' className='table table-sm table-bordered' style={style.scoreTableHeader}>
-                <thead>
-                  <tr>
-                    {[...Array(9)].map((_, idx) =>
-                      <th key={`PlayerShow-h${idx}`}
-                          style={style.scoreTableHeader}>{idx + 1}</th>
-                    )}
-                    <th style={style.scoreTableHeader}>OUT</th>
-                    {[...Array(9)].map((_, idx) =>
-                      <th key={`PlayerShow-h${idx}`}
-                          style={style.scoreTableHeader}>{idx + 10}</th>
-                    )}
-                    <th style={style.scoreTableHeader}>IN</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-
-                    {scores_day1.slice(0,9).map((s, idx) =>
-                      FinalPoint(s,holes[idx].par,1,id,idx)
-                    )}
-                    <td>{totalOutStrokesDay1}</td>
-                    {scores_day1.slice(9,18).map((s, idx) =>
-                      FinalPoint(s,holes[idx+9].par,1,id,idx+9)
-                    )}
-                    <td>{totalInStrokesDay1}</td>
-                  </tr> 
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td >2日目</td>
-            <td colSpan='4'>
-              <table width='100%' className='table table-sm table-bordered' style={style.scoreTableHeader}>
-                <thead>
-                  <tr>
-                    {[...Array(9)].map((_, idx) =>
-                      <th key={`PlayerShow-h${idx}`}
-                          style={style.scoreTableHeader}>{idx + 1}</th>
-                    )}
-                    <th style={style.scoreTableHeader}>OUT</th>
-                    {[...Array(9)].map((_, idx) =>
-                      <th key={`PlayerShow-h${idx}`}
-                          style={style.scoreTableHeader}>{idx + 10}</th>
-                    )}
-                    <th style={style.scoreTableHeader}>IN</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    {scores_day2.slice(0,9).map((s, idx) =>
-                      FinalPoint(s,holes[idx].par,2,id,idx)
-                    )}
-                    <td>{totalOutStrokesDay2}</td>
-                    {scores_day2.slice(9,18).map((s, idx) =>
-                      FinalPoint(s,holes[idx+9].par,2,id,idx+9)
-                    )}
-                    <td>{totalInStrokesDay2}</td>
-                  </tr> 
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
+  <div className='row' style={style.playerRow}>
+    <div className='col-12 mt-1 mb-1' style={style.white}>
+      <div className='row' data-toggle='collapse' data-target='.scores'
+           style={[style.borderBottom, {cursor: 'pointer'}]}>
+        <div className='col-2' style={[style.cell]}><span
+          className='badge badge-pill'
+          style={[style.rankBadge(rank)]}>{rank}</span></div>
+        <div className='col-6' style={[style.cell, style.alignLeft]}><span
+          className='text-primary ml-1'>{name}</span></div>
+        <div className='col-2' style={[style.cell]}>{totalScore}</div>
+        <div className='col-2' style={[style.cellStop]}>{thru}</div>
+      </div>
+      <div className='row collapse scores show'>
+        <div className='col-12'>
+          <div className='row' style={style.borderBottom}>
+            <div className='col-2' style={[style.cell]}>1日目
+            </div>
+            <div className='col-10' style={[style.white]}>
+              <div className='row'>
+                <div className='col m-0 p-0 pt-1 pb-1'>
+                  <table className='table table-bordered table-sm mb-0'
+                         style={[style.gray]}>
+                    <thead>
+                    <tr>
+                      {Array(9).fill().map((_, idx) =>
+                        <th key={`PlayerShow-h${idx}`}
+                            style={[style.holeCell]}>{idx + 1}</th>
+                      )}
+                      <th style={[style.scoreCellTotal]}>OUT
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      {scores_day1.slice(0, 9).map(strokeToScore).map((s, idx) =>
+                        <td key={`PlayerShow-p${id}-h${idx}-out-d1`}
+                            style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
+                      )}
+                      <td
+                        style={[style.scoreCellTotal]}>{totalOutStrokesDay1}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className='col m-0 p-0 pt-1 pb-1'>
+                  <table className='table table-bordered table-sm mb-0'
+                         style={[style.gray]}>
+                    <thead>
+                    <tr>
+                      {Array(9).fill().map((_, idx) =>
+                        <th key={`PlayerShow-h${idx}`}
+                            style={[style.holeCell]}>{idx + 1}</th>
+                      )}
+                      <th style={[style.scoreCellTotal]}>IN
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      {scores_day1.slice(9, 18).map(strokeToScore).map((s, idx) =>
+                        <td key={`PlayerShow-p${id}-h${idx}-in-d1`}
+                            style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
+                      )}
+                      <td
+                        style={[style.scoreCellTotal]}>{totalInStrokesDay1}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-2' style={[style.cell]}>2日目
+            </div>
+            <div className='col-10' style={[style.white]}>
+              <div className='row'>
+                <div className='col m-0 p-0 pt-1 pb-1'>
+                  <table className='table table-bordered table-sm mb-0'
+                         style={[style.gray]}>
+                    <thead>
+                    <tr>
+                      {Array(9).fill().map((_, idx) =>
+                        <th key={`PlayerShow-h${idx}`}
+                            style={[style.holeCell]}>{idx + 1}</th>
+                      )}
+                      <th style={[style.scoreCellTotal]}>OUT
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      {scores_day2.slice(0, 9).map(strokeToScore).map((s, idx) =>
+                        <td key={`PlayerShow-p${id}-h${idx}-out-d2`}
+                            style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
+                      )}
+                      <td
+                        style={[style.scoreCellTotal]}>{totalOutStrokesDay2}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className='col m-0 p-0 pt-1 pb-1'>
+                  <table className='table table-bordered table-sm mb-0'
+                         style={[style.gray]}>
+                    <thead>
+                    <tr>
+                      {Array(9).fill().map((_, idx) =>
+                        <th key={`PlayerShow-h${idx}`}
+                            style={[style.holeCell]}>{idx + 1}</th>
+                      )}
+                      <th style={[style.scoreCellTotal]}>IN
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      {scores_day2.slice(9, 18).map(strokeToScore).map((s, idx) =>
+                        <td key={`PlayerShow-p${id}-h${idx}-in-d2`}
+                            style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
+                      )}
+                      <td
+                        style={[style.scoreCellTotal]}>{totalInStrokesDay2}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -172,6 +192,12 @@ PlayerShow.propTypes = {
   totalScoreDay1: PropTypes.number.isRequired,
   totalScoreDay2: PropTypes.number.isRequired,
   totalScore: PropTypes.number.isRequired,
+  totalOutStrokesDay1: PropTypes.number.isRequired,
+  totalOutStrokesDay2: PropTypes.number.isRequired,
+  totalInStrokesDay1: PropTypes.number.isRequired,
+  totalInStrokesDay2: PropTypes.number.isRequired,
+  rank: PropTypes.string.isRequired,
+  thru: PropTypes.string.isRequired,
 }
 
-export default connect(null, mapDispatchToProps)(PlayerShow)
+export default connect(null, mapDispatchToProps)(Radium(PlayerShow))
