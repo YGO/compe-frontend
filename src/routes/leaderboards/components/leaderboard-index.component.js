@@ -8,6 +8,7 @@ import pgaLogoImg from '../assets/pga-logo.png'
 import gnIconImg from '../assets/gn_icon.png'
 import appStoreImg from '../assets/appstore.svg'
 import playStoreImg from '../assets/google_play.png'
+import Helmet from 'react-helmet/es/Helmet'
 
 let SHARE_URL
 if (process.env.NODE_ENV === 'development') {
@@ -18,6 +19,9 @@ if (process.env.NODE_ENV === 'development') {
 
 const PlayerIndex = () => (
   <div style={style.gray}>
+    <Helmet>
+      <title>第19回 PGAティーチングプロ選手権大会</title>
+    </Helmet>
 
     <header style={{position: 'relative'}}>
       <div className='jumbotron' style={style.header}/>
