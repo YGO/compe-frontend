@@ -25,8 +25,14 @@ const PlayerIndex = () => (
 
     <header style={{position: 'relative'}}>
       <div className='jumbotron' style={style.header}/>
-      <div className='container-fluid'
-           style={{position: 'absolute', top: '88px', color: 'white'}}>
+      <div className='jumbotron container-fluid'
+           style={{
+             position: 'absolute',
+             top: '0',
+             color: 'white',
+             backgroundColor: 'transparent',
+             height: '260px',
+           }}>
         <div className='row'>
           <div className='col-auto'>
             <img src={pgaLogoImg} alt='pga'/>
