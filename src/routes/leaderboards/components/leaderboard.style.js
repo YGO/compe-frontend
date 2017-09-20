@@ -136,6 +136,10 @@ const style = {
     return {
       backgroundColor: colors.rank.others
     }
+  },
+  lineBtn: {
+    width: '82px',
+    height: '20px',
   }
 }
 

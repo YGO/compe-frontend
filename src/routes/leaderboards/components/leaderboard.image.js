@@ -1,9 +1,9 @@
 const images = {
-  banner: require('../images/banner.jpg'),
-  icon: require('../images/gn_icon.png'),
-  googlePlay: require('../images/google_play.png'),
-  appStore: require('../images/appstore.svg'),
-  
+  banner: require('../assets/banner.jpg'),
+  icon: require('../assets/gn_icon.png'),
+  googlePlay: require('../assets/google_play.png'),
+  appStore: require('../assets/appstore.svg'),
+
 }
 
 export default images
