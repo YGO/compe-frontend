@@ -3,8 +3,12 @@ import Radium from 'radium'
 import jQuery from 'jquery'
 
 class ScoreToggler extends React.Component {
-  toggle = () => {
-    jQuery('.scores').collapse('toggle')
+  show = () => {
+    jQuery('.scores').collapse('show')
+  }
+
+  hide = () => {
+    jQuery('.scores').collapse('hide')
   }
 
   render () {
@@ -15,14 +19,14 @@ class ScoreToggler extends React.Component {
           <label className='form-check-label'>
             <input className='form-check-input' type='radio'
                    name='toggleOptions'
-                   onChange={this.toggle}/> 表示
+                   onChange={this.show}/> 表示
           </label>
         </div>
         <div className='form-check form-check-inline'>
           <label className='form-check-label'>
             <input className='form-check-input' type='radio'
                    name='toggleOptions'
-                   onChange={this.toggle} defaultChecked/> 非表示
+                   onChange={this.hide} defaultChecked/> 非表示
           </label>
         </div>
       </div>
