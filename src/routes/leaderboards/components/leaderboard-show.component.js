@@ -95,7 +95,7 @@ const PlayerShow = ({
                     <tr>
                       {Array(9).fill().map((_, idx) =>
                         <th key={`PlayerShow-h${idx}`}
-                            style={[style.holeCell]}>{idx + 1}</th>
+                            style={[style.holeCell]}>{idx + 10}</th>
                       )}
                       <th style={[style.scoreCellTotal]}>IN
                       </th>
@@ -103,7 +103,7 @@ const PlayerShow = ({
                     </thead>
                     <tbody>
                     <tr>
-                      {scores_day1.slice(9, 18).map(strokeToScore).map((s, idx) =>
+                      {scores_day1.slice(9, 18).map((s, idx) => strokeToScore(s, idx + 9)).map((s, idx) =>
                         <td key={`PlayerShow-p${id}-h${idx}-in-d1`}
                             style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
                       )}
@@ -153,7 +153,7 @@ const PlayerShow = ({
                     <tr>
                       {Array(9).fill().map((_, idx) =>
                         <th key={`PlayerShow-h${idx}`}
-                            style={[style.holeCell]}>{idx + 1}</th>
+                            style={[style.holeCell]}>{idx + 10}</th>
                       )}
                       <th style={[style.scoreCellTotal]}>IN
                       </th>
@@ -161,7 +161,7 @@ const PlayerShow = ({
                     </thead>
                     <tbody>
                     <tr>
-                      {scores_day2.slice(9, 18).map(strokeToScore).map((s, idx) =>
+                      {scores_day2.slice(9, 18).map((s, idx) => strokeToScore(s, idx + 9)).map((s, idx) =>
                         <td key={`PlayerShow-p${id}-h${idx}-in-d2`}
                             style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
                       )}

@@ -1,9 +1,14 @@
-const cellBase = {
-  borderRight: '1px solid #ccc',
-  padding: '4px',
+import headerImg from '../assets/banner.jpg'
+
+const alignCenter = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+}
+const cellBase = {
+  ...alignCenter,
+  borderRight: '1px solid #ccc',
+  padding: '4px',
 }
 const colors = {
   accent: '#01a5a3',
@@ -27,6 +32,14 @@ const colors = {
 }
 
 const style = {
+  header: {
+    backgroundImage: `url(${headerImg})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: '260px',
+    color: colors.white,
+    filter: 'blur(5px)',
+  },
   container: {
     maxWidth: '960px',
   },
@@ -77,9 +90,9 @@ const style = {
   transparent: {
     backgroundColor: 'transparent',
   },
+  alignCenter: alignCenter,
   alignLeft: {
-    display: 'flex',
-    alignItems: 'center',
+    ...alignCenter,
     justifyContent: 'flex-start',
   },
   score: score => {
@@ -118,17 +131,17 @@ const style = {
     }
   },
   rankBadge: rank => {
-    if (rank === 1) {
+    if (rank === '1') {
       return {
         backgroundColor: colors.rank.gold
       }
     }
-    if (rank === 2) {
+    if (rank === '2') {
       return {
         backgroundColor: colors.rank.silver
       }
     }
-    if (rank === 3) {
+    if (rank === '3') {
       return {
         backgroundColor: colors.rank.bronze
       }

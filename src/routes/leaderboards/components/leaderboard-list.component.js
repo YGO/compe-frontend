@@ -8,7 +8,6 @@ import PlayerShow from './leaderboard-show.component'
 
 const mapDispatchToProps = {}
 const mapStateToProps = state => {
-  console.log(calcTotalForListAndSort(state.leaderBoards.players))
   return {
     players: calcTotalForListAndSort(state.leaderBoards.players),
   }
