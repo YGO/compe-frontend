@@ -27,37 +27,47 @@ export const calcTotals = (scoresDay1, scoresDay2) => {
   }
 }
 export const calcTHRU = (scoresDay1, scoresDay2, retired) => {
-  if (retired) {
-    return 'F'
+  if (retired) return 'F'
+
+  let scoresOutDay1 = scoresDay1.slice(0, 9)
+  let scoresInDay1 = scoresDay1.slice(9, 18)
+  let scoresOutDay2 = scoresDay2.slice(0, 9)
+  let scoresInDay2 = scoresDay2.slice(9, 18)
+
+  let dataValueOutDay1 = scoresOutDay1.filter(x => x > 0)
+  let dataValueInDay1 = scoresInDay1.filter(x => x > 0)
+  let dataValueOutDay2 = scoresOutDay2.filter(x => x > 0)
+  let dataValueInDay2 = scoresInDay2.filter(x => x > 0)
+
+  let indexOutDay1 = scoresOutDay1.lastIndexOf(dataValueOutDay1[dataValueOutDay1.length - 1])
+  let indexInDay1 = scoresInDay1.lastIndexOf(dataValueInDay1[dataValueInDay1.length - 1])
+  let indexOutDay2 = scoresOutDay2.lastIndexOf(dataValueOutDay2[dataValueOutDay2.length - 1])
+  let indexInDay2 = scoresInDay2.lastIndexOf(dataValueInDay2[dataValueInDay2.length - 1])
+
+  if (indexOutDay1 === -1 && indexInDay1 === -1 && indexOutDay2 === -1 && indexInDay2 === -1) return '-' // just started
+  if ((indexOutDay1 + indexInDay1) === 16 && (indexOutDay2 + indexInDay2) === 16) return 'F' // finished all with various scores
+  if ((indexOutDay1 + indexInDay1) === 16 && indexOutDay2 === -1 && indexInDay2 === -1) return 'F' // finished day1
+
+  if ((indexOutDay1 + indexInDay1) === 16) { // finished day1
+    if (indexInDay2 === 8 && indexOutDay2 === -1) return 18 // and finish In day2 and no score Out day2
+    else if (indexInDay2 === 8 && indexOutDay2 !== -1) return indexOutDay2 + 1// and finish In day2 and have score Out day2
+    else if (indexInDay2 !== -1) return indexInDay2 + 10// and have score In day2
+    else return indexOutDay2 + 1 // and have score Out day1
   }
 
-  let dataValueDay1 = scoresDay1.filter(x => x > 0)
-  let dataValueDay2 = scoresDay2.filter(x => x > 0)
-  let index = scoresDay1.lastIndexOf(dataValueDay1[dataValueDay1.length - 1])
-  let index2 = scoresDay2.lastIndexOf(dataValueDay2[dataValueDay2.length - 1])
-
-  if (index == -1 && index2 == -1)
-    return '-'
-  if ((index == 17 && scoresDay1[0] > 0 && index2 == -1) || (index == 17 && scoresDay1[0] > 0 && index2 == 17 && scoresDay2[0] > 0))
-    return 'F'
-  if (index > 0 && index2 > 0) return index2 + 1
-  if (index == 0 || index2 == 0) return 1
-  return index > 0 ? index + 1 : index2 + 1
-
+  if (indexInDay1 === 8 && indexOutDay1 === -1) return 18 // finish In day1 and no score Out day1
+  else if (indexInDay1 === 8 && indexOutDay1 !== -1) return indexOutDay1 + 1 // finish In day1 and have score Out day1
+  else if (indexInDay1 !== -1) return indexInDay1 + 10// finish In day1 and have score Out day1
+  else return indexOutDay1 + 1 // have score Out day1
 }
 export const calcTotalForListAndSort = (list) => {
-
   let lastScore = 0
   let rank = 0
   let listWithTotal = calcTotalForList(list)
   listWithTotal = listWithTotal.sort(function (a, b) {
     const k1 = `retired`
     const k2 = `totalScore`
-    if (a[k1] === b[k1])
-      return a[k2] - b[k2]
-    else if (a[k1])
-      return 1
-    else return -1
+    if (a[k1] === b[k1]) { return a[k2] - b[k2] } else if (a[k1]) { return 1 } else return -1
   })
 
   let listWithRank = listWithTotal.map((p, i) => {
@@ -65,9 +75,7 @@ export const calcTotalForListAndSort = (list) => {
       return Object.assign(p, {rank: '-'})
     }
     if (p.totalScore != lastScore) {
-
       rank = i + 1
-
     }
     lastScore = p.totalScore
 
@@ -75,7 +83,6 @@ export const calcTotalForListAndSort = (list) => {
   })
 
   return listWithTotal
-
 }
 
 export const calcTotalsInOut = (scoresDay1, scoresDay2, retired) => {
@@ -113,10 +120,8 @@ export const calcTotalsInOut = (scoresDay1, scoresDay2, retired) => {
 }
 
 export const calcTotalForList = (list) => {
-
   return list.map(p => {
     let calc = calcTotalsInOut(p.scores_day1, p.scores_day2, p.retired)
     return Object.assign(p, calc)
   })
-
 }
