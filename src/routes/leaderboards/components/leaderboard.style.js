@@ -1,158 +1,28 @@
-import images from './leaderboard.image'
-
 const style = {
+  container: {
+    maxWidth: '960px',
+  },
   section: {
     marginTop: '16px',
   },
+  // playerRow
   playerRow: {
-    fontSize: '1.2em',
+    backgroundColor: '#eee',
+    borderLeft: '4px solid #eee',
+    borderRight: '4px solid #eee',
   },
-  tableTd:{
-    padding: '8px',
-    lineHeight: '20px',
-    borderTop: '1px solid #ddd'
-  },
-  tableTd14:{
-    width:'14%',
-    padding: '8px',
-    lineHeight: '20px',
-    borderTop: '1px solid #ddd'
-  },
-  tableTd40:{
-    width:'40%',
-    padding: '8px',
-    lineHeight: '20px',
-    borderTop: '1px solid #ddd'
-  },
-  scoreInput: {
-    width: '32px',
-    height: 'auto',
-    padding: 0,
-    textAlign: 'center',
-  },
-  ctrlBtn: {
-    marginTop: '-4px',
-    cursor: 'pointer'
-  },
-  scoreTableTop: {
-    textAlign: 'center',
-    marginBottom: '0'
-  },
-  scoreTable: {
-    textAlign: 'center',
-  },
-  scoreTableHeader: {
-    textAlign: 'center',
-    background: '#ddd'
-  },
-  daySelectorRow: {
-    marginBottom: '8px',
-  },
-  overWbogey: {
-    backgroundColor: 'rgb(58, 58, 58)'
-  },
-  wbogey: {
-    backgroundColor: 'rgb(33, 86, 5)'
-  },
-  bogey: {
-    backgroundColor: 'rgb(4, 51, 119)'
-  },
-  par: {
-    backgroundColor: 'rgb(5, 162, 211)'
-  },
-  birdie: {
-    backgroundColor: 'rgb(247, 147, 30)'
-  },
-  underBirdie: {
-    backgroundColor: 'rgb(252, 26, 58)'
-  },
-  scoreBogey: {
-    color:'#043377'
-  },
-  scorePar: {
-    color:'#05a2d3'
-  },
-  scoreBirdie: {
-    color:'#f7931e'
-  },
-  scoreBirdie: {
-    color:'#f7931e'
-  },
-  rankHeader:{
-    color: '#fff',
+
+  headerColor: {
     backgroundColor: '#01A5A3',
+    color: '#fff',
+  },
+  cell: {
+    borderRight: '1px solid #ccc',
+    padding: '4px',
     textAlign: 'center',
+    backgroundColor: '#fff',
+    // color: '#000',
   },
-  rankCol1:{
-    display: 'table-cell',
-    verticalAlign: 'middle',
-    fontWeight: 'bold',
-    width: '14%',
-  },
-  rankCol2:{
-    display: 'table-cell',
-    verticalAlign: 'middle',
-    fontWeight: 'bold',
-    width: '40%',
-  },
-  hero:{
-    width: '100%',
-    height: '100%',
-    position: 'relative',
-    padding: '10px 0 30px 0',
-    minHeight: '300px',
-    margin: '0px 0px 10px',
-    background: '#284666 url('+images.banner+') no-repeat center center',
-    backgroundSize: 'cover',
-    color: '#fff',
-    zIndex:'0',
-    overflow: 'hidden',
-    boxSizing: 'border-box',
-  },
-  rankRow:{
-    display: 'table',
-    padding: '3px 0px',
-    width: '100%'
-  },
-  logoGn:{
-    width: '48px',
-    height: '48px',
-    float: 'left',
-    marginRight: '12px'
-  },
-  footer: {
-    backgroundColor: '#A6A6A6',
-    padding: '24px 24px',
-    color: '#fff',
-  },
-  rank1:{
-    backgroundColor: '#f89406',
-    color:'#fff',
-    paddingLeft: '9px',
-    paddingRight: '9px',
-    borderRadius: '9px'
-  },
-  rank2:{
-    backgroundColor: '#999',
-    color:'#fff',
-    paddingLeft: '9px',
-    paddingRight: '9px',
-    borderRadius: '9px'
-  },
-  rank3:{
-    backgroundColor: '#b94a48',
-    color:'#fff',
-    paddingLeft: '9px',
-    paddingRight: '9px',
-    borderRadius: '9px'
-  },
-  rank4:{
-    backgroundColor: '#333',
-    color:'#fff',
-    paddingLeft: '9px',
-    paddingRight: '9px',
-    borderRadius: '9px'
-  }
 
 }
 
