@@ -46,7 +46,7 @@ const PlayerShow = ({
 
   <div className='row' style={style.playerRow}>
     <div className='col-12 mt-1 mb-1' style={style.white}>
-      <div className='row' data-toggle='collapse' data-target='.scores'
+      <div className='row' data-toggle='collapse' data-target={`#player-${id}`}
            style={[style.borderBottom, {cursor: 'pointer'}]}>
         <div className='col-2' style={[style.cell]}><span
           className='badge badge-pill'
@@ -56,7 +56,7 @@ const PlayerShow = ({
         <div className='col-2' style={[style.cell]}>{totalScore}</div>
         <div className='col-2' style={[style.cellStop]}>{thru}</div>
       </div>
-      <div className='row collapse scores show'>
+      <div id={`player-${id}`} className='row collapse scores'>
         <div className='col-12'>
           <div className='row' style={style.borderBottom}>
             <div className='col-2' style={[style.cell]}>1日目
