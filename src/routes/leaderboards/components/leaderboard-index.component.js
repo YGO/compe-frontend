@@ -14,7 +14,7 @@ let SHARE_URL
 if (process.env.NODE_ENV === 'development') {
   SHARE_URL = 'https://asyridxcpg.localtunnel.me/pgateaching_201709'
 } else {
-  SHARE_URL = 'http://livescore.golfnetwork.plus/pgateaching_201709'
+  SHARE_URL = 'https://livescore.golfnetwork.plus/pgateaching_201709'
 }
 
 const PlayerIndex = () => (
