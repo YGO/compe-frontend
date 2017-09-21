@@ -38,37 +38,26 @@ export const calcTotals = (scoresDay1, scoresDay2) => {
 
 export const calcTHRU = (scoresDay1, scoresDay2, retired) => {
   if (retired) return 'F'
+  if (scoresDay1.every(s => s === 0) && scoresDay2.every(s => s === 0)) return '-'
+  if (scoresDay1.every(s => s > 0) && scoresDay2.every(s => s > 0)) return 'F'
+  if (scoresDay1.every(s => s > 0) && scoresDay2.every(s => s === 0)) return 'F'
 
-  let scoresOutDay1 = scoresDay1.slice(0, 9)
-  let scoresInDay1 = scoresDay1.slice(9, 18)
-  let scoresOutDay2 = scoresDay2.slice(0, 9)
-  let scoresInDay2 = scoresDay2.slice(9, 18)
-
-  let dataValueOutDay1 = scoresOutDay1.filter(x => x > 0)
-  let dataValueInDay1 = scoresInDay1.filter(x => x > 0)
-  let dataValueOutDay2 = scoresOutDay2.filter(x => x > 0)
-  let dataValueInDay2 = scoresInDay2.filter(x => x > 0)
-
-  let indexOutDay1 = scoresOutDay1.lastIndexOf(dataValueOutDay1[dataValueOutDay1.length - 1])
-  let indexInDay1 = scoresInDay1.lastIndexOf(dataValueInDay1[dataValueInDay1.length - 1])
-  let indexOutDay2 = scoresOutDay2.lastIndexOf(dataValueOutDay2[dataValueOutDay2.length - 1])
-  let indexInDay2 = scoresInDay2.lastIndexOf(dataValueInDay2[dataValueInDay2.length - 1])
-
-  if (indexOutDay1 === -1 && indexInDay1 === -1 && indexOutDay2 === -1 && indexInDay2 === -1) return '-' // just started
-  if ((indexOutDay1 + indexInDay1) === 16 && (indexOutDay2 + indexInDay2) === 16) return 'F' // finished all with various scores
-  if ((indexOutDay1 + indexInDay1) === 16 && indexOutDay2 === -1 && indexInDay2 === -1) return 'F' // finished day1
-
-  if ((indexOutDay1 + indexInDay1) === 16) { // finished day1
-    if (indexInDay2 === 8 && indexOutDay2 === -1) return 18 // and finish In day2 and no score Out day2
-    else if (indexInDay2 === 8 && indexOutDay2 !== -1) return indexOutDay2 + 1// and finish In day2 and have score Out day2
-    else if (indexInDay2 !== -1) return indexInDay2 + 10// and have score In day2
-    else return indexOutDay2 + 1 // and have score Out day1
+  const findLastHole = (scoresOut, scoresIn) => {
+    if (scoresIn.every(s => s === 0)) return scoresOut.filter(s => s !== 0).length
+    if (scoresIn.every(s => s !== 0) && scoresOut.every(s => s === 0)) return 18
+    if (scoresIn.every(s => s !== 0)) return scoresOut.filter(s => s !== 0).length
+    return scoresIn.filter(s => s !== 0).length + 9
   }
 
-  if (indexInDay1 === 8 && indexOutDay1 === -1) return 18 // finish In day1 and no score Out day1
-  else if (indexInDay1 === 8 && indexOutDay1 !== -1) return indexOutDay1 + 1 // finish In day1 and have score Out day1
-  else if (indexInDay1 !== -1) return indexInDay1 + 10// finish In day1 and have score Out day1
-  else return indexOutDay1 + 1 // have score Out day1
+  const scoresOutDay1 = scoresDay1.slice(0, 9)
+  const scoresInDay1 = scoresDay1.slice(9, 18)
+  const scoresOutDay2 = scoresDay2.slice(0, 9)
+  const scoresInDay2 = scoresDay2.slice(9, 18)
+
+  if (scoresDay2.every(s => s === 0)) {
+    return findLastHole(scoresOutDay1, scoresInDay1) + ''
+  }
+  return findLastHole(scoresOutDay2, scoresInDay2) + ''
 }
 
 export const rankPlayers = (players) => {
