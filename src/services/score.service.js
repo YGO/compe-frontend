@@ -39,8 +39,8 @@ export const calcTotals = (scoresDay1, scoresDay2) => {
 export const calcTHRU = (scoresDay1, scoresDay2, retired) => {
   if (retired) return 'F'
   if (scoresDay1.every(s => s === 0) && scoresDay2.every(s => s === 0)) return '-'
-  if (scoresDay1.every(s => s > 0) && scoresDay2.every(s => s > 0)) return 'F'
-  if (scoresDay1.every(s => s > 0) && scoresDay2.every(s => s === 0)) return 'F'
+  if (scoresDay1.every(s => s > 0) && scoresDay2.every(s => s > 0)) return 'Day2 - F'
+  if (scoresDay1.every(s => s > 0) && scoresDay2.every(s => s === 0)) return 'Day1 - F'
 
   const findLastHole = (scoresOut, scoresIn) => {
     if (scoresIn.every(s => s === 0)) return scoresOut.filter(s => s !== 0).length
