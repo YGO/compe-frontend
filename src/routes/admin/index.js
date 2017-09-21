@@ -1,4 +1,4 @@
-import PlayersRoute from './players'
+import PlayersRoute from './player'
 import BaseLayout from '../../layouts/base-layout.component'
 
 export const createRoutes = (store) => ({

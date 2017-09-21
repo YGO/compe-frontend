@@ -8,7 +8,7 @@ import {
 } from '../modules/player.module'
 import { calcTotals } from '../../../../services/score.service'
 import { connect } from 'react-redux'
-import style from './player.style'
+import style from './player.styles'
 
 const mapDispatchToProps = dispatch => {
   return {

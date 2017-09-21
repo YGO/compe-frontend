@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { editPlayer } from '../modules/player.module'
 import { calcTotals } from '../../../../services/score.service'
-import style from './player.style'
+import style from './player.styles'
 
 const mapDispatchToProps = dispatch => ({
   editPlayer: (id) => {

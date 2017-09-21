@@ -1,6 +1,6 @@
 import React from 'react'
 import Radium from 'radium'
-import PlayerList from './leaderboard-list.component'
+import LeadersBoardMain from './leadersboard-main.component'
 import ScoreToggler from './score-toggler.component'
 import lineBtnImg from '../assets/linebutton_82x20.png'
 import pgaLogoImg from '../assets/pga-logo.png'
@@ -8,9 +8,8 @@ import gnIconImg from '../assets/gn_icon.png'
 import appStoreImg from '../assets/appstore.svg'
 import playStoreImg from '../assets/google_play.png'
 import Helmet from 'react-helmet/es/Helmet'
-import headerImg from '../assets/banner.jpg'
 import { alignCenter, alignLeft } from '../../common.styles'
-import { colors } from './leaderboard.colors'
+import { style } from './leadersboard-index.styles'
 
 let SHARE_URL
 if (process.env.NODE_ENV === 'development') {
@@ -21,8 +20,8 @@ if (process.env.NODE_ENV === 'development') {
 
 const YOUTUBE_URL = 'https://www.youtube.com/embed/vkHwUXWMDus?autoplay=1'
 
-const PlayerIndex = () => (
-  <div style={[{backgroundColor: colors.gray}]}>
+const LeadersBoardIndex = () => (
+  <div style={[style.self]}>
     <Helmet>
       <title>第19回 PGAティーチングプロ選手権大会</title>
     </Helmet>
@@ -40,7 +39,6 @@ const PlayerIndex = () => (
           </div>
         </div>
       </div>
-
     </header>
 
     <div className='container-fluid' style={[style.container]}>
@@ -86,8 +84,8 @@ const PlayerIndex = () => (
         </div>
       </section>
 
-      <section id='leaders-board' style={[style.section]}>
-        <PlayerList/>
+      <section id='main' style={[style.section]}>
+        <LeadersBoardMain/>
       </section>
 
       <section id='comments' style={[style.section]}>
@@ -114,8 +112,7 @@ const PlayerIndex = () => (
             このリーダーズボードは、国内ダウンロード数No.1の無料スコア管理アプリ ゴルフネットワークプラス のコンペ機能で提供しています
           </div>
         </div>
-        <div className='row pl-3 pr-3 pb-3'
-             style={[style.footer.row]}>
+        <div className='row pl-3 pr-3 pb-3' style={[style.footer.row]}>
           <div className='col mr-auto'>
             <img src={gnIconImg} alt='GN+' className='mr-2 float-left'
                  style={[style.footer.gnIcon]}/>
@@ -141,56 +138,5 @@ const PlayerIndex = () => (
   </div>
 )
 
-const style = {
-  header: {
-    self: {
-      position: 'relative',
-    },
-    bg: {
-      backgroundImage: `url(${headerImg})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      height: '260px',
-      color: colors.white,
-      filter: 'blur(5px)',
-    },
-    main: {
-      position: 'absolute',
-      top: '0',
-      color: 'white',
-      backgroundColor: 'transparent',
-      height: '260px',
-    },
-  },
-  buttons: {
-    lineBtn: {
-      width: '82px',
-      height: '20px',
-    },
-  },
-  footer: {
-    self: {
-      color: colors.white,
-    },
-    row: {
-      backgroundColor: '#a6a6a6'
-    },
-    gnIcon: {
-      width: '60px',
-      height: '60px',
-    },
-    marketIcon: {
-      width: '120px',
-      height: '36px',
-    },
-  },
-  section: {
-    marginTop: '16px',
-  },
-  container: {
-    maxWidth: '960px',
-  },
-}
-
 // noinspection JSUnusedGlobalSymbols
-export default Radium(PlayerIndex)
+export default Radium(LeadersBoardIndex)

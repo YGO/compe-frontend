@@ -2,7 +2,7 @@ import DaySelector from './day-selector.component'
 import React from 'react'
 import holes from '../../../../data/holes'
 import PlayerList from './player-list.component'
-import style from './player.style'
+import style from './player.styles'
 import Helmet from 'react-helmet/es/Helmet'
 
 const PlayerIndex = () => (

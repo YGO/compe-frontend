@@ -1,5 +1,5 @@
 import { alignCenter} from '../../common.styles'
-import { colors } from './leaderboard.colors'
+import { colors } from './leadersboard.colors'
 
 const cellBase = {
   ...alignCenter,
