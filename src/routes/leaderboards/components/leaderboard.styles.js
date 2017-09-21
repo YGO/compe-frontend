@@ -1,51 +1,13 @@
-import headerImg from '../assets/banner.jpg'
+import { alignCenter} from '../../common.styles'
+import { colors } from './leaderboard.colors'
 
-const alignCenter = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}
 const cellBase = {
   ...alignCenter,
   borderRight: '1px solid #ccc',
   padding: '4px',
 }
-const colors = {
-  accent: '#01a5a3',
-  gray: '#eee',
-  darkGray: '#ccc',
-  white: '#fff',
-  score: {
-    overDoubleBogey: '#3a3a3a',
-    doubleBogey: '#215605',
-    bogey: '#043377',
-    par: '#05a2d3',
-    birdie: '#f7931e',
-    underBirdie: '#fc1a3a',
-  },
-  rank: {
-    gold: '#f89406',
-    silver: '#999',
-    bronze: '#b94a48',
-    others: '#333',
-  },
-}
 
 const style = {
-  header: {
-    backgroundImage: `url(${headerImg})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    height: '260px',
-    color: colors.white,
-    filter: 'blur(5px)',
-  },
-  container: {
-    maxWidth: '960px',
-  },
-  section: {
-    marginTop: '16px',
-  },
   headerRow: {
     backgroundColor: colors.accent,
     borderLeft: `4px solid ${colors.accent}`,
@@ -80,20 +42,6 @@ const style = {
   scoreCellTotal: {
     textAlign: 'center',
     width: '52px',
-  },
-  white: {
-    backgroundColor: colors.white,
-  },
-  gray: {
-    backgroundColor: colors.gray,
-  },
-  transparent: {
-    backgroundColor: 'transparent',
-  },
-  alignCenter: alignCenter,
-  alignLeft: {
-    ...alignCenter,
-    justifyContent: 'flex-start',
   },
   score: score => {
     if (score > 2) {
@@ -150,10 +98,6 @@ const style = {
       backgroundColor: colors.rank.others
     }
   },
-  lineBtn: {
-    width: '82px',
-    height: '20px',
-  }
 }
 
 export default style

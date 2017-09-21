@@ -24,8 +24,6 @@ const style = {
   daySelectorRow: {
     marginBottom: '8px',
   }
-
-  
 }
 
 export default style
