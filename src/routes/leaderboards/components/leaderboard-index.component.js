@@ -29,10 +29,6 @@ const PlayerIndex = () => (
   <div style={style.gray}>
     <Helmet>
       <title>第19回 PGAティーチングプロ選手権大会</title>
-      <meta property='og:title' content='第19回 PGAティーチングプロ選手権大会' />
-      <meta property='og:type' content='article' />
-      <meta property='og:url' content={SHARE_URL} />
-      <meta property='og:image' content='https://livescore.golfnetwork.plus/ogp.jpg' />
     </Helmet>
 
     <header style={{position: 'relative'}}>
