@@ -16,7 +16,7 @@ const holes = [
   },
   {
     'hole_num': 4,
-    'yard': 403,
+    'yard': 162,
     'par': 3
   },
   {
