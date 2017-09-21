@@ -15,7 +15,7 @@ export const calcTotals = (scoresDay1, scoresDay2) => {
   const totalScoreDay1 = totalStrokesDay1 - totalParDay1
   const totalScoreDay2 = totalStrokesDay2 - totalParDay2
   const totalScore = totalScoreDay1 + totalScoreDay2
-
+  
   return {
     totalStrokesDay1: totalStrokesDay1,
     totalStrokesDay2: totalStrokesDay2,
@@ -58,9 +58,8 @@ export const   calcTHRU = (scoresDay1,scoresDay2,retired) =>{
 
   if(indexInDay1===8 && indexOutDay1 === -1) return 18 //finish In day1 and no score Out day1
   else if(indexInDay1===8 && indexOutDay1 !== -1) return indexOutDay1 + 1 //finish In day1 and have score Out day1
-  else if(indexInDay1 !== -1) return indexOutDay1 + 1//finish In day1 and have score Out day1
+  else if(indexInDay1 !== -1) return indexInDay1 + 10//finish In day1 and have score Out day1
   else return indexOutDay1 + 1 //have score Out day1
-
 
 }
 export const calcTotalForListAndSort = (list) => {
