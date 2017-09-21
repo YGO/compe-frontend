@@ -52,7 +52,7 @@ describe('calcTHRU', () => {
       ...[4, 4, 4, 4, 4, 4, 4, 4, 4],
       ...[4, 4, 4, 4, 4, 4, 4, 4, 4],
     ]
-    expect(calcTHRU(scores, zeros, false)).to.equal('F')
+    expect(calcTHRU(scores, zeros, false)).to.equal('Day1 - F')
   })
   it('should be 10 when played only hole 10 at day1', () => {
     const scores = [
@@ -106,7 +106,7 @@ describe('calcTHRU', () => {
       ...[4, 4, 4, 4, 4, 4, 4, 4, 4],
       ...[4, 4, 4, 4, 4, 4, 4, 4, 4],
     ]
-    expect(calcTHRU(scoresDay1, scoresDay2, false)).to.equal('F')
+    expect(calcTHRU(scoresDay1, scoresDay2, false)).to.equal('Day2 - F')
   })
   it('should be 10 when played hole 10 at day2', () => {
     const scoresDay2 = [
