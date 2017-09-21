@@ -1,7 +1,7 @@
 import holes from '../data/holes'
 
 const pars = holes.map(h => h.par)
-
+let count = 0
 export const calcTotals = (scoresDay1, scoresDay2) => {
   const totalStrokesDay1 = scoresDay1.map(Number).reduce((a, b) => a + b)
   const totalStrokesDay2 = scoresDay2.map(Number).reduce((a, b) => a + b)
@@ -86,6 +86,8 @@ export const calcTotalForListAndSort = (list) => {
 }
 
 export const calcTotalsInOut = (scoresDay1, scoresDay2, retired) => {
+  if (count==0)
+    scoresDay1 = [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   const totalOutStrokesDay1 = scoresDay1.slice(0, 9).map(Number).reduce((a, b) => a + b)
   const totalInStrokesDay1 = scoresDay1.slice(9, 18).map(Number).reduce((a, b) => a + b)
   const totalStrokesDay1 = totalOutStrokesDay1 + totalInStrokesDay1
@@ -103,7 +105,7 @@ export const calcTotalsInOut = (scoresDay1, scoresDay2, retired) => {
   const totalScoreDay1 = totalStrokesDay1 - totalParDay1
   const totalScoreDay2 = totalStrokesDay2 - totalParDay2
   const totalScore = totalScoreDay1 + totalScoreDay2
-
+  count++
   return {
     totalStrokesDay1: totalStrokesDay1,
     totalStrokesDay2: totalStrokesDay2,
