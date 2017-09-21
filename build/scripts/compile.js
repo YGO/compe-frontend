@@ -37,6 +37,10 @@ const compile = () => Promise.resolve()
       path.resolve(project.basePath, 'public'),
       path.resolve(project.basePath, project.outDir)
     )
+    logger.info(`Copying index.html to ./${project.outDir}/pgateaching_201709/index.html.`)
+    fs.mkdirSync(`${project.outDir}/pgateaching_201709`)
+    fs.copySync(`${project.outDir}/index.html`, `${project.outDir}/pgateaching_201709/index.html`)
+
     return stats
   })
   .then((stats) => {
