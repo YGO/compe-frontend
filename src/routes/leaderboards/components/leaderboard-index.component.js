@@ -12,12 +12,12 @@ import Helmet from 'react-helmet/es/Helmet'
 
 let SHARE_URL
 if (process.env.NODE_ENV === 'development') {
-  SHARE_URL = 'https://asyridxcpg.localtunnel.me/pgateaching_201709'
+  SHARE_URL = 'https://asyridxcpg.localtunnel.me/pgateaching_201709/'
 } else {
-  SHARE_URL = 'https://livescore.golfnetwork.plus/pgateaching_201709'
+  SHARE_URL = 'https://livescore.golfnetwork.plus/pgateaching_201709/'
 }
 
-let YOUTUBE_URL ='https://www.youtube.com/embed/oYIv--9zKXs?autoplay=1'
+let YOUTUBE_URL = 'https://www.youtube.com/embed/oYIv--9zKXs?autoplay=1'
 
 const PlayerIndex = () => (
   <div style={style.gray}>
@@ -82,7 +82,7 @@ const PlayerIndex = () => (
           </div>
           <div className='col-auto p-0 pl-1'>
             <a
-              href='http://line.me/R/msg/text/?http%3A%2F%2Flivescore.golfnetwork.plus%2Fpgateaching_201709'>
+              href={`http://line.me/R/msg/text/?${encodeURIComponent(SHARE_URL)}`}>
               <img src={lineBtnImg} alt='LINE' style={style.lineBtn}/>
             </a>
           </div>
