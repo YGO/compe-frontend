@@ -8,6 +8,7 @@ import pgaLogoImg from '../assets/pga-logo.png'
 import gnIconImg from '../assets/gn_icon.png'
 import appStoreImg from '../assets/appstore.svg'
 import playStoreImg from '../assets/google_play.png'
+import ogpStoreImg from '../assets/teachingpro_ogp.jpg'
 import Helmet from 'react-helmet/es/Helmet'
 
 let SHARE_URL
@@ -18,8 +19,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 let YOUTUBE_URL
-let d1 = new Date()
-if ((d1.getDate() === 21) && (d1.getMonth()+1 === 9) && (d1.getFullYear() === 2017)){
+let currentDay = new Date()
+if ((currentDay.getDate() === 21) && (currentDay.getMonth()+1 === 9) && (currentDay.getFullYear() === 2017)){
   YOUTUBE_URL = 'https://www.youtube.com/embed/u-Wc9OaX5R4?autoplay=1'
 } else {
   YOUTUBE_URL ='https://www.youtube.com/embed/oYIv--9zKXs?autoplay=1'
@@ -29,6 +30,10 @@ const PlayerIndex = () => (
   <div style={style.gray}>
     <Helmet>
       <title>第19回 PGAティーチングプロ選手権大会</title>
+      <meta property='og:image' content={ogpStoreImg} />
+      <meta property='og:title' content='第19回 PGAティーチングプロ選手権大会' />      
+      <meta property='og:type' content='article' />
+      <meta property='og:url' content={SHARE_URL} />
     </Helmet>
 
     <header style={{position: 'relative'}}>
