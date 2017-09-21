@@ -43,15 +43,9 @@ export const calcTHRU = (scoresDay1, scoresDay2, retired) => {
   if (scoresDay1.every(s => s > 0) && scoresDay2.every(s => s === 0)) return 'F'
 
   const findLastHole = (scoresOut, scoresIn) => {
-    if (scoresIn.every(s => s === 0)) {
-      return scoresOut.filter(s => s !== 0).length
-    }
-    if (scoresIn.every(s => s !== 0) && scoresOut.every(s => s === 0)) {
-      return 18
-    }
-    if (scoresIn.every(s => s !== 0)) {
-      return scoresOut.filter(s => s !== 0).length
-    }
+    if (scoresIn.every(s => s === 0)) return scoresOut.filter(s => s !== 0).length
+    if (scoresIn.every(s => s !== 0) && scoresOut.every(s => s === 0)) return 18
+    if (scoresIn.every(s => s !== 0)) return scoresOut.filter(s => s !== 0).length
     return scoresIn.filter(s => s !== 0).length + 9
   }
 
