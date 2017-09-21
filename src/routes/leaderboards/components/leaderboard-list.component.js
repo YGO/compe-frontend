@@ -2,14 +2,23 @@ import { connect } from 'react-redux'
 import React from 'react'
 import Radium from 'radium'
 import PropTypes from 'prop-types'
-import { calcTotalForListAndSort } from '../../../services/score.service'
 import style from './leaderboard.style'
 import PlayerShow from './leaderboard-show.component'
+import {
+  addTHRU,
+  addTotals,
+  rankPlayers
+} from '../../../services/score.service'
 
 const mapDispatchToProps = {}
 const mapStateToProps = state => {
+  const players = state.leaderBoards.players
+    .map(addTotals)
+    .map(addTHRU)
+  const rankedPlayers = rankPlayers(players)
+
   return {
-    players: calcTotalForListAndSort(state.leaderBoards.players),
+    players: rankedPlayers.sort((a, b) => a.rank > b.rank ? 1 : -1)
   }
 }
 

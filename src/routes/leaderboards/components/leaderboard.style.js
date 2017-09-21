@@ -131,17 +131,17 @@ const style = {
     }
   },
   rankBadge: rank => {
-    if (rank === '1') {
+    if (rank === 1) {
       return {
         backgroundColor: colors.rank.gold
       }
     }
-    if (rank === '2') {
+    if (rank === 2) {
       return {
         backgroundColor: colors.rank.silver
       }
     }
-    if (rank === '3') {
+    if (rank === 3) {
       return {
         backgroundColor: colors.rank.bronze
       }
