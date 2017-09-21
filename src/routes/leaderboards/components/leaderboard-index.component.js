@@ -17,6 +17,14 @@ if (process.env.NODE_ENV === 'development') {
   SHARE_URL = 'https://livescore.golfnetwork.plus/pgateaching_201709'
 }
 
+let YOUTUBE_URL
+let currentDay = new Date()
+if ((currentDay.getDate() === 21) && (currentDay.getMonth()+1 === 9) && (currentDay.getFullYear() === 2017)){
+  YOUTUBE_URL = 'https://www.youtube.com/embed/u-Wc9OaX5R4?autoplay=1'
+} else {
+  YOUTUBE_URL ='https://www.youtube.com/embed/oYIv--9zKXs?autoplay=1'
+}
+
 const PlayerIndex = () => (
   <div style={style.gray}>
     <Helmet>
@@ -51,7 +59,7 @@ const PlayerIndex = () => (
         <div className='row'>
           <div className='col-12' style={style.alignCenter}>
             <iframe className='youtubesize' width='560' height='315'
-                    src='https://www.youtube.com/embed/cr0X-LO8Hto?autoplay=1'
+                    src={YOUTUBE_URL}
                     frameBorder='0' allowFullScreen=''/>
           </div>
         </div>
