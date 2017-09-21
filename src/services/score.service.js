@@ -62,7 +62,7 @@ export const calcTHRU = (scoresDay1, scoresDay2, retired) => {
 }
 export const calcTotalForListAndSort = (list) => {
   let lastScore = 0
-  let rank = 0
+  let rank = 1
   let listWithTotal = calcTotalForList(list)
   listWithTotal = listWithTotal.sort(function (a, b) {
     const k1 = `retired`
