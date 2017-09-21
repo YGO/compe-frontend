@@ -7,8 +7,6 @@ import style from './leaderboard.style'
 
 const mapDispatchToProps = dispatch => ({})
 
-const pars = holes.map(h => h.par)
-
 const scoreToStr = score => {
   const s = Number(score)
   if (s === 0) return '-'
@@ -16,7 +14,7 @@ const scoreToStr = score => {
   return String(s)
 }
 
-const strokeToScore = (stroke, idx) => {
+const strokeToScore = (pars) => (stroke, idx) => {
   if (stroke === 0) return null
   return stroke - pars[idx]
 }
@@ -26,7 +24,39 @@ const rankToStr = (rank, retired) => {
   return String(rank)
 }
 
-// noinspection JSPotentiallyInvalidConstructorUsage
+@Radium
+class ScoreTable extends React.Component {
+  render () {
+    const pars = this.props.holes.map(h => h.par)
+
+    return (
+      <table className='table table-bordered table-sm mb-0'
+             style={[style.gray]}>
+        <thead>
+        <tr>
+          {this.props.holes.map(h =>
+            <th key={`ScoreTable-h${h.hole_num}`}
+                style={[style.holeCell]}>{h.hole_num}</th>
+          )}
+          <th style={[style.scoreCellTotal]}>{this.props.label}
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          {this.props.strokes.map(strokeToScore(pars)).map((s, idx) =>
+            <td key={`ScoreTable-s${idx}`}
+                style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
+          )}
+          <td
+            style={[style.scoreCellTotal]}>{this.props.strokes.reduce((a, b) => a + b)}</td>
+        </tr>
+        </tbody>
+      </table>
+    )
+  }
+}
+
 const PlayerShow = ({
                       // props
                       id,
@@ -34,19 +64,9 @@ const PlayerShow = ({
                       retired,
                       scores_day1,
                       scores_day2,
-                      totalStrokesDay1,
-                      totalStrokesDay2,
-                      totalOutStrokesDay1,
-                      totalOutStrokesDay2,
-                      totalInStrokesDay1,
-                      totalInStrokesDay2,
-                      totalStrokes,
-                      totalScoreDay1,
-                      totalScoreDay2,
                       totalScore,
                       rank,
                       thru
-                      // actions
                     }) => (
 
   <div className='row' style={style.playerRow}>
@@ -64,117 +84,35 @@ const PlayerShow = ({
       <div id={`player-${id}`} className='row collapse scores'>
         <div className='col-12'>
           <div className='row' style={style.borderBottom}>
-            <div className='col-2' style={[style.cell]}>1日目
-            </div>
+            <div className='col-2' style={[style.cell]}>1日目</div>
             <div className='col-10' style={[style.white]}>
               <div className='row'>
                 <div className='col m-0 p-0 pt-1 pb-1'>
-                  <table className='table table-bordered table-sm mb-0'
-                         style={[style.gray]}>
-                    <thead>
-                    <tr>
-                      {Array(9).fill().map((_, idx) =>
-                        <th key={`PlayerShow-h${idx}`}
-                            style={[style.holeCell]}>{idx + 1}</th>
-                      )}
-                      <th style={[style.scoreCellTotal]}>OUT
-                      </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      {scores_day1.slice(0, 9).map(strokeToScore).map((s, idx) =>
-                        <td key={`PlayerShow-p${id}-h${idx}-out-d1`}
-                            style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
-                      )}
-                      <td
-                        style={[style.scoreCellTotal]}>{totalOutStrokesDay1}</td>
-                    </tr>
-                    </tbody>
-                  </table>
+                  <ScoreTable strokes={scores_day1.slice(0, 9)}
+                              holes={holes.slice(0, 9)}
+                              label='OUT'/>
                 </div>
                 <div className='col m-0 p-0 pt-1 pb-1'>
-                  <table className='table table-bordered table-sm mb-0'
-                         style={[style.gray]}>
-                    <thead>
-                    <tr>
-                      {Array(9).fill().map((_, idx) =>
-                        <th key={`PlayerShow-h${idx}`}
-                            style={[style.holeCell]}>{idx + 10}</th>
-                      )}
-                      <th style={[style.scoreCellTotal]}>IN
-                      </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      {scores_day1.slice(9, 18).map((s, idx) => strokeToScore(s, idx + 9)).map((s, idx) =>
-                        <td key={`PlayerShow-p${id}-h${idx}-in-d1`}
-                            style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
-                      )}
-                      <td
-                        style={[style.scoreCellTotal]}>{totalInStrokesDay1}</td>
-                    </tr>
-                    </tbody>
-                  </table>
+                  <ScoreTable strokes={scores_day1.slice(9, 18)}
+                              holes={holes.slice(9, 18)}
+                              label='IN'/>
                 </div>
               </div>
             </div>
           </div>
           <div className='row'>
-            <div className='col-2' style={[style.cell]}>2日目
-            </div>
+            <div className='col-2' style={[style.cell]}>2日目</div>
             <div className='col-10' style={[style.white]}>
               <div className='row'>
                 <div className='col m-0 p-0 pt-1 pb-1'>
-                  <table className='table table-bordered table-sm mb-0'
-                         style={[style.gray]}>
-                    <thead>
-                    <tr>
-                      {Array(9).fill().map((_, idx) =>
-                        <th key={`PlayerShow-h${idx}`}
-                            style={[style.holeCell]}>{idx + 1}</th>
-                      )}
-                      <th style={[style.scoreCellTotal]}>OUT
-                      </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      {scores_day2.slice(0, 9).map(strokeToScore).map((s, idx) =>
-                        <td key={`PlayerShow-p${id}-h${idx}-out-d2`}
-                            style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
-                      )}
-                      <td
-                        style={[style.scoreCellTotal]}>{totalOutStrokesDay2}</td>
-                    </tr>
-                    </tbody>
-                  </table>
+                  <ScoreTable strokes={scores_day2.slice(0, 9)}
+                              holes={holes.slice(0, 9)}
+                              label='OUT'/>
                 </div>
                 <div className='col m-0 p-0 pt-1 pb-1'>
-                  <table className='table table-bordered table-sm mb-0'
-                         style={[style.gray]}>
-                    <thead>
-                    <tr>
-                      {Array(9).fill().map((_, idx) =>
-                        <th key={`PlayerShow-h${idx}`}
-                            style={[style.holeCell]}>{idx + 10}</th>
-                      )}
-                      <th style={[style.scoreCellTotal]}>IN
-                      </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      {scores_day2.slice(9, 18).map((s, idx) => strokeToScore(s, idx + 9)).map((s, idx) =>
-                        <td key={`PlayerShow-p${id}-h${idx}-in-d2`}
-                            style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
-                      )}
-                      <td
-                        style={[style.scoreCellTotal]}>{totalInStrokesDay2}</td>
-                    </tr>
-                    </tbody>
-                  </table>
+                  <ScoreTable strokes={scores_day2.slice(9, 18)}
+                              holes={holes.slice(9, 18)}
+                              label='IN'/>
                 </div>
               </div>
             </div>
@@ -185,22 +123,19 @@ const PlayerShow = ({
   </div>
 )
 
+ScoreTable.propTypes = {
+  strokes: PropTypes.array.isRequired,
+  holes: PropTypes.array.isRequired,
+  label: PropTypes.string.isRequired,
+}
+
 PlayerShow.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   retired: PropTypes.bool.isRequired,
   scores_day1: PropTypes.array.isRequired,
   scores_day2: PropTypes.array.isRequired,
-  totalStrokesDay1: PropTypes.number.isRequired,
-  totalStrokesDay2: PropTypes.number.isRequired,
-  totalStrokes: PropTypes.number.isRequired,
-  totalScoreDay1: PropTypes.number.isRequired,
-  totalScoreDay2: PropTypes.number.isRequired,
   totalScore: PropTypes.number.isRequired,
-  totalOutStrokesDay1: PropTypes.number.isRequired,
-  totalOutStrokesDay2: PropTypes.number.isRequired,
-  totalInStrokesDay1: PropTypes.number.isRequired,
-  totalInStrokesDay2: PropTypes.number.isRequired,
   rank: PropTypes.number.isRequired,
   thru: PropTypes.string.isRequired,
 }
