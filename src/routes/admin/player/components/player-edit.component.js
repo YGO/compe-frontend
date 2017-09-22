@@ -1,11 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  cancelEdit,
-  changeRetired,
-  changeScore,
-  savePlayer
-} from '../modules/player.module'
+import { cancelEdit, changeRetired, changeScore, savePlayer } from '../modules/player.module'
 import { calcTotals } from '../../../../services/score.service'
 import { connect } from 'react-redux'
 import style from './player.styles'

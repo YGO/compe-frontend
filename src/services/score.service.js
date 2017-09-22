@@ -63,4 +63,3 @@ export const rankPlayers = (players) => {
     rank: ranks[idx],
   }))
 }
-

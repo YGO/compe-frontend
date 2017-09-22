@@ -18,4 +18,3 @@ export const colors = {
     others: '#333',
   },
 }
-
