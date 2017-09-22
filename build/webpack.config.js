@@ -50,6 +50,7 @@ const config = {
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
   ],
 }
 
