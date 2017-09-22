@@ -1,5 +1,4 @@
 import React from 'react'
-import Radium from 'radium'
 import jQuery from 'jquery'
 
 class ScoreToggler extends React.Component {
@@ -34,4 +33,4 @@ class ScoreToggler extends React.Component {
   }
 }
 
-export default Radium(ScoreToggler)
+export default ScoreToggler

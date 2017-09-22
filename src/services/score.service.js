@@ -33,10 +33,10 @@ export const calcTHRU = (scoresDay1, scoresDay2, retired) => {
   if (scoresDay1.every(s => s > 0) && scoresDay2.every(s => s === 0)) return 'Day1 - F'
 
   const findLastHole = (scoresOut, scoresIn) => {
-    if (scoresIn.every(s => s === 0)) return scoresOut.filter(s => s !== 0).length
-    if (scoresIn.every(s => s !== 0) && scoresOut.every(s => s === 0)) return 18
-    if (scoresIn.every(s => s !== 0)) return scoresOut.filter(s => s !== 0).length
-    return scoresIn.filter(s => s !== 0).length + 9
+    if (scoresIn.every(s => s === 0)) return scoresOut.filter(s => s > 0).length
+    if (scoresIn.every(s => s > 0) && scoresOut.every(s => s === 0)) return 18
+    if (scoresIn.every(s => s > 0)) return scoresOut.filter(s => s > 0).length
+    return scoresIn.filter(s => s > 0).length + 9
   }
 
   const scoresOutDay1 = scoresDay1.slice(0, 9)
@@ -64,16 +64,3 @@ export const rankPlayers = (players) => {
   }))
 }
 
-export const addTotals = player => {
-  return {
-    ...player,
-    ...calcTotals(player.scores_day1, player.scores_day2),
-  }
-}
-
-export const addTHRU = player => {
-  return {
-    ...player,
-    thru: calcTHRU(player.scores_day1, player.scores_day2, player.retired)
-  }
-}

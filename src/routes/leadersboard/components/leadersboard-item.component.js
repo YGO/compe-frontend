@@ -3,9 +3,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
 import holes from '../../../data/holes'
-import style from './leaderboard.styles'
+import style from './leadersboard-main.styles'
 import { alignLeft } from '../../common.styles'
-import { colors } from './leaderboard.colors'
+import { colors } from './leadersboard.colors'
 
 const mapDispatchToProps = dispatch => ({})
 
@@ -59,7 +59,7 @@ class ScoreTable extends React.Component {
   }
 }
 
-const PlayerShow = ({
+const LeadersBoardItem = ({
                       // props
                       id,
                       name,
@@ -131,7 +131,7 @@ ScoreTable.propTypes = {
   label: PropTypes.string.isRequired,
 }
 
-PlayerShow.propTypes = {
+LeadersBoardItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   retired: PropTypes.bool.isRequired,
@@ -142,4 +142,4 @@ PlayerShow.propTypes = {
   thru: PropTypes.string.isRequired,
 }
 
-export default connect(null, mapDispatchToProps)(Radium(PlayerShow))
+export default connect(null, mapDispatchToProps)(Radium(LeadersBoardItem))
