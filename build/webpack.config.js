@@ -163,9 +163,6 @@ config.module.rules.push({
           progressive: true,
           quality: 65
         },
-        webp: {
-          quality: 75
-        }
       }
     }
   ]
