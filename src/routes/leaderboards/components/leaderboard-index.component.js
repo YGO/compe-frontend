@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'development') {
   SHARE_URL = 'https://livescore.golfnetwork.plus/pgateaching_201709/'
 }
 
-let YOUTUBE_URL = 'https://www.youtube.com/embed/oYIv--9zKXs?autoplay=1'
+let YOUTUBE_URL = 'https://www.youtube.com/embed/vkHwUXWMDus?autoplay=1'
 
 const PlayerIndex = () => (
   <div style={style.gray}>
