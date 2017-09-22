@@ -4,6 +4,7 @@ import holes from '../../../../data/holes'
 import PlayerList from './player-list.component'
 import style from './player.styles'
 import Helmet from 'react-helmet/es/Helmet'
+import { Link } from 'react-router'
 
 // noinspection JSUnusedGlobalSymbols
 const PlayerIndex = () => (
@@ -20,7 +21,7 @@ const PlayerIndex = () => (
         <div className='col-auto'>
           <dl>
             <dt>大会名</dt>
-            <dd><a href='/pgateaching_201709'>第19回 PGAティーチングプロ選手権大会</a></dd>
+            <dd><Link to='/pgateaching_201709'>第19回 PGAティーチングプロ選手権大会</Link></dd>
             <dt>ゴルフ場</dt>
             <dd>登別カントリー倶楽部</dd>
             <dt>開催日</dt>
