@@ -39,7 +39,7 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin(Object.assign({
-      'process.env': { NODE_ENV: JSON.stringify(project.env) },
+      'process.env': {NODE_ENV: JSON.stringify(project.env)},
       __DEV__,
       __TEST__,
       __PROD__,
@@ -120,7 +120,7 @@ config.module.rules.push({
               browsers: ['last 2 versions'],
             },
             discardComments: {
-              removeAll : true,
+              removeAll: true,
             },
             discardUnused: false,
             mergeIdents: false,
@@ -138,11 +138,37 @@ config.plugins.push(extractStyles)
 // Images
 // ------------------------------------
 config.module.rules.push({
-  test    : /\.(png|jpg|gif)$/,
-  loader  : 'url-loader',
-  options : {
-    limit : 8192,
-  },
+  test: /\.(png|jpg|gif)$/,
+  use: [
+    {
+      loader: 'url-loader',
+      options: {
+        limit: 8192,
+      },
+    },
+    {
+      loader: 'image-webpack-loader',
+      options: {
+        gifsicle: {
+          interlaced: false,
+        },
+        optipng: {
+          optimizationLevel: 7,
+        },
+        pngquant: {
+          quality: '65-90',
+          speed: 4
+        },
+        mozjpeg: {
+          progressive: true,
+          quality: 65
+        },
+        webp: {
+          quality: 75
+        }
+      }
+    }
+  ]
 })
 
 // Fonts
@@ -159,11 +185,11 @@ config.module.rules.push({
   const mimetype = font[1]
 
   config.module.rules.push({
-    test    : new RegExp(`\\.${extension}$`),
-    loader  : 'url-loader',
-    options : {
-      name  : 'fonts/[name].[ext]',
-      limit : 10000,
+    test: new RegExp(`\\.${extension}$`),
+    loader: 'url-loader',
+    options: {
+      name: 'fonts/[name].[ext]',
+      limit: 10000,
       mimetype,
     },
   })
@@ -200,7 +226,7 @@ if (!__TEST__) {
     bundles.unshift('vendor')
     config.entry.vendor = project.vendors
   }
-  config.plugins.push(new webpack.optimize.CommonsChunkPlugin({ names: bundles }))
+  config.plugins.push(new webpack.optimize.CommonsChunkPlugin({names: bundles}))
 }
 
 // Production Optimizations
