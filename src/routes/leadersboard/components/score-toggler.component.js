@@ -2,11 +2,20 @@ import React from 'react'
 import jQuery from 'jquery'
 
 class ScoreToggler extends React.Component {
+  constructor () {
+    super()
+    this.state = {
+      isOpened: false,
+    }
+  }
+
   show = () => {
+    this.setState({isOpened: true})
     jQuery('.scores').collapse('show')
   }
 
   hide = () => {
+    this.setState({isOpened: false})
     jQuery('.scores').collapse('hide')
   }
 
@@ -18,14 +27,14 @@ class ScoreToggler extends React.Component {
           <label className='form-check-label'>
             <input className='form-check-input' type='radio'
                    name='toggleOptions'
-                   onChange={this.show}/> 表示
+                   onChange={this.show} checked={this.state.isOpened}/> 表示
           </label>
         </div>
         <div className='form-check form-check-inline'>
           <label className='form-check-label'>
             <input className='form-check-input' type='radio'
                    name='toggleOptions'
-                   onChange={this.hide} defaultChecked/> 非表示
+                   onChange={this.hide} checked={!this.state.isOpened}/> 非表示
           </label>
         </div>
       </div>
