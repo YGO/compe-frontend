@@ -10,6 +10,6 @@ export default (store) => ({
       injectReducer(store, {key: 'leadersBoard', reducer})
       fetchPlayers()(store.dispatch)
       cb(null, PlayerIndex)
-    }, 'players')
+    }, 'pgateaching_201709')
   }
 })
