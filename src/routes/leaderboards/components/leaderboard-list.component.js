@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import React from 'react'
 import Radium from 'radium'
 import PropTypes from 'prop-types'
-import style from './leaderboard.style'
+import style from './leaderboard.styles'
 import PlayerShow from './leaderboard-show.component'
 import {
   addTHRU,
@@ -25,14 +25,14 @@ const mapStateToProps = state => {
 const PlayerList = ({players}) => (
   <div>
     <div id='rankingHeader' className='row' style={style.headerRow}>
-      <div className='col-2' style={[style.cell, style.transparent]}>POS.
+      <div className='col-2' style={[style.cell]}>POS.
       </div>
-      <div className='col-6' style={[style.cell, style.transparent]}>Player
+      <div className='col-6' style={[style.cell]}>Player
       </div>
-      <div className='col-2' style={[style.cell, style.transparent]}>Total
+      <div className='col-2' style={[style.cell]}>Total
         (Gross)
       </div>
-      <div className='col-2' style={[style.cellStop, style.transparent]}>THRU
+      <div className='col-2' style={[style.cellStop]}>THRU
       </div>
     </div>
     {players.map(p =>

@@ -3,7 +3,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
 import holes from '../../../data/holes'
-import style from './leaderboard.style'
+import style from './leaderboard.styles'
+import { alignLeft } from '../../common.styles'
+import { colors } from './leaderboard.colors'
 
 const mapDispatchToProps = dispatch => ({})
 
@@ -31,7 +33,7 @@ class ScoreTable extends React.Component {
 
     return (
       <table className='table table-bordered table-sm mb-0'
-             style={[style.gray]}>
+             style={[{backgroundColor: colors.gray}]}>
         <thead>
         <tr>
           {this.props.holes.map(h =>
@@ -70,13 +72,13 @@ const PlayerShow = ({
                     }) => (
 
   <div className='row' style={style.playerRow}>
-    <div className='col-12 mt-1 mb-1' style={style.white}>
+    <div className='col-12 mt-1 mb-1' style={[{backgroundColor: colors.white}]}>
       <div className='row' data-toggle='collapse' data-target={`#player-${id}`}
            style={[style.borderBottom, {cursor: 'pointer'}]}>
         <div className='col-2' style={[style.cell]}><span
           className='badge badge-pill'
           style={[style.rankBadge(rank)]}>{rankToStr(rank)}</span></div>
-        <div className='col-6' style={[style.cell, style.alignLeft]}><span
+        <div className='col-6' style={[style.cell, alignLeft]}><span
           className='text-primary ml-1'>{name}</span></div>
         <div className='col-2' style={[style.cell]}>{totalScore}</div>
         <div className='col-2' style={[style.cellStop]}>{thru}</div>
@@ -85,7 +87,7 @@ const PlayerShow = ({
         <div className='col-12'>
           <div className='row' style={style.borderBottom}>
             <div className='col-2' style={[style.cell]}>1日目</div>
-            <div className='col-10' style={[style.white]}>
+            <div className='col-10' style={[{backgroundColor: colors.white}]}>
               <div className='row'>
                 <div className='col m-0 p-0 pt-1 pb-1'>
                   <ScoreTable strokes={scores_day1.slice(0, 9)}
@@ -102,7 +104,7 @@ const PlayerShow = ({
           </div>
           <div className='row'>
             <div className='col-2' style={[style.cell]}>2日目</div>
-            <div className='col-10' style={[style.white]}>
+            <div className='col-10' style={[{backgroundColor: colors.white}]}>
               <div className='row'>
                 <div className='col m-0 p-0 pt-1 pb-1'>
                   <ScoreTable strokes={scores_day2.slice(0, 9)}

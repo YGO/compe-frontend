@@ -1,6 +1,5 @@
 import React from 'react'
 import Radium from 'radium'
-import style from './leaderboard.style'
 import PlayerList from './leaderboard-list.component'
 import ScoreToggler from './score-toggler.component'
 import lineBtnImg from '../assets/linebutton_82x20.png'
@@ -9,6 +8,9 @@ import gnIconImg from '../assets/gn_icon.png'
 import appStoreImg from '../assets/appstore.svg'
 import playStoreImg from '../assets/google_play.png'
 import Helmet from 'react-helmet/es/Helmet'
+import headerImg from '../assets/banner.jpg'
+import { alignCenter, alignLeft } from '../../common.styles'
+import { colors } from './leaderboard.colors'
 
 let SHARE_URL
 if (process.env.NODE_ENV === 'development') {
@@ -17,29 +19,23 @@ if (process.env.NODE_ENV === 'development') {
   SHARE_URL = 'https://livescore.golfnetwork.plus/pgateaching_201709/'
 }
 
-let YOUTUBE_URL = 'https://www.youtube.com/embed/vkHwUXWMDus?autoplay=1'
+const YOUTUBE_URL = 'https://www.youtube.com/embed/vkHwUXWMDus?autoplay=1'
 
 const PlayerIndex = () => (
-  <div style={style.gray}>
+  <div style={[{backgroundColor: colors.gray}]}>
     <Helmet>
       <title>第19回 PGAティーチングプロ選手権大会</title>
     </Helmet>
 
-    <header style={{position: 'relative'}}>
-      <div className='jumbotron' style={style.header}/>
+    <header style={[style.header.self]}>
+      <div className='jumbotron' style={[style.header.bg]}/>
       <div className='jumbotron container-fluid'
-           style={{
-             position: 'absolute',
-             top: '0',
-             color: 'white',
-             backgroundColor: 'transparent',
-             height: '260px',
-           }}>
+           style={[style.header.main]}>
         <div className='row'>
           <div className='col-auto'>
             <img src={pgaLogoImg} alt='pga'/>
           </div>
-          <div className='col' style={style.alignLeft}>
+          <div className='col' style={[alignLeft]}>
             <h1 className='display-5'>第19回 PGAティーチングプロ選手権大会</h1>
           </div>
         </div>
@@ -47,11 +43,11 @@ const PlayerIndex = () => (
 
     </header>
 
-    <div className='container-fluid' style={style.container}>
+    <div className='container-fluid' style={[style.container]}>
 
-      <section id='competition-info' style={style.section}>
+      <section id='competition-info' style={[style.section]}>
         <div className='row'>
-          <div className='col-12' style={style.alignCenter}>
+          <div className='col-12' style={[alignCenter]}>
             <iframe className='youtubesize' width='560' height='315'
                     src={YOUTUBE_URL}
                     frameBorder='0' allowFullScreen=''/>
@@ -83,17 +79,18 @@ const PlayerIndex = () => (
           <div className='col-auto p-0 pl-1'>
             <a
               href={`http://line.me/R/msg/text/?${encodeURIComponent(SHARE_URL)}`}>
-              <img src={lineBtnImg} alt='LINE' style={style.lineBtn}/>
+              <img src={lineBtnImg} alt='LINE'
+                   style={style.buttons.lineBtn}/>
             </a>
           </div>
         </div>
       </section>
 
-      <section id='leaders-board' style={style.section}>
+      <section id='leaders-board' style={[style.section]}>
         <PlayerList/>
       </section>
 
-      <section id='comments' style={style.section}>
+      <section id='comments' style={[style.section]}>
         <div className='row'>
           <div className='col'>
             <div className='fb-like'
@@ -111,17 +108,17 @@ const PlayerIndex = () => (
         </div>
       </section>
 
-      <footer style={{color: '#fff'}}>
-        <div className='row p-3' style={{backgroundColor: '#a6a6a6'}}>
+      <footer style={[style.footer.self]}>
+        <div className='row p-3' style={[style.footer.row]}>
           <div className='col'>
             このリーダーズボードは、国内ダウンロード数No.1の無料スコア管理アプリ ゴルフネットワークプラス のコンペ機能で提供しています
           </div>
         </div>
         <div className='row pl-3 pr-3 pb-3'
-             style={{backgroundColor: '#a6a6a6'}}>
+             style={[style.footer.row]}>
           <div className='col mr-auto'>
             <img src={gnIconImg} alt='GN+' className='mr-2 float-left'
-                 style={{width: '60px', height: '60px'}}/>
+                 style={[style.footer.gnIcon]}/>
             <p className='pb-0 mb-0' style={{fontSize: '0.7em'}}>
               あなたのゴルフライフをもっと楽しく<br/>ダウンロード数 国内No.1 ゴルフスコア管理アプリ</p>
             <p>GOLF NETWORK PLUS</p>
@@ -131,11 +128,11 @@ const PlayerIndex = () => (
               className='mr-3'
               href='https://play.google.com/store/apps/details?id=com.asai24.golf'><img
               src={playStoreImg} alt='googleplay'
-              style={{width: '120px', height: '36px'}}/></a>
+              style={[style.footer.marketIcon]}/></a>
             <a
               href='https://itunes.apple.com/jp/app/gorufusukoa-guan-li-gorufu/id561067103?mt=8'><img
               src={appStoreImg} alt='appstore'
-              style={{width: '120px', height: '36px'}}/></a>
+              style={[style.footer.marketIcon]}/></a>
           </div>
         </div>
       </footer>
@@ -143,6 +140,57 @@ const PlayerIndex = () => (
 
   </div>
 )
+
+const style = {
+  header: {
+    self: {
+      position: 'relative',
+    },
+    bg: {
+      backgroundImage: `url(${headerImg})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      height: '260px',
+      color: colors.white,
+      filter: 'blur(5px)',
+    },
+    main: {
+      position: 'absolute',
+      top: '0',
+      color: 'white',
+      backgroundColor: 'transparent',
+      height: '260px',
+    },
+  },
+  buttons: {
+    lineBtn: {
+      width: '82px',
+      height: '20px',
+    },
+  },
+  footer: {
+    self: {
+      color: colors.white,
+    },
+    row: {
+      backgroundColor: '#a6a6a6'
+    },
+    gnIcon: {
+      width: '60px',
+      height: '60px',
+    },
+    marketIcon: {
+      width: '120px',
+      height: '36px',
+    },
+  },
+  section: {
+    marginTop: '16px',
+  },
+  container: {
+    maxWidth: '960px',
+  },
+}
 
 // noinspection JSUnusedGlobalSymbols
 export default Radium(PlayerIndex)
