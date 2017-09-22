@@ -29,5 +29,9 @@ module.exports = {
     'react-redux',
     'redux-thunk',
     'react-router',
+    'react-helmet',
+    'radium',
+    'bootstrap',
+    'jquery',
   ],
 }
