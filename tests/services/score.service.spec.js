@@ -130,4 +130,3 @@ describe('calcTHRU', () => {
     expect(calcTHRU(scoresDay1, scoresDay2, false)).to.equal('1')
   })
 })
-
