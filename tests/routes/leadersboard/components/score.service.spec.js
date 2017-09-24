@@ -1,4 +1,7 @@
-import { calcTHRU, rankPlayers } from '../../src/services/score.service'
+import {
+  calcTHRU,
+  rankPlayers
+} from '../../../../src/routes/leadersboard/components/leadersboard.service'
 
 describe('rankPlayers', () => {
   it('should rank players by using totalScore and retired', () => {
