@@ -79,7 +79,7 @@ const LeadersBoardItem = ({
         <div className='col-2' style={[style.cell]}>{totalScore}</div>
         <div className='col-2' style={[style.cellStop]}>{thru}</div>
       </div>
-      <div id={`player-${id}`} className='row collapse scores'>
+      <div id={`player-${id}`} className='row collapse leaders-board-scores'>
         <div className='col-12'>
           <div className='row' style={style.borderBottom}>
             <div className='col-2' style={[style.cell]}>1日目</div>

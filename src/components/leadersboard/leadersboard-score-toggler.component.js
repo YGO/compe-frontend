@@ -11,12 +11,12 @@ class ScoreToggler extends React.Component {
 
   show = () => {
     this.setState({isOpened: true})
-    jQuery('.scores').collapse('show')
+    jQuery('.leaders-board-scores').collapse('show')
   }
 
   hide = () => {
     this.setState({isOpened: false})
-    jQuery('.scores').collapse('hide')
+    jQuery('.leaders-board-scores').collapse('hide')
   }
 
   render () {
