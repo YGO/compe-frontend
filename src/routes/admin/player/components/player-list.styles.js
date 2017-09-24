@@ -1,7 +1,4 @@
 const style = {
-  section: {
-    marginTop: '16px',
-  },
   playerRow: {
     fontSize: '1.2em',
   },
@@ -21,9 +18,6 @@ const style = {
   scoreTableHeader: {
     textAlign: 'center',
   },
-  daySelectorRow: {
-    marginBottom: '8px',
-  }
 }
 
 export default style

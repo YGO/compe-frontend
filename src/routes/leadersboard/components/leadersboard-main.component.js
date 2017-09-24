@@ -3,9 +3,9 @@ import React from 'react'
 import Radium from 'radium'
 import PropTypes from 'prop-types'
 import style from './leadersboard-main.styles'
-import LeadersBoardItem from './leadersboard-item.component'
 import { calcTotals } from '../../../services/score.service'
 import { calcTHRU, rankPlayers } from './leadersboard.service'
+import LeadersBoardItem from './leadersboard-main-item.component'
 
 const mapDispatchToProps = {}
 const mapStateToProps = state => {

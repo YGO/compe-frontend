@@ -9,7 +9,7 @@ import {
   savePlayer
 } from '../modules/player.module'
 import { calcTotals } from '../../../../services/score.service'
-import style from './player.styles'
+import style from './player-list.styles'
 import classNames from 'classnames'
 
 const mapDispatchToProps = dispatch => ({
