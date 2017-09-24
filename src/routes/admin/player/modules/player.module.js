@@ -95,21 +95,16 @@ const ACTION_HANDLERS = {
 
     return {
       ...state,
-      players: state.players.map(p => ({
-        ...p,
-        isEditing: p.id === action.payload
-      })),
-      playerEditing: {...playerToEdit},
+      playerEditing: {
+        ...playerToEdit,
+        isEditing: true
+      },
     }
   },
 
   [PLAYERS_CANCEL_EDIT]: (state, action) => {
     return {
       ...state,
-      players: state.players.map(p => ({
-        ...p,
-        isEditing: false
-      })),
       playerEditing: null,
     }
   },
@@ -159,16 +154,8 @@ const ACTION_HANDLERS = {
   },
 
   [PLAYERS_SAVE_SUCCESS]: (state, action) => {
-    const players = [...state.players]
-    const playerIdx = players.findIndex(p => p.id === state.playerEditing.id)
-    players[playerIdx] = {
-      ...state.playerEditing,
-      isEditing: false
-    }
-
     return {
       ...state,
-      players: players,
       playerEditing: null,
       loading: false
     }
