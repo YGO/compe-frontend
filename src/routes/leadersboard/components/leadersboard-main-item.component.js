@@ -1,4 +1,3 @@
-import { connect } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
@@ -6,8 +5,6 @@ import holes from '../../../data/holes'
 import style from './leadersboard-main.styles'
 import { alignLeft } from '../../common.styles'
 import { colors } from './leadersboard.colors'
-
-const mapDispatchToProps = dispatch => ({})
 
 const scoreToStr = score => {
   const s = Number(score)
@@ -60,16 +57,16 @@ class ScoreTable extends React.Component {
 }
 
 const LeadersBoardItem = ({
-                      // props
-                      id,
-                      name,
-                      retired,
-                      scores_day1,
-                      scores_day2,
-                      totalScore,
-                      rank,
-                      thru
-                    }) => (
+                            // props
+                            id,
+                            name,
+                            retired,
+                            scores_day1,
+                            scores_day2,
+                            totalScore,
+                            rank,
+                            thru
+                          }) => (
 
   <div className='row' style={style.playerRow}>
     <div className='col-12 mt-1 mb-1' style={[{backgroundColor: colors.white}]}>
@@ -142,4 +139,4 @@ LeadersBoardItem.propTypes = {
   thru: PropTypes.string.isRequired,
 }
 
-export default connect(null, mapDispatchToProps)(Radium(LeadersBoardItem))
+export default Radium(LeadersBoardItem)

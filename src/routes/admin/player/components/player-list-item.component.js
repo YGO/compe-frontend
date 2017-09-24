@@ -13,19 +13,19 @@ import style from './player-list.styles'
 import classNames from 'classnames'
 
 const mapDispatchToProps = dispatch => ({
-  editPlayer: (id) => {
+  onClickEditPlayer: (id) => {
     dispatch(editPlayer(id))
   },
-  cancelEdit: () => {
+  onClickCancelEdit: () => {
     dispatch(cancelEdit())
   },
-  savePlayer: () => {
+  onClickSavePlayer: () => {
     dispatch(savePlayer())
   },
-  changeScore: (idx, score, day) => {
+  onChangeScore: (idx, score, day) => {
     dispatch(changeScore(idx, score, day))
   },
-  changeRetired: (retired) => {
+  onChangeRetired: (retired) => {
     dispatch(changeRetired(retired))
   },
 })
@@ -38,7 +38,6 @@ const mapStateToProps = (state, props) => {
 }
 
 const PlayerListItem = ({
-                          // props
                           id,
                           name,
                           retired,
@@ -50,12 +49,11 @@ const PlayerListItem = ({
                           totalStrokesDay2,
                           totalStrokes,
                           totalScore,
-                          // actions
-                          editPlayer,
-                          cancelEdit,
-                          savePlayer,
-                          changeScore,
-                          changeRetired,
+                          onClickEditPlayer,
+                          onClickCancelEdit,
+                          onClickSavePlayer,
+                          onChangeScore,
+                          onChangeRetired,
                         }) => (
   <div className='row'>
     <div className='col'>
@@ -70,14 +68,14 @@ const PlayerListItem = ({
             <label className='form-check-label'>
               <input className='form-check-input' type='checkbox'
                      checked={retired} disabled={!isEditing || loading}
-                     onChange={e => changeRetired(e.target.checked)}/> 棄権
+                     onChange={e => onChangeRetired(e.target.checked)}/> 棄権
             </label>
           </div>
         </div>
         {!isEditing &&
         <div className='col-auto'>
           <button type='button' className='btn btn-link' style={style.ctrlBtn}
-                  onClick={() => editPlayer(id)}
+                  onClick={() => onClickEditPlayer(id)}
                   disabled={loading}>スコア編集
           </button>
         </div>
@@ -85,11 +83,11 @@ const PlayerListItem = ({
         {isEditing &&
         <div className='col-auto'>
           <button type='button' className='btn btn-link' style={style.ctrlBtn}
-                  onClick={cancelEdit} disabled={loading}>
+                  onClick={onClickCancelEdit} disabled={loading}>
             キャンセル
           </button>
           <button type='button' className='btn btn-primary btn-sm'
-                  style={style.ctrlBtn} onClick={savePlayer}
+                  style={style.ctrlBtn} onClick={onClickSavePlayer}
                   disabled={loading}>保存
           </button>
         </div>
@@ -114,7 +112,7 @@ const PlayerListItem = ({
                 <td key={`PlayerListItem-p${id}-s${idx}-d1`}>
                   <input type='text' value={s} style={style.scoreInput}
                          disabled={!isEditing || loading}
-                         onChange={e => changeScore(idx, e.target.value, 1)}/>
+                         onChange={e => onChangeScore(idx, e.target.value, 1)}/>
                 </td>
               )}
               <td>{totalStrokesDay1}</td>
@@ -124,7 +122,7 @@ const PlayerListItem = ({
                 <td key={`PlayerListItem-p${id}-s${idx}-d2`}>
                   <input type='text' value={s} style={style.scoreInput}
                          disabled={!isEditing || loading}
-                         onChange={e => changeScore(idx, e.target.value, 2)}/>
+                         onChange={e => onChangeScore(idx, e.target.value, 2)}/>
                 </td>
               )}
               <td>{totalStrokesDay2}</td>
@@ -149,11 +147,11 @@ PlayerListItem.propTypes = {
   totalStrokesDay2: PropTypes.number.isRequired,
   totalStrokes: PropTypes.number.isRequired,
   totalScore: PropTypes.number.isRequired,
-  editPlayer: PropTypes.func.isRequired,
-  cancelEdit: PropTypes.func.isRequired,
-  savePlayer: PropTypes.func.isRequired,
-  changeScore: PropTypes.func.isRequired,
-  changeRetired: PropTypes.func.isRequired,
+  onClickEditPlayer: PropTypes.func.isRequired,
+  onClickCancelEdit: PropTypes.func.isRequired,
+  onClickSavePlayer: PropTypes.func.isRequired,
+  onChangeScore: PropTypes.func.isRequired,
+  onChangeRetired: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerListItem)

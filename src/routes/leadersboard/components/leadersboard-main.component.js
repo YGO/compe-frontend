@@ -8,6 +8,7 @@ import { calcTHRU, rankPlayers } from './leadersboard.service'
 import LeadersBoardItem from './leadersboard-main-item.component'
 
 const mapDispatchToProps = {}
+
 const mapStateToProps = state => {
   const players = state.leadersBoard.players
     .map(p => ({

@@ -9,18 +9,17 @@ const mapStateToProps = state => {
   const sortDay = state.adminPlayers.sortDay
 
   return {
-    players: state.adminPlayers.players,
-    playerEditing: state.adminPlayers.playerEditing,
-    playersCompare: (a, b) => {
+    players: state.adminPlayers.players.sort((a, b) => {
       const k = `sort_order_day${sortDay}`
       return a[k] > b[k] ? 1 : -1
-    }
+    }),
+    playerEditing: state.adminPlayers.playerEditing,
   }
 }
 
-const PlayerList = ({players, playerEditing, playersCompare}) => (
+const PlayerList = ({players, playerEditing}) => (
   <div>
-    {players.sort(playersCompare).map(p => {
+    {players.map(p => {
       if (playerEditing === null) {
         return <PlayerListItem key={p.id} {...p} />
       }
@@ -37,7 +36,6 @@ PlayerList.propTypes = {
     id: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   playerEditing: PropTypes.object,
-  playersCompare: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerList)

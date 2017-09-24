@@ -3,17 +3,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { changeSortDay } from '../modules/player.module'
 
-const mapStateToProps = state => ({
-  loading: state.adminPlayers.loading
+const mapStateToProps = state => ({})
+
+const mapDispatchToProps = dispatch => ({
+  onChangeSortDay: () => {
+    dispatch(changeSortDay())
+  }
 })
 
-const mapDispatchToProps = {
-  changeSortDay: changeSortDay
-}
-
-const DaySelector = ({changeSortDay}) => (
+const DaySelector = ({onChangeSortDay}) => (
   <select className='custom-select'
-          onChange={e => changeSortDay(e.target.value)}>
+          onChange={e => onChangeSortDay(e.target.value)}>
     <option value='1'>並び順</option>
     <option value='1'>1日目</option>
     <option value='2'>2日目</option>
@@ -21,7 +21,7 @@ const DaySelector = ({changeSortDay}) => (
 )
 
 DaySelector.propTypes = {
-  changeSortDay: PropTypes.func.isRequired,
+  onChangeSortDay: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DaySelector)
