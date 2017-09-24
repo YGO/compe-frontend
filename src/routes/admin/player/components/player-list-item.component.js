@@ -22,8 +22,8 @@ const mapDispatchToProps = dispatch => ({
   savePlayer: () => {
     dispatch(savePlayer())
   },
-  changeScore: (idx, score, row) => {
-    dispatch(changeScore(idx, score, row))
+  changeScore: (idx, score, day) => {
+    dispatch(changeScore(idx, score, day))
   },
   changeRetired: (retired) => {
     dispatch(changeRetired(retired))
@@ -102,7 +102,7 @@ const PlayerListItem = ({
             <thead>
             <tr>
               {[...Array(18)].map((_, idx) =>
-                <th key={`PlayerShow-h${idx}`}
+                <th key={`PlayerListItem-h${idx}`}
                     style={style.scoreTableHeader}>{idx + 1}</th>
               )}
               <th style={style.scoreTableHeader}>合計</th>
@@ -111,7 +111,7 @@ const PlayerListItem = ({
             <tbody>
             <tr>
               {scores_day1.map((s, idx) =>
-                <td key={`PlayerShow-p${id}-s${idx}-d1`}>
+                <td key={`PlayerListItem-p${id}-s${idx}-d1`}>
                   <input type='text' value={s} style={style.scoreInput}
                          disabled={!isEditing || loading}
                          onChange={e => changeScore(idx, e.target.value, 1)}/>
@@ -121,10 +121,10 @@ const PlayerListItem = ({
             </tr>
             <tr>
               {scores_day2.map((s, idx) =>
-                <td key={`PlayerShow-p${id}-s${idx}-d2`}>
+                <td key={`PlayerListItem-p${id}-s${idx}-d2`}>
                   <input type='text' value={s} style={style.scoreInput}
                          disabled={!isEditing || loading}
-                         onChange={e => changeScore(idx, e.target.value, 1)}/>
+                         onChange={e => changeScore(idx, e.target.value, 2)}/>
                 </td>
               )}
               <td>{totalStrokesDay2}</td>
