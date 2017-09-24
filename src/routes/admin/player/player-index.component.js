@@ -1,4 +1,4 @@
-import DaySelector from './day-selector.component'
+import DaySelector from './player-list-day-selector.component'
 import React from 'react'
 import holes from '../../../data/holes'
 import PlayerList from './player-list.component'

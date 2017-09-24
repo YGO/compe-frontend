@@ -10,6 +10,6 @@ export default (store) => ({
       injectReducer(store, {key: 'adminPlayers', reducer})
       fetchPlayers()(store.dispatch)
       cb(null, PlayerIndex)
-    }, 'players')
+    }, 'admin/players')
   }
 })
