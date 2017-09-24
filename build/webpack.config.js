@@ -201,6 +201,14 @@ config.plugins.push(new HtmlWebpackPlugin({
     collapseWhitespace: true,
   },
 }))
+config.plugins.push(new HtmlWebpackPlugin({
+  template: inProjectSrc('index-pgateaching_201709.html'),
+  inject: true,
+  filename: 'pgateaching_201709/index.html',
+  minify: {
+    collapseWhitespace: true,
+  },
+}))
 
 // Development Tools
 // ------------------------------------
