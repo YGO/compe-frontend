@@ -1,41 +1,50 @@
+import { connect } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { cancelEdit, changeRetired, changeScore, savePlayer } from '../modules/player.module'
+import {
+  cancelEdit,
+  changeRetired,
+  changeScore,
+  editPlayer,
+  savePlayer
+} from '../modules/player.module'
 import { calcTotals } from '../../../../services/score.service'
-import { connect } from 'react-redux'
 import style from './player.styles'
+import classNames from 'classnames'
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => ({
+  editPlayer: (id) => {
+    dispatch(editPlayer(id))
+  },
+  cancelEdit: () => {
+    dispatch(cancelEdit())
+  },
+  savePlayer: () => {
+    dispatch(savePlayer())
+  },
+  changeScore: (idx, score, row) => {
+    dispatch(changeScore(idx, score, row))
+  },
+  changeRetired: (retired) => {
+    dispatch(changeRetired(retired))
+  },
+})
+
+const mapStateToProps = (state, props) => {
   return {
-    cancelEdit: () => {
-      dispatch(cancelEdit())
-    },
-    savePlayer: () => {
-      dispatch(savePlayer())
-    },
-    changeScore: (idx, score, row) => {
-      dispatch(changeScore(idx, score, row))
-    },
-    changeRetired: (retired) => {
-      dispatch(changeRetired(retired))
-    },
-  }
-}
-
-const mapStateToProps = state => {
-  const player = state.adminPlayers.playerEditing
-  const totals = calcTotals(player.scores_day1, player.scores_day2)
-
-  return {
-    ...totals,
+    ...calcTotals(props.scores_day1, props.scores_day2),
     loading: state.adminPlayers.loading,
-    player: player,
   }
 }
 
-const PlayerEdit = ({
+const PlayerShow = ({
                       // props
-                      player,
+                      id,
+                      name,
+                      retired,
+                      scores_day1,
+                      scores_day2,
+                      isEditing,
                       totalStrokesDay1,
                       totalStrokesDay2,
                       totalStrokes,
@@ -44,6 +53,7 @@ const PlayerEdit = ({
                       totalScore,
                       loading,
                       // actions
+                      editPlayer,
                       cancelEdit,
                       savePlayer,
                       changeScore,
@@ -51,33 +61,41 @@ const PlayerEdit = ({
                     }) => (
   <div className='row'>
     <div className='col'>
-      <div className='row'
-           style={style.playerRow}>
+      <div className='row' style={style.playerRow}>
         <div className='col-auto'>
-          <span className='font-weight-bold'>{player.name}</span>
+          <span className='font-weight-bold'>{name}</span>
         </div>
-        <div className='col-auto'>
-          {totalStrokes} ({totalScore})
-        </div>
+        <div className='col-auto'>{totalStrokes} ({totalScore})</div>
         <div className='col-auto mr-auto'>
-          <div className='form-check'>
+          <div
+            className={classNames('form-check', {disabled: !isEditing || loading})}>
             <label className='form-check-label'>
               <input className='form-check-input' type='checkbox'
-                     checked={player.retired}
+                     checked={retired} disabled={!isEditing || loading}
                      onChange={e => changeRetired(e.target.checked)}/> 棄権
             </label>
           </div>
         </div>
+        {!isEditing &&
         <div className='col-auto'>
           <button type='button' className='btn btn-link' style={style.ctrlBtn}
-                  onClick={cancelEdit} disabled={loading}>キャンセル
+                  onClick={() => editPlayer(id)}
+                  disabled={loading}>スコア編集
+          </button>
+        </div>
+        }
+        {isEditing &&
+        <div className='col-auto'>
+          <button type='button' className='btn btn-link' style={style.ctrlBtn}
+                  onClick={cancelEdit} disabled={loading}>
+            キャンセル
           </button>
           <button type='button' className='btn btn-primary btn-sm'
                   style={style.ctrlBtn} onClick={savePlayer}
-                  disabled={loading}>
-            保存
+                  disabled={loading}>保存
           </button>
         </div>
+        }
       </div>
       <div className='row'>
         <div className='col'>
@@ -94,21 +112,21 @@ const PlayerEdit = ({
             </thead>
             <tbody>
             <tr>
-              {player.scores_day1.map((s, idx) =>
-                <td key={`PlayerEdit-p${player.id}-s${idx}-d1`}>
+              {scores_day1.map((s, idx) =>
+                <td key={`PlayerShow-p${id}-s${idx}-d1`}>
                   <input type='text' value={s} style={style.scoreInput}
-                         disabled={loading}
+                         disabled={!isEditing || loading}
                          onChange={e => changeScore(idx, e.target.value, 1)}/>
                 </td>
               )}
               <td>{totalStrokesDay1}</td>
             </tr>
             <tr>
-              {player.scores_day2.map((s, idx) =>
-                <td key={`PlayerEdit-p${player.id}-s${idx}-d2`}>
+              {scores_day2.map((s, idx) =>
+                <td key={`PlayerShow-p${id}-s${idx}-d2`}>
                   <input type='text' value={s} style={style.scoreInput}
-                         disabled={loading}
-                         onChange={e => changeScore(idx, e.target.value, 2)}/>
+                         disabled={!isEditing || loading}
+                         onChange={e => changeScore(idx, e.target.value, 1)}/>
                 </td>
               )}
               <td>{totalStrokesDay2}</td>
@@ -121,8 +139,14 @@ const PlayerEdit = ({
   </div>
 )
 
-PlayerEdit.propTypes = {
-  player: PropTypes.object.isRequired,
+PlayerShow.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  retired: PropTypes.bool.isRequired,
+  scores_day1: PropTypes.array.isRequired,
+  scores_day2: PropTypes.array.isRequired,
+  isEditing: PropTypes.bool.isRequired,
+  editPlayer: PropTypes.func.isRequired,
   cancelEdit: PropTypes.func.isRequired,
   savePlayer: PropTypes.func.isRequired,
   changeScore: PropTypes.func.isRequired,
@@ -136,4 +160,4 @@ PlayerEdit.propTypes = {
   loading: PropTypes.bool.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerEdit)
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerShow)
