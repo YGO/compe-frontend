@@ -37,28 +37,26 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-const PlayerShow = ({
-                      // props
-                      id,
-                      name,
-                      retired,
-                      scores_day1,
-                      scores_day2,
-                      isEditing,
-                      totalStrokesDay1,
-                      totalStrokesDay2,
-                      totalStrokes,
-                      totalScoreDay1,
-                      totalScoreDay2,
-                      totalScore,
-                      loading,
-                      // actions
-                      editPlayer,
-                      cancelEdit,
-                      savePlayer,
-                      changeScore,
-                      changeRetired,
-                    }) => (
+const PlayerListItem = ({
+                          // props
+                          id,
+                          name,
+                          retired,
+                          scores_day1,
+                          scores_day2,
+                          isEditing,
+                          loading,
+                          totalStrokesDay1,
+                          totalStrokesDay2,
+                          totalStrokes,
+                          totalScore,
+                          // actions
+                          editPlayer,
+                          cancelEdit,
+                          savePlayer,
+                          changeScore,
+                          changeRetired,
+                        }) => (
   <div className='row'>
     <div className='col'>
       <div className='row' style={style.playerRow}>
@@ -139,25 +137,23 @@ const PlayerShow = ({
   </div>
 )
 
-PlayerShow.propTypes = {
+PlayerListItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   retired: PropTypes.bool.isRequired,
   scores_day1: PropTypes.array.isRequired,
   scores_day2: PropTypes.array.isRequired,
   isEditing: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  totalStrokesDay1: PropTypes.number.isRequired,
+  totalStrokesDay2: PropTypes.number.isRequired,
+  totalStrokes: PropTypes.number.isRequired,
+  totalScore: PropTypes.number.isRequired,
   editPlayer: PropTypes.func.isRequired,
   cancelEdit: PropTypes.func.isRequired,
   savePlayer: PropTypes.func.isRequired,
   changeScore: PropTypes.func.isRequired,
   changeRetired: PropTypes.func.isRequired,
-  totalStrokesDay1: PropTypes.number.isRequired,
-  totalStrokesDay2: PropTypes.number.isRequired,
-  totalStrokes: PropTypes.number.isRequired,
-  totalScoreDay1: PropTypes.number.isRequired,
-  totalScoreDay2: PropTypes.number.isRequired,
-  totalScore: PropTypes.number.isRequired,
-  loading: PropTypes.bool.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerShow)
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerListItem)
