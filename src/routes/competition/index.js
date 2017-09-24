@@ -1,13 +1,13 @@
 import { injectReducer } from '../../store/reducers'
-import { fetchPlayers } from './modules/leadersboard.module'
+import { fetchPlayers } from './competition.module'
 
 export default (store) => ({
   path: 'pgateaching_201709',
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
-      const PlayerIndex = require('./components/leadersboard-index.component').default
-      const reducer = require('./modules/leadersboard.module').default
-      injectReducer(store, {key: 'leadersBoard', reducer})
+      const PlayerIndex = require('./competition-show.component').default
+      const reducer = require('./competition.module').default
+      injectReducer(store, {key: 'competition', reducer})
       fetchPlayers()(store.dispatch)
       cb(null, PlayerIndex)
     }, 'pgateaching_201709')

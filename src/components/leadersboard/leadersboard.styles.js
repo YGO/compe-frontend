@@ -1,4 +1,4 @@
-import { alignCenter } from '../../common.styles'
+import { alignCenter } from '../../routes/common.styles'
 import { colors } from './leadersboard.colors'
 
 const cellBase = {

@@ -1,7 +1,7 @@
 import {
   listPlayer,
   updatePlayer
-} from '../../../../repositories/player.repository'
+} from '../../../repositories/player.repository'
 
 const PLAYERS_EDIT = 'admin/PLAYERS_EDIT'
 const PLAYERS_CANCEL_EDIT = 'admin/PLAYERS_CANCEL_EDIT'

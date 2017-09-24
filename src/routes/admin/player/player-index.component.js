@@ -1,6 +1,6 @@
 import DaySelector from './day-selector.component'
 import React from 'react'
-import holes from '../../../../data/holes'
+import holes from '../../../data/holes'
 import PlayerList from './player-list.component'
 import Helmet from 'react-helmet/es/Helmet'
 import { Link } from 'react-router'

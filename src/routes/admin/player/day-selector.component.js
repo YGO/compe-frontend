@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { changeSortDay } from '../modules/player.module'
+import { changeSortDay } from './player.module'
 
 const mapStateToProps = state => ({})
 

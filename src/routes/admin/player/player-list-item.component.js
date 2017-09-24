@@ -7,8 +7,8 @@ import {
   changeScore,
   editPlayer,
   savePlayer
-} from '../modules/player.module'
-import { calcTotals } from '../../../../services/score.service'
+} from './player.module'
+import { calcTotals } from '../../../services/score.service'
 import style from './player-list.styles'
 import classNames from 'classnames'
 

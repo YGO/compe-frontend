@@ -1,15 +1,15 @@
 import React from 'react'
 import Radium from 'radium'
-import LeadersBoardMain from './leadersboard-main.component'
-import ScoreToggler from './score-toggler.component'
-import lineBtnImg from '../assets/linebutton_82x20.png'
-import pgaLogoImg from '../assets/pga-logo.png'
-import gnIconImg from '../assets/gn_icon.png'
-import appStoreImg from '../assets/appstore.svg'
-import playStoreImg from '../assets/google_play.png'
+import LeadersBoardContainer from './competition-leadersboard.container'
+import ScoreToggler from '../../components/leadersboard/leadersboard-score-toggler.component'
+import lineBtnImg from './assets/linebutton_82x20.png'
+import pgaLogoImg from './assets/pga-logo.png'
+import gnIconImg from './assets/gn_icon.png'
+import appStoreImg from './assets/appstore.svg'
+import playStoreImg from './assets/google_play.png'
 import Helmet from 'react-helmet/es/Helmet'
-import { alignCenter, alignLeft } from '../../common.styles'
-import { style } from './leadersboard-index.styles'
+import { alignCenter, alignLeft } from '../common.styles'
+import { style } from './competition-show.styles'
 
 let SHARE_URL
 if (process.env.NODE_ENV === 'development') {
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const YOUTUBE_URL = 'https://www.youtube.com/embed/vkHwUXWMDus?autoplay=1'
 
-const LeadersBoardIndex = () => (
+const CompetitionShow = () => (
   <div style={[style.self]}>
     <Helmet>
       <title>第19回 PGAティーチングプロ選手権大会</title>
@@ -84,8 +84,8 @@ const LeadersBoardIndex = () => (
         </div>
       </section>
 
-      <section id='main' style={[style.section]}>
-        <LeadersBoardMain/>
+      <section id='leaders-board' style={[style.section]}>
+        <LeadersBoardContainer />
       </section>
 
       <section id='comments' style={[style.section]}>
@@ -139,4 +139,4 @@ const LeadersBoardIndex = () => (
 )
 
 // noinspection JSUnusedGlobalSymbols
-export default Radium(LeadersBoardIndex)
+export default Radium(CompetitionShow)

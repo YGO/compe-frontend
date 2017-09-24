@@ -1,6 +1,6 @@
 import BaseLayout from '../layouts/base-layout.component'
 import AdminRoute from './admin'
-import LeadersBoardRoute from './leadersboard'
+import LeadersBoardRoute from './competition'
 
 export const createRoutes = (store) => ({
   path        : '/',

@@ -1,8 +1,7 @@
-import { colors } from './leadersboard.colors'
-import headerImg from '../assets/banner.jpg'
+import headerImg from './assets/banner.jpg'
 export const style = {
   self: {
-    backgroundColor: colors.gray
+    backgroundColor: '#eee',
   },
   header: {
     self: {
@@ -13,7 +12,7 @@ export const style = {
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       height: '260px',
-      color: colors.white,
+      color: '#fff',
       filter: 'blur(5px)',
     },
     main: {
@@ -32,7 +31,7 @@ export const style = {
   },
   footer: {
     self: {
-      color: colors.white,
+      color: '#fff',
     },
     row: {
       backgroundColor: '#a6a6a6'

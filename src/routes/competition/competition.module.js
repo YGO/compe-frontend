@@ -1,4 +1,4 @@
-import { listPlayer } from '../../../repositories/player.repository'
+import { listPlayer } from '../../repositories/player.repository'
 
 const PLAYERS_FETCH_REQUEST = 'PLAYERS_FETCH_REQUEST'
 const PLAYERS_FETCH_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
@@ -54,7 +54,7 @@ const initialState = {
 }
 
 // noinspection JSUnusedGlobalSymbols
-export default function leadersBoardReducer (state = initialState, action) {
+export default function competitionReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
   return handler ? handler(state, action) : state
 }

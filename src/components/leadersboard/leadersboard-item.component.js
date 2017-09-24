@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
-import holes from '../../../data/holes'
-import style from './leadersboard-main.styles'
-import { alignLeft } from '../../common.styles'
+import holes from '../../data/holes'
+import style from './leadersboard.styles'
+import { alignLeft } from '../../routes/common.styles'
 import { colors } from './leadersboard.colors'
 
 const scoreToStr = score => {
@@ -57,7 +57,6 @@ class ScoreTable extends React.Component {
 }
 
 const LeadersBoardItem = ({
-                            // props
                             id,
                             name,
                             retired,
