@@ -6,19 +6,19 @@ import PlayerListItem from './player-list-item.component'
 const mapDispatchToProps = {}
 
 const mapStateToProps = state => {
-  const roundToSort = state.adminPlayers.roundToSort
-  let sortReference = state.adminPlayers.round_entries
+  const roundToSort = state.adminApp.roundToSort
+  let sortReference = state.adminApp.round_entries
     .filter(e => e.round_id === roundToSort.id)
     .map(e => [e.player_id, e.sort_order])
   sortReference = Object.assign(...sortReference.map(r => ({[r[0]]: r[1]})))
 
-  const players = state.adminPlayers.players.sort((p1, p2) => {
+  const players = state.adminApp.players.sort((p1, p2) => {
     return sortReference[p1.id] > sortReference[p2.id] ? 1 : -1
   })
 
   return {
     players: [...players],
-    draft: state.adminPlayers.draft,
+    draft: state.adminApp.draft,
   }
 }
 

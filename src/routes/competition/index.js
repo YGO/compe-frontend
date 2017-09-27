@@ -7,7 +7,7 @@ export default (store) => ({
     require.ensure([], (require) => {
       const CompetitionShow = require('./competition-show.component').default
       const reducer = require('./competition.module').default
-      injectReducer(store, {key: 'competition', reducer})
+      injectReducer(store, {key: 'mainApp', reducer})
       fetchCompetition(nextState.params.id)(store.dispatch)
         .then(() => cb(null, CompetitionShow))
     }, ':id')

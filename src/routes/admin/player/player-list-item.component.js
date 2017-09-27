@@ -34,11 +34,11 @@ const mapStateToProps = (state, props) => {
 
   let scores
   if (props.isEditing) {
-    scores = state.adminPlayers.draft.scores
+    scores = state.adminApp.draft.scores
   } else {
-    scores = state.adminPlayers.scores
+    scores = state.adminApp.scores
   }
-  const scoresPerRound = state.adminPlayers.rounds.map(r =>
+  const scoresPerRound = state.adminApp.rounds.map(r =>
     scores.find(s => s.player_id === playerId && s.round_id === r.id)
   )
 
@@ -46,7 +46,7 @@ const mapStateToProps = (state, props) => {
     s.strokes.map(Number).reduce((a, b) => a + b, 0))
   const totalStrokes = totalStrokesPerRound.reduce((a, b) => a + b, 0)
 
-  const pars = state.adminPlayers.holes.map(h => h.par)
+  const pars = state.adminApp.holes.map(h => h.par)
   const totalScore = scoresPerRound.map(s =>
     s.strokes.map(Number).reduce((sum, v, idx) => {
       if (v === 0) return 0
@@ -59,7 +59,7 @@ const mapStateToProps = (state, props) => {
     totalStrokesPerRound,
     totalStrokes,
     totalScore,
-    loading: state.adminPlayers.loading,
+    loading: state.adminApp.loading,
   }
 }
 

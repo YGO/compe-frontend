@@ -6,7 +6,7 @@ import { changeRoundToSort } from './player.module'
 const NOT_CHANGE = 'NOT_CHANGE'
 
 const mapStateToProps = state => ({
-  rounds: state.adminPlayers.rounds,
+  rounds: state.adminApp.rounds,
 })
 
 const mapDispatchToProps = dispatch => ({

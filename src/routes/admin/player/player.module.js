@@ -35,7 +35,7 @@ export function savePlayer () {
       type: ENTRY_AND_SCORES_SAVE_REQUEST
     })
 
-    const state = getState().adminPlayers
+    const state = getState().adminApp
     const competition = state.competition
     const draft = state.draft
 

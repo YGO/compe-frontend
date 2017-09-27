@@ -29,7 +29,7 @@ const mapStateToProps = state => {
     club_name: clubName,
     club_url: clubUrl,
     term,
-  } = state.competition.competition
+  } = state.mainApp.competition
 
   return {
     title,

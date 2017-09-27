@@ -9,8 +9,8 @@ import RoundSelector from './round-selector.component'
 
 const mapStateToProps = state => {
   return {
-    competition: state.adminPlayers.competition,
-    holes: state.adminPlayers.holes,
+    competition: state.adminApp.competition,
+    holes: state.adminApp.holes,
   }
 }
 
