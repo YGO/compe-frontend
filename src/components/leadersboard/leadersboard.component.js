@@ -2,7 +2,7 @@ import React from 'react'
 import Radium from 'radium'
 import PropTypes from 'prop-types'
 import style from './leadersboard.styles'
-import { calcTotalScore, rankPlayers } from './leadersboard.service'
+import { rankPlayers } from './leadersboard.service'
 import LeadersBoardItem from './leadersboard-item.component'
 
 const roundScores = (player, scores, pars) => (round) => {
@@ -12,6 +12,11 @@ const roundScores = (player, scores, pars) => (round) => {
     if (s === 0) return undefined
     return s - pars[idx]
   })
+}
+
+const calcTotalScore = (scoresPerRound) => {
+  const flattened = Array.prototype.concat(...scoresPerRound)
+  return flattened.filter(s => !!s).reduce((a, b) => a + b, 0)
 }
 
 const LeadersBoard = ({
@@ -43,7 +48,7 @@ const LeadersBoard = ({
         <div className='col-2' style={[style.cellStop]}>THRU</div>
       </div>
       {rankedPlayers.map(p =>
-        <LeadersBoardItem key={`p${p.id}`} {...p} rounds={rounds}/>
+        <LeadersBoardItem key={`LeadersBoard-${p.id}`} {...p} rounds={rounds}/>
       )}
     </div>
   )

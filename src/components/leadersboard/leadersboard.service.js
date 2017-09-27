@@ -1,8 +1,3 @@
-export const calcTotalScore = (scoresPerRound) => {
-  const flattened = Array.prototype.concat(...scoresPerRound)
-  return flattened.filter(s => !!s).reduce((a, b) => a + b, 0)
-}
-
 const findCurrentRoundIndex = (scoresPerRound) => {
   return scoresPerRound.findIndex(scores => {
     return scores.some(s => s === undefined)

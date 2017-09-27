@@ -3,47 +3,39 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import PlayerListItem from './player-list-item.component'
 
-const mapDispatchToProps = {}
+const createSortReference = (roundId, roundEntries) => {
+  const sortReference = roundEntries.filter(e => e.round_id === roundId)
+    .map(e => [e.player_id, e.sort_order])
+  return Object.assign(...sortReference.map(r => ({[r[0]]: r[1]})))
+}
 
 const mapStateToProps = state => {
   const roundToSort = state.adminApp.roundToSort
-  let sortReference = state.adminApp.round_entries
-    .filter(e => e.round_id === roundToSort.id)
-    .map(e => [e.player_id, e.sort_order])
-  sortReference = Object.assign(...sortReference.map(r => ({[r[0]]: r[1]})))
+  const roundEntries = state.adminApp.round_entries
+  const draft = state.adminApp.draft
+  const sortReference = createSortReference(roundToSort.id, roundEntries)
 
-  const players = state.adminApp.players.sort((p1, p2) => {
-    return sortReference[p1.id] > sortReference[p2.id] ? 1 : -1
+  const players = state.adminApp.players.sort((p1, p2) =>
+    sortReference[p1.id] > sortReference[p2.id] ? 1 : -1
+  ).map(p => {
+    if (draft === null) return p
+    if (draft.player.id !== p.id) return p
+    return {...p, isEditing: true}
   })
 
-  return {
-    players: [...players],
-    draft: state.adminApp.draft,
-  }
+  return {players}
 }
 
-const PlayerList = ({
-                      players,
-                      draft,
-                    }) => (
+const PlayerList = ({players}) => (
   <div>
-    {players.map(p => {
-      if (draft === null) {
-        return <PlayerListItem key={p.id} {...p} />
-      }
-      if (p.id !== draft.player.id) {
-        return <PlayerListItem key={p.id} {...p} />
-      }
-      return <PlayerListItem key={p.id} isEditing {...draft.player} />
-    })}
+    {players.map(p =>
+      <PlayerListItem key={p.id} {...p} />
+    )}
   </div>
 )
 
 PlayerList.propTypes = {
-  players: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
-  draft: PropTypes.object,
+  players: PropTypes.array.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerList)
+export default connect(mapStateToProps)(PlayerList)

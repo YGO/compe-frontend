@@ -22,7 +22,8 @@ const rankToStr = (rank, retired) => {
 @Radium
 class ScoreTable extends React.Component {
   render () {
-    const total = this.props.scores.filter(s => !!s).reduce((a, b) => a + b, 0)
+    const total = this.props.scores.filter(s => !!s)
+      .reduce((a, b) => a + b, 0)
 
     return (
       <table className='table table-bordered table-sm mb-0'
