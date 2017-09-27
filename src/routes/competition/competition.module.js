@@ -1,4 +1,5 @@
 import { listPlayer } from '../../repositories/player.repository'
+import competition from '../../data/test_competition'
 
 const PLAYERS_FETCH_REQUEST = 'PLAYERS_FETCH_REQUEST'
 const PLAYERS_FETCH_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
@@ -48,8 +49,14 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 
+const {players, rounds, scores, holes, ...rest} = competition
+
 const initialState = {
-  players: [],
+  competition: rest,
+  players,
+  rounds,
+  scores,
+  holes,
   loading: false,
 }
 

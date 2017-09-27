@@ -3,9 +3,8 @@ import { API_BASE_URL } from './index'
 const API_PLAYER_URL = `${API_BASE_URL}/players`
 
 export const listPlayer = () => {
-  // noinspection JSCheckFunctionSignatures
   return fetch(`${API_PLAYER_URL}`)
-    .then(res => res.json())
+    .then(res => res.json(null))
 }
 
 export const updatePlayer = (player) => {

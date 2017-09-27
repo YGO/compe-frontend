@@ -1,8 +1,4 @@
-import holes from '../data/holes'
-
-const pars = holes.map(h => h.par)
-
-export const calcTotals = (scoresDay1, scoresDay2) => {
+export const calcTotals = (strokes, pars) => {
   const totalStrokesDay1 = scoresDay1.slice(0, 18).map(Number).reduce((a, b) => a + b)
   const totalStrokesDay2 = scoresDay2.slice(0, 18).map(Number).reduce((a, b) => a + b)
   const totalStrokes = totalStrokesDay1 + totalStrokesDay2
@@ -24,4 +20,8 @@ export const calcTotals = (scoresDay1, scoresDay2) => {
     totalScoreDay2: totalScoreDay2,
     totalScore: totalScore,
   }
+}
+
+export const calcTotalScore = (strokes, pars) => {
+
 }
