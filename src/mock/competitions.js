@@ -198,12 +198,8 @@ const competitions = [
     'rounds': [
       {
         'id': 'r01',
-        'title': '1日目',
+        'title': '',
       },
-      {
-        'id': 'r02',
-        'title': '2日目',
-      }
     ],
 
     'scores': [
@@ -214,23 +210,11 @@ const competitions = [
         'round_id': 'r01'
       },
       {
-        'id': 's02',
-        'strokes': [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-        'player_id': 'p01',
-        'round_id': 'r02'
-      },
-      {
         'id': 's03',
         'strokes': [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
         'player_id': 'p02',
         'round_id': 'r01'
       },
-      {
-        'id': 's04',
-        'strokes': [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-        'player_id': 'p02',
-        'round_id': 'r02'
-      }
     ],
 
     round_entries: [
@@ -243,16 +227,6 @@ const competitions = [
         round_id: 'r01',
         player_id: 'p02',
         sort_order: 2,
-      },
-      {
-        round_id: 'r02',
-        player_id: 'p01',
-        sort_order: 2,
-      },
-      {
-        round_id: 'r02',
-        player_id: 'p02',
-        sort_order: 1,
       },
     ],
 
