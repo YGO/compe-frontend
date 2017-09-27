@@ -1,16 +1,25 @@
-import DaySelector from './player-list-day-selector.component'
+import PropTypes from 'prop-types'
 import React from 'react'
-import holes from '../../../data/holes'
 import PlayerList from './player-list.component'
 import Helmet from 'react-helmet/es/Helmet'
 import { Link } from 'react-router'
 import style from './player-index.styles'
+import { connect } from 'react-redux'
 
-// noinspection JSUnusedGlobalSymbols
-const PlayerIndex = () => (
+const mapStateToProps = state => {
+  return {
+    competition: state.adminPlayers.competition,
+    holes: state.adminPlayers.holes,
+  }
+}
+
+const PlayerIndex = ({
+                       competition,
+                       holes,
+                     }) => (
   <div className='container'>
     <Helmet>
-      <title>スコア入力 | 第19回 PGAティーチングプロ選手権大会</title>
+      <title>スコア入力 | {competition.title}</title>
     </Helmet>
 
     <h1>大会スコア入力画面</h1>
@@ -21,9 +30,9 @@ const PlayerIndex = () => (
         <div className='col-auto'>
           <dl>
             <dt>大会名</dt>
-            <dd><Link to='/pgateaching_201709'>第19回 PGAティーチングプロ選手権大会</Link></dd>
+            <dd><Link to={`/${competition.id}`}>{competition.title}</Link></dd>
             <dt>ゴルフ場</dt>
-            <dd>登別カントリー倶楽部</dd>
+            <dd>{competition.clubName}</dd>
             <dt>開催日</dt>
             <dd>2017年9月21日 〜 22日</dd>
           </dl>
@@ -60,9 +69,9 @@ const PlayerIndex = () => (
         <h2>出場選手一覧</h2>
         <div className='row' style={style.daySelectorRow}>
           <div className='col-auto mr-auto'/>
-          <div className='col-auto'>
-            <DaySelector/>
-          </div>
+          {/*<div className='col-auto'>*/}
+          {/*<DaySelector/>*/}
+          {/*</div>*/}
         </div>
         <PlayerList/>
       </div>
@@ -70,5 +79,10 @@ const PlayerIndex = () => (
   </div>
 )
 
+PlayerIndex.propTypes = {
+  competition: PropTypes.object.isRequired,
+  holes: PropTypes.array.isRequired,
+}
+
 // noinspection JSUnusedGlobalSymbols
-export default PlayerIndex
+export default connect(mapStateToProps)(PlayerIndex)
