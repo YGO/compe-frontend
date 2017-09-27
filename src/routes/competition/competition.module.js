@@ -1,5 +1,4 @@
 import { getCompetition } from '../../repositories/competition.repository'
-import competition from '../../mock/test_competition'
 
 const COMPETITION_GET_REQUEST = 'PLAYERS_FETCH_REQUEST'
 const COMPETITION_GET_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
@@ -54,14 +53,12 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 
-// TODO make it blank after api implementation is done.
-const {players, rounds, scores, holes, ...rest} = competition
 const initialState = {
-  competition: rest,
-  players,
-  rounds,
-  scores,
-  holes,
+  competition: {},
+  players: [],
+  rounds: [],
+  scores: [],
+  holes: [],
   loading: false,
 }
 

@@ -1,4 +1,3 @@
-import competition from '../../../mock/test_competition'
 import { updateEntry } from '../../../repositories/entry.repository'
 import { updateScore } from '../../../repositories/score.repository'
 import { getCompetition } from '../../../repositories/competition.repository'
@@ -185,6 +184,7 @@ const ACTION_HANDLERS = {
       scores,
       holes,
       round_entries,
+      roundToSort: {...rounds[0]},
       loading: false,
     }
   },
@@ -194,18 +194,16 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 
-// TODO make it blank after api implementation is done.
-const {players, rounds, scores, holes, round_entries, ...rest} = competition
 const initialState = {
-  competition: rest,
-  players,
-  rounds,
-  scores,
-  holes,
-  round_entries,
+  competition: {},
+  players: [],
+  rounds: [],
+  scores: [],
+  holes: [],
+  round_entries: [],
   loading: false,
   draft: null,
-  roundToSort: {...rounds[0]},
+  roundToSort: null,
 }
 
 // noinspection JSUnusedGlobalSymbols
