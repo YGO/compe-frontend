@@ -1,5 +1,6 @@
 import React from 'react'
 import Radium from 'radium'
+import PropTypes from 'prop-types'
 import LeadersBoardContainer from './competition-leadersboard.container'
 import ScoreToggler from '../../components/leadersboard/leadersboard-score-toggler.component'
 import lineBtnImg from './assets/linebutton_82x20.png'
@@ -10,6 +11,7 @@ import playStoreImg from './assets/google_play.png'
 import Helmet from 'react-helmet/es/Helmet'
 import { alignCenter, alignLeft } from '../common.styles'
 import { style } from './competition-show.styles'
+import { connect } from 'react-redux'
 
 let SHARE_URL
 if (process.env.NODE_ENV === 'development') {
@@ -20,10 +22,34 @@ if (process.env.NODE_ENV === 'development') {
 
 const YOUTUBE_URL = 'https://www.youtube.com/embed/vkHwUXWMDus?autoplay=1'
 
-const CompetitionShow = () => (
+const mapStateToProps = state => {
+  const {
+    title,
+    official_url: officialUrl,
+    club_name: clubName,
+    club_url: clubUrl,
+    term,
+  } = state.competition.competition
+
+  return {
+    title,
+    officialUrl,
+    clubName,
+    clubUrl,
+    term,
+  }
+}
+
+const CompetitionShow = ({
+                           title,
+                           officialUrl,
+                           clubName,
+                           clubUrl,
+                           term,
+                         }) => (
   <div style={[style.self]}>
     <Helmet>
-      <title>第19回 PGAティーチングプロ選手権大会</title>
+      <title>{title}</title>
     </Helmet>
 
     <header style={[style.header.self]}>
@@ -35,7 +61,7 @@ const CompetitionShow = () => (
             <img src={pgaLogoImg} alt='pga'/>
           </div>
           <div className='col' style={[alignLeft]}>
-            <h1 className='display-5'>第19回 PGAティーチングプロ選手権大会</h1>
+            <h1 className='display-5'>{title}</h1>
           </div>
         </div>
       </div>
@@ -54,10 +80,9 @@ const CompetitionShow = () => (
         <div className='row mt-4'>
           <div className='col pl-1'>
             <ul className='list-unstyled'>
-              <li><a href='http://www.pgatour.jp/teaching/2017/'>第19回
-                PGAティーチングプロ選手権大会</a></li>
-              <li><a href='http://www.noboribetsu-cc.com/'>登別カントリー倶楽部</a></li>
-              <li>2017年9月21日 〜 22日</li>
+              <li><a href={officialUrl}>{title}</a></li>
+              <li><a href={clubUrl}>{clubName}</a></li>
+              <li>{term}</li>
             </ul>
           </div>
         </div>
@@ -85,7 +110,7 @@ const CompetitionShow = () => (
       </section>
 
       <section id='leaders-board' style={[style.section]}>
-        <LeadersBoardContainer />
+        <LeadersBoardContainer/>
       </section>
 
       <section id='comments' style={[style.section]}>
@@ -138,5 +163,13 @@ const CompetitionShow = () => (
   </div>
 )
 
+CompetitionShow.propTypes = {
+  title: PropTypes.string.isRequired,
+  officialUrl: PropTypes.string.isRequired,
+  clubName: PropTypes.string.isRequired,
+  clubUrl: PropTypes.string.isRequired,
+  term: PropTypes.string.isRequired,
+}
+
 // noinspection JSUnusedGlobalSymbols
-export default Radium(CompetitionShow)
+export default connect(mapStateToProps)(Radium(CompetitionShow))

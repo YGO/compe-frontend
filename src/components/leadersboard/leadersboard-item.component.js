@@ -1,21 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
-import holes from '../../data/holes'
 import style from './leadersboard.styles'
 import { alignLeft } from '../../routes/common.styles'
 import { colors } from './leadersboard.colors'
+import { calcTHRU } from './leadersboard.service'
 
 const scoreToStr = score => {
+  if (score === undefined) return '-'
+
   const s = Number(score)
-  if (s === 0) return '-'
   if (s > 0) return `+${s}`
   return String(s)
-}
-
-const strokeToScore = (pars) => (stroke, idx) => {
-  if (stroke === 0) return null
-  return stroke - pars[idx]
 }
 
 const rankToStr = (rank, retired) => {
@@ -26,7 +22,7 @@ const rankToStr = (rank, retired) => {
 @Radium
 class ScoreTable extends React.Component {
   render () {
-    const pars = this.props.holes.map(h => h.par)
+    const total = this.props.scores.filter(s => !!s).reduce((a, b) => a + b, 0)
 
     return (
       <table className='table table-bordered table-sm mb-0'
@@ -34,8 +30,8 @@ class ScoreTable extends React.Component {
         <thead>
         <tr>
           {this.props.holes.map(h =>
-            <th key={`ScoreTable-h${h.hole_num}`}
-                style={[style.holeCell]}>{h.hole_num}</th>
+            <th key={`ScoreTable-h${h}`}
+                style={[style.holeCell]}>{h}</th>
           )}
           <th style={[style.scoreCellTotal]}>{this.props.label}
           </th>
@@ -43,12 +39,11 @@ class ScoreTable extends React.Component {
         </thead>
         <tbody>
         <tr>
-          {this.props.strokes.map(strokeToScore(pars)).map((s, idx) =>
+          {this.props.scores.map((s, idx) =>
             <td key={`ScoreTable-s${idx}`}
                 style={[style.scoreCell, style.score(s)]}>{scoreToStr(s)}</td>
           )}
-          <td
-            style={[style.scoreCellTotal]}>{this.props.strokes.reduce((a, b) => a + b)}</td>
+          <td style={[style.scoreCellTotal]}>{total}</td>
         </tr>
         </tbody>
       </table>
@@ -60,11 +55,10 @@ const LeadersBoardItem = ({
                             id,
                             name,
                             retired,
-                            scores_day1,
-                            scores_day2,
+                            scoresPerRound,
                             totalScore,
                             rank,
-                            thru
+                            rounds,
                           }) => (
 
   <div className='row' style={style.playerRow}>
@@ -77,44 +71,31 @@ const LeadersBoardItem = ({
         <div className='col-6' style={[style.cell, alignLeft]}><span
           className='text-primary ml-1'>{name}</span></div>
         <div className='col-2' style={[style.cell]}>{totalScore}</div>
-        <div className='col-2' style={[style.cellStop]}>{thru}</div>
+        <div className='col-2'
+             style={[style.cellStop]}>{calcTHRU(scoresPerRound, retired)}</div>
       </div>
       <div id={`player-${id}`} className='row collapse leaders-board-scores'>
         <div className='col-12'>
-          <div className='row' style={style.borderBottom}>
-            <div className='col-2' style={[style.cell]}>1日目</div>
-            <div className='col-10' style={[{backgroundColor: colors.white}]}>
-              <div className='row'>
-                <div className='col m-0 p-0 pt-1 pb-1'>
-                  <ScoreTable strokes={scores_day1.slice(0, 9)}
-                              holes={holes.slice(0, 9)}
-                              label='OUT'/>
-                </div>
-                <div className='col m-0 p-0 pt-1 pb-1'>
-                  <ScoreTable strokes={scores_day1.slice(9, 18)}
-                              holes={holes.slice(9, 18)}
-                              label='IN'/>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-2' style={[style.cell]}>2日目</div>
-            <div className='col-10' style={[{backgroundColor: colors.white}]}>
-              <div className='row'>
-                <div className='col m-0 p-0 pt-1 pb-1'>
-                  <ScoreTable strokes={scores_day2.slice(0, 9)}
-                              holes={holes.slice(0, 9)}
-                              label='OUT'/>
-                </div>
-                <div className='col m-0 p-0 pt-1 pb-1'>
-                  <ScoreTable strokes={scores_day2.slice(9, 18)}
-                              holes={holes.slice(9, 18)}
-                              label='IN'/>
+          {rounds.map((r, idx) =>
+            <div className='row' key={`LeadersBoardItem-p${id}-r${r.id}`}
+                 style={style.borderBottom}>
+              <div className='col-2' style={[style.cell]}>{r.title}</div>
+              <div className='col-10' style={[{backgroundColor: colors.white}]}>
+                <div className='row'>
+                  <div className='col m-0 p-0 pt-1 pb-1'>
+                    <ScoreTable scores={scoresPerRound[idx].slice(0, 9)}
+                                holes={Array(9).fill().map((_, idx) => idx + 1)}
+                                label='OUT'/>
+                  </div>
+                  <div className='col m-0 p-0 pt-1 pb-1'>
+                    <ScoreTable scores={scoresPerRound[idx].slice(9, 18)}
+                                holes={Array(9).fill().map((_, idx) => idx + 10)}
+                                label='IN'/>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
@@ -122,7 +103,7 @@ const LeadersBoardItem = ({
 )
 
 ScoreTable.propTypes = {
-  strokes: PropTypes.array.isRequired,
+  scores: PropTypes.array.isRequired,
   holes: PropTypes.array.isRequired,
   label: PropTypes.string.isRequired,
 }
@@ -131,11 +112,10 @@ LeadersBoardItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   retired: PropTypes.bool.isRequired,
-  scores_day1: PropTypes.array.isRequired,
-  scores_day2: PropTypes.array.isRequired,
+  scoresPerRound: PropTypes.array.isRequired,
   totalScore: PropTypes.number.isRequired,
   rank: PropTypes.number.isRequired,
-  thru: PropTypes.string.isRequired,
+  rounds: PropTypes.array.isRequired,
 }
 
 export default Radium(LeadersBoardItem)

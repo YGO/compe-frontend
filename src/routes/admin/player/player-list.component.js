@@ -6,27 +6,35 @@ import PlayerListItem from './player-list-item.component'
 const mapDispatchToProps = {}
 
 const mapStateToProps = state => {
-  const sortDay = state.adminPlayers.sortDay
+  const roundToSort = state.adminPlayers.roundToSort
+  let sortReference = state.adminPlayers.round_entries
+    .filter(e => e.round_id === roundToSort.id)
+    .map(e => [e.player_id, e.sort_order])
+  sortReference = Object.assign(...sortReference.map(r => ({[r[0]]: r[1]})))
+
+  const players = state.adminPlayers.players.sort((p1, p2) => {
+    return sortReference[p1.id] > sortReference[p2.id] ? 1 : -1
+  })
 
   return {
-    players: state.adminPlayers.players.sort((a, b) => {
-      const k = `sort_order_day${sortDay}`
-      return a[k] > b[k] ? 1 : -1
-    }),
-    playerEditing: state.adminPlayers.playerEditing,
+    players: [...players],
+    draft: state.adminPlayers.draft,
   }
 }
 
-const PlayerList = ({players, playerEditing}) => (
+const PlayerList = ({
+                      players,
+                      draft,
+                    }) => (
   <div>
     {players.map(p => {
-      if (playerEditing === null) {
+      if (draft === null) {
         return <PlayerListItem key={p.id} {...p} />
       }
-      if (p.id !== playerEditing.id) {
+      if (p.id !== draft.player.id) {
         return <PlayerListItem key={p.id} {...p} />
       }
-      return <PlayerListItem key={p.id} {...playerEditing} />
+      return <PlayerListItem key={p.id} isEditing {...draft.player} />
     })}
   </div>
 )
@@ -35,7 +43,7 @@ PlayerList.propTypes = {
   players: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  playerEditing: PropTypes.object,
+  draft: PropTypes.object,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerList)

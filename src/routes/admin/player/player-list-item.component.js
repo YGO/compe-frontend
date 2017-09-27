@@ -8,7 +8,6 @@ import {
   editPlayer,
   savePlayer
 } from './player.module'
-import { calcTotals } from '../../../services/score.service'
 import style from './player-list.styles'
 import classNames from 'classnames'
 
@@ -22,8 +21,8 @@ const mapDispatchToProps = dispatch => ({
   onClickSavePlayer: () => {
     dispatch(savePlayer())
   },
-  onChangeScore: (idx, score, day) => {
-    dispatch(changeScore(idx, score, day))
+  onChangeScore: (scoreId, idx, value) => {
+    dispatch(changeScore(scoreId, idx, value))
   },
   onChangeRetired: (retired) => {
     dispatch(changeRetired(retired))
@@ -31,8 +30,35 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = (state, props) => {
+  const playerId = props.id
+
+  let scores
+  if (props.isEditing) {
+    scores = state.adminPlayers.draft.scores
+  } else {
+    scores = state.adminPlayers.scores
+  }
+  const scoresPerRound = state.adminPlayers.rounds.map(r =>
+    scores.find(s => s.player_id === playerId && s.round_id === r.id)
+  )
+
+  const totalStrokesPerRound = scoresPerRound.map(s =>
+    s.strokes.map(Number).reduce((a, b) => a + b, 0))
+  const totalStrokes = totalStrokesPerRound.reduce((a, b) => a + b, 0)
+
+  const pars = state.adminPlayers.holes.map(h => h.par)
+  const totalScore = scoresPerRound.map(s =>
+    s.strokes.map(Number).reduce((sum, v, idx) => {
+      if (v === 0) return 0
+      return sum + (v - pars[idx])
+    }, 0)
+  ).reduce((a, b) => a + b, 0)
+
   return {
-    ...calcTotals(props.scores_day1, props.scores_day2),
+    scoresPerRound,
+    totalStrokesPerRound,
+    totalStrokes,
+    totalScore,
     loading: state.adminPlayers.loading,
   }
 }
@@ -41,14 +67,12 @@ const PlayerListItem = ({
                           id,
                           name,
                           retired,
-                          scores_day1,
-                          scores_day2,
                           isEditing,
-                          loading,
-                          totalStrokesDay1,
-                          totalStrokesDay2,
+                          scoresPerRound,
+                          totalStrokesPerRound,
                           totalStrokes,
                           totalScore,
+                          loading,
                           onClickEditPlayer,
                           onClickCancelEdit,
                           onClickSavePlayer,
@@ -107,26 +131,18 @@ const PlayerListItem = ({
             </tr>
             </thead>
             <tbody>
-            <tr>
-              {scores_day1.map((s, idx) =>
-                <td key={`PlayerListItem-p${id}-s${idx}-d1`}>
-                  <input type='text' value={s} style={style.scoreInput}
-                         disabled={!isEditing || loading}
-                         onChange={e => onChangeScore(idx, e.target.value, 1)}/>
-                </td>
-              )}
-              <td>{totalStrokesDay1}</td>
-            </tr>
-            <tr>
-              {scores_day2.map((s, idx) =>
-                <td key={`PlayerListItem-p${id}-s${idx}-d2`}>
-                  <input type='text' value={s} style={style.scoreInput}
-                         disabled={!isEditing || loading}
-                         onChange={e => onChangeScore(idx, e.target.value, 2)}/>
-                </td>
-              )}
-              <td>{totalStrokesDay2}</td>
-            </tr>
+            {scoresPerRound.map((s, idx) =>
+              <tr key={`PlayerListItem-${s.id}`}>
+                {s.strokes.map((v, idx) =>
+                  <td key={`PlayerListItem-${s.id}-${idx}`}>
+                    <input type='text' value={v} style={style.scoreInput}
+                           disabled={!isEditing || loading}
+                           onChange={e => onChangeScore(s.id, idx, e.target.value)}/>
+                  </td>
+                )}
+                <td>{totalStrokesPerRound[idx]}</td>
+              </tr>
+            )}
             </tbody>
           </table>
         </div>
@@ -135,18 +151,20 @@ const PlayerListItem = ({
   </div>
 )
 
+PlayerListItem.defaultProps = {
+  isEditing: false
+}
+
 PlayerListItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   retired: PropTypes.bool.isRequired,
-  scores_day1: PropTypes.array.isRequired,
-  scores_day2: PropTypes.array.isRequired,
   isEditing: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
-  totalStrokesDay1: PropTypes.number.isRequired,
-  totalStrokesDay2: PropTypes.number.isRequired,
+  scoresPerRound: PropTypes.array.isRequired,
+  totalStrokesPerRound: PropTypes.array.isRequired,
   totalStrokes: PropTypes.number.isRequired,
   totalScore: PropTypes.number.isRequired,
+  loading: PropTypes.bool.isRequired,
   onClickEditPlayer: PropTypes.func.isRequired,
   onClickCancelEdit: PropTypes.func.isRequired,
   onClickSavePlayer: PropTypes.func.isRequired,
