@@ -11,7 +11,7 @@ const RETIRED_CHANGE = 'admin/PLAYERS_CHANGE_RETIRED'
 const SCORES_CHANGE = 'admin/SCORES_CHANGE'
 const COMPETITION_GET_REQUEST = 'admin/COMPETITION_GET_REQUEST'
 const COMPETITION_GET_SUCCESS = 'admin/COMPETITION_GET_SUCCESS'
-const PLAYERS_CHANGE_SORT_DAY = 'admin/PLAYERS_CHANGE_SORT_DAY'
+const ROUND_TO_SORT_CHANGE = 'admin/PLAYERS_CHANGE_SORT_DAY'
 
 // ------------------------------------
 // Actions
@@ -64,10 +64,10 @@ export function changeRetired (retired) {
   }
 }
 
-export function changeSortDay (sortDay) {
+export function changeRoundToSort (roundId) {
   return {
-    type: PLAYERS_CHANGE_SORT_DAY,
-    payload: sortDay
+    type: ROUND_TO_SORT_CHANGE,
+    payload: roundId
   }
 }
 
@@ -119,10 +119,11 @@ const ACTION_HANDLERS = {
     }
   },
 
-  [PLAYERS_CHANGE_SORT_DAY]: (state, action) => {
+  [ROUND_TO_SORT_CHANGE]: (state, action) => {
+    const roundToSort = state.rounds.find(r => r.id === action.payload)
     return {
       ...state,
-      sortDay: action.payload,
+      roundToSort: {...roundToSort},
     }
   },
 
@@ -175,7 +176,7 @@ const ACTION_HANDLERS = {
   },
 
   [COMPETITION_GET_SUCCESS]: (state, action) => {
-    const {players, rounds, scores, holes, ...competition} = action.payload
+    const {players, rounds, scores, holes, round_entries, ...competition} = action.payload
     return {
       ...state,
       competition,
@@ -183,6 +184,7 @@ const ACTION_HANDLERS = {
       rounds,
       scores,
       holes,
+      round_entries,
       loading: false,
     }
   },
@@ -193,16 +195,17 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 
 // TODO make it blank after api implementation is done.
-const {players, rounds, scores, holes, ...rest} = competition
+const {players, rounds, scores, holes, round_entries, ...rest} = competition
 const initialState = {
   competition: rest,
   players,
   rounds,
   scores,
   holes,
+  round_entries,
   loading: false,
   draft: null,
-  sortDay: 1,
+  roundToSort: {...rounds[0]},
 }
 
 // noinspection JSUnusedGlobalSymbols

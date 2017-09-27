@@ -57,6 +57,29 @@ export default {
     }
   ],
 
+  round_entries: [
+    {
+      round_id: 'r01',
+      player_id: 'p01',
+      sort_order: 1,
+    },
+    {
+      round_id: 'r01',
+      player_id: 'p02',
+      sort_order: 2,
+    },
+    {
+      round_id: 'r02',
+      player_id: 'p01',
+      sort_order: 2,
+    },
+    {
+      round_id: 'r02',
+      player_id: 'p02',
+      sort_order: 1,
+    },
+  ],
+
   'holes': [
     {
       'hole_num': 1,
