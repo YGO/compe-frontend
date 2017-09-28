@@ -183,7 +183,7 @@ const ACTION_HANDLERS = {
       rounds,
       scores,
       holes,
-      round_entries,
+      roundEntries: round_entries,
       roundToSort: {...rounds[0]},
       loading: false,
     }
@@ -200,7 +200,7 @@ const initialState = {
   rounds: [],
   scores: [],
   holes: [],
-  round_entries: [],
+  roundEntries: [],
   loading: false,
   draft: null,
   roundToSort: null,

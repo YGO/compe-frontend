@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import PlayerList from './player-list.component'
+import PlayerListContainer from './player-list.container'
 import Helmet from 'react-helmet/es/Helmet'
 import { Link } from 'react-router'
 import style from './player-index.styles'
 import { connect } from 'react-redux'
-import RoundSelector from './round-selector.component'
 
 const mapStateToProps = state => {
   return {
@@ -66,16 +65,7 @@ const PlayerIndex = ({
     </section>
 
     <section id='players' style={style.section}>
-      <div>
-        <h2>出場選手一覧</h2>
-        <div className='row' style={style.daySelectorRow}>
-          <div className='col-auto mr-auto'/>
-          <div className='col-auto'>
-            <RoundSelector/>
-          </div>
-        </div>
-        <PlayerList/>
-      </div>
+      <PlayerListContainer/>
     </section>
   </div>
 )
