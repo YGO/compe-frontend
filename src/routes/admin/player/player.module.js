@@ -17,10 +17,19 @@ const ROUND_TO_SORT_CHANGE = 'admin/PLAYERS_CHANGE_SORT_DAY'
 // Actions
 // ------------------------------------
 
-export function editPlayer (id) {
-  return {
-    type: ENTRY_AND_SCORES_EDIT,
-    payload: id
+export const editPlayer = (id) => {
+  return (dispatch, getState) => {
+    const {players, scores} = getState().adminApp
+    const playerToEdit = players.find(p => p.id === id)
+    const draft = {
+      player: {...playerToEdit},
+      scores: [...scores.filter(s => s.player_id === playerToEdit.id)]
+    }
+
+    dispatch({
+      type: ENTRY_AND_SCORES_EDIT,
+      payload: draft,
+    })
   }
 }
 
@@ -30,7 +39,7 @@ export function cancelEdit () {
   }
 }
 
-export function savePlayer () {
+export function saveDraft () {
   return async (dispatch, getState) => {
     dispatch({
       type: ENTRY_AND_SCORES_SAVE_REQUEST
@@ -67,24 +76,54 @@ export function savePlayer () {
   }
 }
 
-export function changeRetired (retired) {
-  return {
-    type: RETIRED_CHANGE,
-    payload: {retired: retired}
+export const changeRetired = (retired) => {
+  return (dispatch, getState) => {
+    const draft = getState().adminApp.draft
+    const newDraft = {
+      ...draft,
+      player: {
+        ...draft.player,
+        retired: retired
+      }
+    }
+
+    dispatch({
+      type: RETIRED_CHANGE,
+      payload: newDraft
+    })
   }
 }
 
-export function changeRoundToSort (roundId) {
-  return {
-    type: ROUND_TO_SORT_CHANGE,
-    payload: roundId
+export const changeRoundToSort = (roundId) => {
+  return (dispatch, getState) => {
+    const roundToSort = getState().adminApp.rounds.find(r => r.id === roundId)
+
+    dispatch({
+      type: ROUND_TO_SORT_CHANGE,
+      payload: {...roundToSort},
+    })
   }
 }
 
-export function changeScore (scoreId, idx, value) {
-  return {
-    type: SCORES_CHANGE,
-    payload: {scoreId, idx, value}
+export const changeScore = (scoreId, idx, value) => {
+  return (dispatch, getState) => {
+    const draft = getState().adminApp.draft
+    const newDraft = {
+      ...draft,
+      scores: draft.scores.map(s => {
+        if (scoreId !== s.id) return s
+
+        const strokes = [...s.strokes]
+        strokes[idx] = value
+
+        return {...s, strokes}
+      })
+    }
+
+    dispatch({
+      type: SCORES_CHANGE,
+      payload: newDraft
+    })
   }
 }
 
@@ -110,15 +149,9 @@ export const fetchCompetition = (id) => {
 
 const ACTION_HANDLERS = {
   [ENTRY_AND_SCORES_EDIT]: (state, action) => {
-    const playerToEdit = state.players.find(p => p.id === action.payload)
-    const draft = {
-      player: {...playerToEdit},
-      scores: [...state.scores.filter(s => s.player_id === playerToEdit.id)]
-    }
-
     return {
       ...state,
-      draft
+      draft: action.payload,
     }
   },
 
@@ -130,37 +163,24 @@ const ACTION_HANDLERS = {
   },
 
   [ROUND_TO_SORT_CHANGE]: (state, action) => {
-    const roundToSort = state.rounds.find(r => r.id === action.payload)
     return {
       ...state,
-      roundToSort: {...roundToSort},
+      roundToSort: action.payload,
     }
   },
 
   [RETIRED_CHANGE]: (state, action) => {
-    const draft = {
-      ...state.draft,
-      player: {
-        ...state.draft.player,
-        retired: action.payload.retired
-      }
+    return {
+      ...state,
+      draft: action.payload,
     }
-    return {...state, draft}
   },
 
   [SCORES_CHANGE]: (state, action) => {
-    const draft = {
-      ...state.draft,
-      scores: state.draft.scores.map(s => {
-        if (action.payload.scoreId !== s.id) return s
-
-        const strokes = [...s.strokes]
-        strokes[action.payload.idx] = action.payload.value
-
-        return {...s, strokes}
-      })
+    return {
+      ...state,
+      draft: action.payload
     }
-    return {...state, draft}
   },
 
   [ENTRY_AND_SCORES_SAVE_REQUEST]: (state, action) => {

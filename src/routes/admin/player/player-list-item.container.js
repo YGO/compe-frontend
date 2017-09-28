@@ -4,7 +4,7 @@ import {
   changeRetired,
   changeScore,
   editPlayer,
-  savePlayer
+  saveDraft
 } from './player.module'
 import PlayerListItem from './player-list-item.component'
 
@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(cancelEdit())
   },
   onClickSavePlayer: () => {
-    dispatch(savePlayer())
+    dispatch(saveDraft())
   },
   onChangeScore: (scoreId, idx, value) => {
     dispatch(changeScore(scoreId, idx, value))

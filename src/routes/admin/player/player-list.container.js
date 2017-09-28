@@ -10,7 +10,7 @@ const createSortReference = (roundId, roundEntries) => {
 const toEditable = draft => p => {
   if (draft === null) return p
   if (draft.player.id !== p.id) return p
-  return {...p, isEditing: true}
+  return {...draft.player, isEditing: true}
 }
 
 const mapStateToProps = state => {
