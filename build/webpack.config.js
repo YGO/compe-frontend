@@ -83,6 +83,7 @@ config.module.rules.push({
         ],
       ],
       presets: [
+        'stage-0',
         'babel-preset-react',
         ['babel-preset-env', {
           modules: false,

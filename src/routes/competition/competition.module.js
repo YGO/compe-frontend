@@ -8,18 +8,17 @@ const COMPETITION_GET_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
 // ------------------------------------
 
 export const fetchCompetition = (id) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     dispatch({
       type: COMPETITION_GET_REQUEST,
     })
 
-    return getCompetition(id)
-      .then(competition => {
-        dispatch({
-          type: COMPETITION_GET_SUCCESS,
-          payload: competition,
-        })
-      })
+    const competition = await getCompetition(id)
+
+    dispatch({
+      type: COMPETITION_GET_SUCCESS,
+      payload: competition,
+    })
   }
 }
 

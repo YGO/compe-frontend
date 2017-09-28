@@ -6,6 +6,7 @@ const ENTRY_AND_SCORES_EDIT = 'admin/ENTRY_AND_SCORES_EDIT'
 const ENTRY_AND_SCORES_EDIT_CANCEL = 'admin/ENTRY_AND_SCORES_EDIT_CANCEL'
 const ENTRY_AND_SCORES_SAVE_REQUEST = 'admin/ENTRY_AND_SCORES_SAVE_REQUEST'
 const ENTRY_AND_SCORES_SAVE_SUCCESS = 'admin/ENTRY_AND_SCORES_SAVE_SUCCESS'
+const ENTRY_AND_SCORES_SAVE_ERROR = 'admin/ENTRY_AND_SCORES_SAVE_ERROR'
 const RETIRED_CHANGE = 'admin/PLAYERS_CHANGE_RETIRED'
 const SCORES_CHANGE = 'admin/SCORES_CHANGE'
 const COMPETITION_GET_REQUEST = 'admin/COMPETITION_GET_REQUEST'
@@ -30,7 +31,7 @@ export function cancelEdit () {
 }
 
 export function savePlayer () {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     dispatch({
       type: ENTRY_AND_SCORES_SAVE_REQUEST
     })
@@ -48,11 +49,21 @@ export function savePlayer () {
       }))
     ]
 
-    Promise.all(promises).then(() => {
+    try {
+      await Promise.all(promises)
       dispatch({
         type: ENTRY_AND_SCORES_SAVE_SUCCESS
       })
-    })
+    } catch (e) {
+      console.error(e)
+      dispatch({
+        type: ENTRY_AND_SCORES_SAVE_ERROR,
+        payload: {
+          level: 'error',
+          message: 'Something bad happened.',
+        }
+      })
+    }
   }
 }
 
@@ -164,6 +175,15 @@ const ACTION_HANDLERS = {
       ...state,
       draft: null,
       loading: false
+    }
+  },
+
+  [ENTRY_AND_SCORES_SAVE_ERROR]: (state, action) => {
+    return {
+      ...state,
+      draft: null,
+      loading: false,
+      error: action.payload
     }
   },
 
