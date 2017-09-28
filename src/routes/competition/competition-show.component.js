@@ -2,6 +2,7 @@ import React from 'react'
 import Radium from 'radium'
 import PropTypes from 'prop-types'
 import LeadersBoardContainer from './competition-leadersboard.container'
+// eslint-disable-next-line max-len
 import ScoreToggler from '../../components/leadersboard/leadersboard-score-toggler.component'
 import lineBtnImg from './assets/linebutton_82x20.png'
 import pgaLogoImg from './assets/pga-logo.png'
@@ -17,7 +18,7 @@ let SHARE_URL
 if (process.env.NODE_ENV === 'development') {
   SHARE_URL = 'https://asyridxcpg.localtunnel.me/pgateaching_201709/'
 } else {
-  SHARE_URL = 'https://livescore.golfnetwork.plus/pgateaching_201709/'
+  SHARE_URL = window.location.href
 }
 
 const YOUTUBE_URL = 'https://www.youtube.com/embed/vkHwUXWMDus?autoplay=1'
@@ -152,6 +153,7 @@ const CompetitionShow = ({
               src={playStoreImg} alt='googleplay'
               style={[style.footer.marketIcon]}/></a>
             <a
+              // eslint-disable-next-line max-len
               href='https://itunes.apple.com/jp/app/gorufusukoa-guan-li-gorufu/id561067103?mt=8'><img
               src={appStoreImg} alt='appstore'
               style={[style.footer.marketIcon]}/></a>
@@ -162,6 +164,14 @@ const CompetitionShow = ({
 
   </div>
 )
+
+CompetitionShow.defaultProps = {
+  title: '',
+  officialUrl: '',
+  clubName: '',
+  clubUrl: '',
+  term: '',
+}
 
 CompetitionShow.propTypes = {
   title: PropTypes.string.isRequired,

@@ -9,7 +9,7 @@ export default (store) => ({
       const reducer = require('./competition.module').default
       injectReducer(store, {key: 'mainApp', reducer})
       fetchCompetition(nextState.params.id)(store.dispatch)
-        .then(() => cb(null, CompetitionShow))
+      cb(null, CompetitionShow)
     }, ':id')
   }
 })
