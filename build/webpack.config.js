@@ -201,14 +201,21 @@ config.plugins.push(new HtmlWebpackPlugin({
     collapseWhitespace: true,
   },
 }))
-config.plugins.push(new HtmlWebpackPlugin({
-  template: inProjectSrc('index-pgateaching_201709.html'),
-  inject: true,
-  filename: 'pgateaching_201709/index.html',
-  minify: {
-    collapseWhitespace: true,
-  },
-}))
+const competitionIds = [
+  'pgateaching_201611',
+  'pgateaching_201709',
+  'ks_compe_201710'
+]
+competitionIds.forEach(id => {
+  config.plugins.push(new HtmlWebpackPlugin({
+    template: inProjectSrc(`index-${id}.html`),
+    inject: true,
+    filename: `${id}/index.html`,
+    minify: {
+      collapseWhitespace: true,
+    },
+  }))
+})
 
 // Development Tools
 // ------------------------------------
