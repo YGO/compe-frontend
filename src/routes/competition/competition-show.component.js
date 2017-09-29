@@ -21,14 +21,13 @@ if (process.env.NODE_ENV === 'development') {
   SHARE_URL = window.location.href
 }
 
-const YOUTUBE_URL = 'https://www.youtube.com/embed/vkHwUXWMDus?autoplay=1'
-
 const mapStateToProps = state => {
   const {
     title,
     official_url: officialUrl,
     club_name: clubName,
     club_url: clubUrl,
+    youtube_url: youtubeUrl,
     term,
   } = state.mainApp.competition
 
@@ -37,6 +36,7 @@ const mapStateToProps = state => {
     officialUrl,
     clubName,
     clubUrl,
+    youtubeUrl,
     term,
   }
 }
@@ -46,6 +46,7 @@ const CompetitionShow = ({
                            officialUrl,
                            clubName,
                            clubUrl,
+                           youtubeUrl,
                            term,
                          }) => (
   <div style={[style.self]}>
@@ -71,14 +72,16 @@ const CompetitionShow = ({
     <div className='container-fluid' style={[style.container]}>
 
       <section id='competition-info' style={[style.section]}>
-        <div className='row'>
+        {youtubeUrl &&
+        <div className='row mb-4'>
           <div className='col-12' style={[alignCenter]}>
             <iframe className='youtubesize' width='560' height='315'
-                    src={YOUTUBE_URL}
+                    src={youtubeUrl}
                     frameBorder='0' allowFullScreen=''/>
           </div>
         </div>
-        <div className='row mt-4'>
+        }
+        <div className='row'>
           <div className='col pl-1'>
             <ul className='list-unstyled'>
               <li><a href={officialUrl}>{title}</a></li>
@@ -178,6 +181,7 @@ CompetitionShow.propTypes = {
   officialUrl: PropTypes.string.isRequired,
   clubName: PropTypes.string.isRequired,
   clubUrl: PropTypes.string.isRequired,
+  youtubeUrl: PropTypes.string.isRequired,
   term: PropTypes.string.isRequired,
 }
 

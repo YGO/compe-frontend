@@ -2,9 +2,10 @@ const competitions = [
   {
     'id': 'pgateaching_201609',
     'title': '第18回 PGAティーチングプロ選手権大会',
-    'official_url': 'http://www.pgatour.jp/teaching/2016/',
+    'official_url': null,
     'club_name': '静ヒルズカントリークラブ',
     'club_url': 'http://www.noboribetsu-cc.com/',
+    youtube_url: 'https://www.youtube.com/embed/cr0X-LO8Hto?autoplay=1',
     'term': '2016年9月21日 〜 22日',
 
     'players': [
@@ -183,6 +184,7 @@ const competitions = [
     'club_name': '登別カントリー倶楽部',
     'club_url': 'http://www.noboribetsu-cc.com/',
     'term': '2017年9月21日 〜 22日',
+    youtube_url: null,
 
     'players': [
       {
