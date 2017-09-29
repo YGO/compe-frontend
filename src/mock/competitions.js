@@ -22,11 +22,13 @@ const competitions = [
 
     'rounds': [
       {
-        'id': 'r01',
+        'id': 'pgateaching_201609.1',
+        play_order: 1,
         'title': '1日目',
       },
       {
-        'id': 'r02',
+        'id': 'pgateaching_201609.2',
+        play_order: 2,
         'title': '2日目',
       }
     ],
@@ -36,46 +38,46 @@ const competitions = [
         'id': 's01',
         'strokes': [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
         'player_id': 'p01',
-        'round_id': 'r01'
+        round_id: 'pgateaching_201609.1',
       },
       {
         'id': 's02',
         'strokes': [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
         'player_id': 'p01',
-        'round_id': 'r02'
+        round_id: 'pgateaching_201609.2',
       },
       {
         'id': 's03',
         'strokes': [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
         'player_id': 'p02',
-        'round_id': 'r01'
+        round_id: 'pgateaching_201609.1',
       },
       {
         'id': 's04',
         'strokes': [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
         'player_id': 'p02',
-        'round_id': 'r02'
+        round_id: 'pgateaching_201609.2',
       }
     ],
 
     round_entries: [
       {
-        round_id: 'r01',
+        round_id: 'pgateaching_201609.1',
         player_id: 'p01',
         sort_order: 1,
       },
       {
-        round_id: 'r01',
+        round_id: 'pgateaching_201609.1',
         player_id: 'p02',
         sort_order: 2,
       },
       {
-        round_id: 'r02',
+        round_id: 'pgateaching_201609.2',
         player_id: 'p01',
         sort_order: 2,
       },
       {
-        round_id: 'r02',
+        round_id: 'pgateaching_201609.2',
         player_id: 'p02',
         sort_order: 1,
       },
@@ -197,7 +199,7 @@ const competitions = [
 
     'rounds': [
       {
-        'id': 'r01',
+        'id': 'pgateaching_201611.1',
         'title': '',
       },
     ],
@@ -207,24 +209,24 @@ const competitions = [
         'id': 's01',
         'strokes': [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
         'player_id': 'p01',
-        'round_id': 'r01'
+        round_id: 'pgateaching_201611.1',
       },
       {
         'id': 's03',
         'strokes': [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
         'player_id': 'p02',
-        'round_id': 'r01'
+        round_id: 'pgateaching_201611.1',
       },
     ],
 
     round_entries: [
       {
-        round_id: 'r01',
+        round_id: 'pgateaching_201611.1',
         player_id: 'p01',
         sort_order: 1,
       },
       {
-        round_id: 'r01',
+        round_id: 'pgateaching_201611.2',
         player_id: 'p02',
         sort_order: 2,
       },
