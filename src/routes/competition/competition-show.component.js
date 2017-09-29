@@ -5,14 +5,14 @@ import LeadersBoardContainer from './competition-leadersboard.container'
 // eslint-disable-next-line max-len
 import ScoreToggler from '../../components/leadersboard/leadersboard-score-toggler.component'
 import lineBtnImg from './assets/linebutton_82x20.png'
-import pgaLogoImg from './assets/pga-logo.png'
 import gnIconImg from './assets/gn_icon.png'
 import appStoreImg from './assets/appstore.svg'
 import playStoreImg from './assets/google_play.png'
 import Helmet from 'react-helmet/es/Helmet'
-import { alignCenter, alignLeft } from '../common.styles'
+import { alignCenter } from '../common.styles'
 import { style } from './competition-show.styles'
 import { connect } from 'react-redux'
+import Header from './competition-show-header.component'
 
 let SHARE_URL
 if (process.env.NODE_ENV === 'development') {
@@ -23,6 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const mapStateToProps = state => {
   const {
+    id,
     title,
     official_url: officialUrl,
     club_name: clubName,
@@ -32,6 +33,7 @@ const mapStateToProps = state => {
   } = state.mainApp.competition
 
   return {
+    id,
     title,
     officialUrl,
     clubName,
@@ -42,6 +44,7 @@ const mapStateToProps = state => {
 }
 
 const CompetitionShow = ({
+                           id,
                            title,
                            officialUrl,
                            clubName,
@@ -54,20 +57,7 @@ const CompetitionShow = ({
       <title>{title}</title>
     </Helmet>
 
-    <header style={[style.header.self]}>
-      <div className='jumbotron' style={[style.header.bg]}/>
-      <div className='jumbotron container-fluid'
-           style={[style.header.main]}>
-        <div className='row'>
-          <div className='col-auto'>
-            <img src={pgaLogoImg} alt='pga'/>
-          </div>
-          <div className='col' style={[alignLeft]}>
-            <h1 className='display-5'>{title}</h1>
-          </div>
-        </div>
-      </div>
-    </header>
+    <Header competitionId={id} title={title}/>
 
     <div className='container-fluid' style={[style.container]}>
 
@@ -169,19 +159,20 @@ const CompetitionShow = ({
 )
 
 CompetitionShow.defaultProps = {
+  id: '',
   title: '',
-  officialUrl: '',
   clubName: '',
   clubUrl: '',
   term: '',
 }
 
 CompetitionShow.propTypes = {
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  officialUrl: PropTypes.string.isRequired,
+  officialUrl: PropTypes.string,
   clubName: PropTypes.string.isRequired,
   clubUrl: PropTypes.string.isRequired,
-  youtubeUrl: PropTypes.string.isRequired,
+  youtubeUrl: PropTypes.string,
   term: PropTypes.string.isRequired,
 }
 

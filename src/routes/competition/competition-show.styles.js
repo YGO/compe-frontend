@@ -1,27 +1,6 @@
-import headerImg from './assets/banner.jpg'
 export const style = {
   self: {
     backgroundColor: '#eee',
-  },
-  header: {
-    self: {
-      position: 'relative',
-    },
-    bg: {
-      backgroundImage: `url(${headerImg})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      height: '260px',
-      color: '#fff',
-      filter: 'blur(5px)',
-    },
-    main: {
-      position: 'absolute',
-      top: '0',
-      color: 'white',
-      backgroundColor: 'transparent',
-      height: '260px',
-    },
   },
   buttons: {
     lineBtn: {

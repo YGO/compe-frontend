@@ -1,6 +1,6 @@
 const competitions = [
   {
-    'id': 'pgateaching_201609',
+    'id': 'pgateaching_201611',
     'title': '第18回 PGAティーチングプロ選手権大会',
     'official_url': null,
     'club_name': '静ヒルズカントリークラブ',
@@ -178,7 +178,7 @@ const competitions = [
     ]
   },
   {
-    'id': 'pgateaching_201711',
+    'id': 'pgateaching_201709',
     'title': '第19回 PGAティーチングプロ選手権大会',
     'official_url': 'http://www.pgatour.jp/teaching/2017/',
     'club_name': '登別カントリー倶楽部',
