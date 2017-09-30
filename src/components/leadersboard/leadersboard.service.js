@@ -17,18 +17,14 @@ export const calcTHRU = (scoresPerRound, retired) => {
   }
 
   const findLastHole = (scores) => {
-    const scoresOut = scores.slice(0, 9)
-    const scoresIn = scores.slice(9, 18)
-    if (scoresIn.every(s => s === undefined)) {
-      return scoresOut.filter(s => s !== undefined).length
-    }
-    if (scoresIn.every(s => s !== undefined) && scoresOut.every(s => s === undefined)) {
-      return 18
-    }
-    if (scoresIn.every(s => s !== undefined)) {
-      return scoresOut.filter(s => s !== undefined).length
-    }
-    return scoresIn.filter(s => s !== undefined).length + 9
+    const playedOrNot = scores.map(s => s === undefined ? 0 : 1)
+    const gradient = playedOrNot.map((b, idx) => {
+      const next = playedOrNot[idx + 1]
+      if (!next) return 0 - b
+      return next - b
+    })
+
+    return gradient.findIndex(g => g === -1) + 1
   }
 
   return findLastHole(scores) + ''

@@ -35,12 +35,12 @@ describe('calcTHRU', () => {
   it('should be - when not played', () => {
     expect(calcTHRU([notPlayed, notPlayed], false)).to.equal('-')
   })
-  it('should be 1 when played only hole 1 at day1', () => {
+  it('should be 2 when played only hole 2 at day1', () => {
     const scoresDay1 = [
-      ...[0, _, _, _, _, _, _, _, _],
+      ...[_, 0, _, _, _, _, _, _, _],
       ...[_, _, _, _, _, _, _, _, _],
     ]
-    expect(calcTHRU([scoresDay1, notPlayed], false)).to.equal('1')
+    expect(calcTHRU([scoresDay1, notPlayed], false)).to.equal('2')
   })
   it('should be 9 when played hole 1 to 9 at day1', () => {
     const scoresDay1 = [
@@ -49,9 +49,9 @@ describe('calcTHRU', () => {
     ]
     expect(calcTHRU([scoresDay1, notPlayed], false)).to.equal('9')
   })
-  it('should be 10 when played hole 1 to 10 at day1', () => {
+  it('should be 10 when played hole 2 to 10 at day1', () => {
     const scoresDay1 = [
-      ...[0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ...[_, 0, 0, 0, 0, 0, 0, 0, 0],
       ...[0, _, _, _, _, _, _, _, _],
     ]
     expect(calcTHRU([scoresDay1, notPlayed], false)).to.equal('10')
@@ -63,12 +63,12 @@ describe('calcTHRU', () => {
     ]
     expect(calcTHRU([scoresDay1, notPlayed], false)).to.equal('F 1/2')
   })
-  it('should be 10 when played only hole 10 at day1', () => {
+  it('should be 11 when played only hole 11 at day1', () => {
     const scoresDay1 = [
       ...[_, _, _, _, _, _, _, _, _],
-      ...[0, _, _, _, _, _, _, _, _],
+      ...[_, 0, _, _, _, _, _, _, _],
     ]
-    expect(calcTHRU([scoresDay1, notPlayed], false)).to.equal('10')
+    expect(calcTHRU([scoresDay1, notPlayed], false)).to.equal('11')
   })
   it('should be 18 when played hole 10 to 18 at day1', () => {
     const scoresDay1 = [
@@ -77,10 +77,10 @@ describe('calcTHRU', () => {
     ]
     expect(calcTHRU([scoresDay1, notPlayed], false)).to.equal('18')
   })
-  it('should be 1 when played hole 10 to 18 and 1 at day1', () => {
+  it('should be 1 when played hole 11 to 1 and 1 at day1', () => {
     const scoresDay1 = [
       ...[0, _, _, _, _, _, _, _, _],
-      ...[0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ...[_, 0, 0, 0, 0, 0, 0, 0, 0],
     ]
     expect(calcTHRU([scoresDay1, notPlayed], false)).to.equal('1')
   })
