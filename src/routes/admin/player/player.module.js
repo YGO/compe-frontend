@@ -191,8 +191,22 @@ const ACTION_HANDLERS = {
   },
 
   [ENTRY_AND_SCORES_SAVE_SUCCESS]: (state, action) => {
+    const draft = state.draft
+
+    const players = state.players.map(p => {
+      if (p.id === draft.player.id) return draft.player
+      return p
+    })
+    const scores = state.scores.map(s => {
+      const updatedScore = draft.scores.find(ds => ds.id === s.id)
+      if (updatedScore) return updatedScore
+      return s
+    })
+
     return {
       ...state,
+      players,
+      scores,
       draft: null,
       loading: false
     }
