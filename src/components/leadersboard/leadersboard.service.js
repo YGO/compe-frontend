@@ -37,6 +37,7 @@ export const calcTHRU = (scoresPerRound, retired) => {
 export const rankPlayers = (players) => {
   const totalScores = players.map(p => {
     if (p.retired) return Infinity
+    if (!hasScore(p.scoresPerRound)) return Infinity
     return p.totalScore
   })
   const sorted = totalScores.slice().sort((a, b) => a - b)
@@ -46,4 +47,9 @@ export const rankPlayers = (players) => {
     ...p,
     rank: ranks[idx],
   }))
+}
+
+export const hasScore = (scoresPerRound) => {
+  const flattened = Array.prototype.concat(...scoresPerRound)
+  return flattened.some(s => s !== undefined)
 }
