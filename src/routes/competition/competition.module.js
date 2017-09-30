@@ -1,25 +1,24 @@
-import { listPlayer } from '../../repositories/player.repository'
+import { getCompetition } from '../../repositories/competition.repository'
 
-const PLAYERS_FETCH_REQUEST = 'PLAYERS_FETCH_REQUEST'
-const PLAYERS_FETCH_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
+const COMPETITION_GET_REQUEST = 'PLAYERS_FETCH_REQUEST'
+const COMPETITION_GET_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 
-export const fetchPlayers = () => {
-  return (dispatch, getState) => {
+export const fetchCompetition = (id) => {
+  return async (dispatch, getState) => {
     dispatch({
-      type: PLAYERS_FETCH_REQUEST,
+      type: COMPETITION_GET_REQUEST,
     })
 
-    return listPlayer()
-      .then(players => {
-        dispatch({
-          type: PLAYERS_FETCH_SUCCESS,
-          payload: players,
-        })
-      })
+    const competition = await getCompetition(id)
+
+    dispatch({
+      type: COMPETITION_GET_SUCCESS,
+      payload: competition,
+    })
   }
 }
 
@@ -28,17 +27,22 @@ export const fetchPlayers = () => {
 // ------------------------------------
 
 const ACTION_HANDLERS = {
-  [PLAYERS_FETCH_REQUEST]: (state, action) => {
+  [COMPETITION_GET_REQUEST]: (state, action) => {
     return {
       ...state,
       loading: true,
     }
   },
 
-  [PLAYERS_FETCH_SUCCESS]: (state, action) => {
+  [COMPETITION_GET_SUCCESS]: (state, action) => {
+    const {players, rounds, scores, holes, ...competition} = action.payload
     return {
       ...state,
-      players: action.payload,
+      competition,
+      players,
+      rounds,
+      scores,
+      holes,
       loading: false,
     }
   },
@@ -49,7 +53,11 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 
 const initialState = {
+  competition: {},
   players: [],
+  rounds: [],
+  scores: [],
+  holes: [],
   loading: false,
 }
 

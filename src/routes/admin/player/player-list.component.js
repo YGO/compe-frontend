@@ -1,41 +1,27 @@
-import { connect } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
-import PlayerListItem from './player-list-item.component'
+import PlayerListItemContainer from './player-list-item.container'
+import RoundSelectorContainer from './round-selector.container'
 
-const mapDispatchToProps = {}
-
-const mapStateToProps = state => {
-  const sortDay = state.adminPlayers.sortDay
-
-  return {
-    players: state.adminPlayers.players.sort((a, b) => {
-      const k = `sort_order_day${sortDay}`
-      return a[k] > b[k] ? 1 : -1
-    }),
-    playerEditing: state.adminPlayers.playerEditing,
-  }
-}
-
-const PlayerList = ({players, playerEditing}) => (
+const PlayerList = ({players, pars, loading}) => (
   <div>
-    {players.map(p => {
-      if (playerEditing === null) {
-        return <PlayerListItem key={p.id} {...p} />
-      }
-      if (p.id !== playerEditing.id) {
-        return <PlayerListItem key={p.id} {...p} />
-      }
-      return <PlayerListItem key={p.id} {...playerEditing} />
-    })}
+    <h2>出場選手一覧</h2>
+    <div className='row mb-2'>
+      <div className='col-auto mr-auto'/>
+      <div className='col-auto'>
+        <RoundSelectorContainer/>
+      </div>
+    </div>
+    {players.map(p =>
+      <PlayerListItemContainer key={p.id} pars={pars} loading={loading} {...p} />
+    )}
   </div>
 )
 
 PlayerList.propTypes = {
-  players: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
-  playerEditing: PropTypes.object,
+  players: PropTypes.array.isRequired,
+  pars: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerList)
+export default PlayerList

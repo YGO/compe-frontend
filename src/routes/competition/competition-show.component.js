@@ -1,63 +1,82 @@
 import React from 'react'
 import Radium from 'radium'
+import PropTypes from 'prop-types'
 import LeadersBoardContainer from './competition-leadersboard.container'
+// eslint-disable-next-line max-len
 import ScoreToggler from '../../components/leadersboard/leadersboard-score-toggler.component'
 import lineBtnImg from './assets/linebutton_82x20.png'
-import pgaLogoImg from './assets/pga-logo.png'
 import gnIconImg from './assets/gn_icon.png'
 import appStoreImg from './assets/appstore.svg'
 import playStoreImg from './assets/google_play.png'
 import Helmet from 'react-helmet/es/Helmet'
-import { alignCenter, alignLeft } from '../common.styles'
+import { alignCenter } from '../common.styles'
 import { style } from './competition-show.styles'
+import { connect } from 'react-redux'
+import Header from './competition-show-header.component'
 
 let SHARE_URL
 if (process.env.NODE_ENV === 'development') {
   SHARE_URL = 'https://asyridxcpg.localtunnel.me/pgateaching_201709/'
 } else {
-  SHARE_URL = 'https://livescore.golfnetwork.plus/pgateaching_201709/'
+  SHARE_URL = window.location.href
 }
 
-const YOUTUBE_URL = 'https://www.youtube.com/embed/vkHwUXWMDus?autoplay=1'
+const mapStateToProps = state => {
+  const {
+    id,
+    title,
+    official_url: officialUrl,
+    club_name: clubName,
+    club_url: clubUrl,
+    youtube_url: youtubeUrl,
+    term,
+  } = state.mainApp.competition
 
-const CompetitionShow = () => (
+  return {
+    id,
+    title,
+    officialUrl,
+    clubName,
+    clubUrl,
+    youtubeUrl,
+    term,
+  }
+}
+
+const CompetitionShow = ({
+                           id,
+                           title,
+                           officialUrl,
+                           clubName,
+                           clubUrl,
+                           youtubeUrl,
+                           term,
+                         }) => (
   <div style={[style.self]}>
     <Helmet>
-      <title>第19回 PGAティーチングプロ選手権大会</title>
+      <title>{title}</title>
     </Helmet>
 
-    <header style={[style.header.self]}>
-      <div className='jumbotron' style={[style.header.bg]}/>
-      <div className='jumbotron container-fluid'
-           style={[style.header.main]}>
-        <div className='row'>
-          <div className='col-auto'>
-            <img src={pgaLogoImg} alt='pga'/>
-          </div>
-          <div className='col' style={[alignLeft]}>
-            <h1 className='display-5'>第19回 PGAティーチングプロ選手権大会</h1>
-          </div>
-        </div>
-      </div>
-    </header>
+    <Header competitionId={id} title={title}/>
 
     <div className='container-fluid' style={[style.container]}>
 
       <section id='competition-info' style={[style.section]}>
-        <div className='row'>
+        {youtubeUrl &&
+        <div className='row mb-4'>
           <div className='col-12' style={[alignCenter]}>
             <iframe className='youtubesize' width='560' height='315'
-                    src={YOUTUBE_URL}
+                    src={youtubeUrl}
                     frameBorder='0' allowFullScreen=''/>
           </div>
         </div>
-        <div className='row mt-4'>
+        }
+        <div className='row'>
           <div className='col pl-1'>
             <ul className='list-unstyled'>
-              <li><a href='http://www.pgatour.jp/teaching/2017/'>第19回
-                PGAティーチングプロ選手権大会</a></li>
-              <li><a href='http://www.noboribetsu-cc.com/'>登別カントリー倶楽部</a></li>
-              <li>2017年9月21日 〜 22日</li>
+              <li><a href={officialUrl}>{title}</a></li>
+              <li><a href={clubUrl}>{clubName}</a></li>
+              <li>{term}</li>
             </ul>
           </div>
         </div>
@@ -85,7 +104,7 @@ const CompetitionShow = () => (
       </section>
 
       <section id='leaders-board' style={[style.section]}>
-        <LeadersBoardContainer />
+        <LeadersBoardContainer/>
       </section>
 
       <section id='comments' style={[style.section]}>
@@ -127,6 +146,7 @@ const CompetitionShow = () => (
               src={playStoreImg} alt='googleplay'
               style={[style.footer.marketIcon]}/></a>
             <a
+              // eslint-disable-next-line max-len
               href='https://itunes.apple.com/jp/app/gorufusukoa-guan-li-gorufu/id561067103?mt=8'><img
               src={appStoreImg} alt='appstore'
               style={[style.footer.marketIcon]}/></a>
@@ -138,5 +158,23 @@ const CompetitionShow = () => (
   </div>
 )
 
+CompetitionShow.defaultProps = {
+  id: '',
+  title: '',
+  clubName: '',
+  clubUrl: '',
+  term: '',
+}
+
+CompetitionShow.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  officialUrl: PropTypes.string,
+  clubName: PropTypes.string.isRequired,
+  clubUrl: PropTypes.string.isRequired,
+  youtubeUrl: PropTypes.string,
+  term: PropTypes.string.isRequired,
+}
+
 // noinspection JSUnusedGlobalSymbols
-export default Radium(CompetitionShow)
+export default connect(mapStateToProps)(Radium(CompetitionShow))
