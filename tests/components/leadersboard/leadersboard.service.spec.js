@@ -5,15 +5,19 @@ import {
 
 describe('rankPlayers', () => {
   it('should rank players by using totalScore and retired', () => {
+    const scoresPerRound1 = [[1]]
+    const scoresPerRound2 = [[undefined]]
+
     const playersWithTotalScore = [
-      {id: 1, totalScore: 0, retired: false},
-      {id: 2, totalScore: -1, retired: true},
-      {id: 3, totalScore: 1, retired: false},
-      {id: 4, totalScore: 0, retired: false},
-      {id: 5, totalScore: -1, retired: false},
+      {id: 1, totalScore: 0, retired: false, scoresPerRound: scoresPerRound1},
+      {id: 2, totalScore: -1, retired: true, scoresPerRound: scoresPerRound1},
+      {id: 3, totalScore: 1, retired: false, scoresPerRound: scoresPerRound1},
+      {id: 4, totalScore: 0, retired: false, scoresPerRound: scoresPerRound1},
+      {id: 5, totalScore: -1, retired: false, scoresPerRound: scoresPerRound1},
+      {id: 5, totalScore: -1, retired: false, scoresPerRound: scoresPerRound2},
     ]
     const ranks = rankPlayers(playersWithTotalScore).map(p => p.rank)
-    expect(ranks).to.deep.equal([2, 5, 4, 2, 1])
+    expect(ranks).to.deep.equal([2, 5, 4, 2, 1, 5])
   })
 })
 
@@ -27,6 +31,7 @@ describe('calcTHRU', () => {
   it('should be F when retired', () => {
     expect(calcTHRU([notPlayed, notPlayed], true)).to.equal('F')
   })
+
   it('should be - when not played', () => {
     expect(calcTHRU([notPlayed, notPlayed], false)).to.equal('-')
   })
