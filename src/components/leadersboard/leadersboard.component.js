@@ -5,10 +5,8 @@ import style from './leadersboard.styles'
 import { rankPlayers } from './leadersboard.service'
 import LeadersBoardItem from './leadersboard-item.component'
 
-const roundScores = (player, scores, pars) => (round) => {
-  const score = scores.find(s => s.player_id === player.id && s.round_id === round.id)
-
-  return score.strokes.map((s, idx) => {
+const strokesToScores = (pars) => (strokes) => {
+  return strokes.map((s, idx) => {
     if (s === 0) return undefined
     return s - pars[idx]
   })
@@ -22,16 +20,15 @@ const calcTotalScore = (scoresPerRound) => {
 const LeadersBoard = ({
                         players,
                         rounds,
-                        scores,
                         holes,
                       }) => {
   const leadersBoardPlayers = players.map(p => {
     const pars = holes.map(h => h.par)
-    const scoresPerRound = rounds.map(roundScores(p, scores, pars))
+    const scoresPerRound = p.strokesPerRound.map(strokesToScores(pars))
 
     return {
       ...p,
-      scoresPerRound: scoresPerRound,
+      scoresPerRound,
       totalScore: calcTotalScore(scoresPerRound), // required now to sort
     }
   })
@@ -59,7 +56,6 @@ LeadersBoard.propTypes = {
     id: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   rounds: PropTypes.array.isRequired,
-  scores: PropTypes.array.isRequired,
   holes: PropTypes.array.isRequired,
 }
 

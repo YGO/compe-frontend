@@ -35,13 +35,13 @@ const ACTION_HANDLERS = {
   },
 
   [COMPETITION_GET_SUCCESS]: (state, action) => {
-    const {players, rounds, scores, holes, ...competition} = action.payload
+    const {entries, rounds, round_entries, holes, ...competition} = action.payload
     return {
       ...state,
       competition,
-      players,
+      entries,
       rounds,
-      scores,
+      roundEntries: round_entries,
       holes,
       loading: false,
     }
@@ -54,9 +54,9 @@ const ACTION_HANDLERS = {
 
 const initialState = {
   competition: {},
-  players: [],
+  entries: [],
   rounds: [],
-  scores: [],
+  roundEntries: [],
   holes: [],
   loading: false,
 }

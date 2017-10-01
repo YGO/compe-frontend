@@ -8,79 +8,60 @@ const competitions = [
     youtube_url: 'https://www.youtube.com/embed/cr0X-LO8Hto?autoplay=1',
     'term': '2016年9月21日 〜 22日',
 
-    'players': [
-      {
-        'id': 'p01',
-        'name': 'Trung BB at 2016',
-        'retired': false,
-      },
-      {
-        'id': 'p02',
-        'name': 'Cuong CL at 2016',
-        'retired': true,
-      }
-    ],
-
     'rounds': [
       {
-        'id': 'pgateaching_201609.1',
+        'id': 'pgateaching_201611.1',
         play_order: 1,
         'title': '1日目',
       },
       {
-        'id': 'pgateaching_201609.2',
+        'id': 'pgateaching_201611.2',
         play_order: 2,
         'title': '2日目',
       }
     ],
 
-    'scores': [
+    'entries': [
       {
-        'id': 's01',
-        'strokes': [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
-        'player_id': 'p01',
-        round_id: 'pgateaching_201609.1',
+        'id': 'pgateaching_201611.1',
+        'player_name': 'Trung BB at 2016',
+        'retired': false,
       },
       {
-        'id': 's02',
-        'strokes': [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-        'player_id': 'p01',
-        round_id: 'pgateaching_201609.2',
-      },
-      {
-        'id': 's03',
-        'strokes': [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-        'player_id': 'p02',
-        round_id: 'pgateaching_201609.1',
-      },
-      {
-        'id': 's04',
-        'strokes': [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-        'player_id': 'p02',
-        round_id: 'pgateaching_201609.2',
+        'id': 'pgateaching_201611.2',
+        'player_name': 'Cuong CL at 2016',
+        'retired': true,
       }
     ],
 
     round_entries: [
       {
-        round_id: 'pgateaching_201609.1',
-        player_id: 'p01',
+        id: 'pgateaching_201611.1.1',
+        round_id: 'pgateaching_201611.1',
+        entry_id: 'pgateaching_201611.1',
         sort_order: 1,
+        strokes: [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
       },
       {
-        round_id: 'pgateaching_201609.1',
-        player_id: 'p02',
+        id: 'pgateaching_201611.1.2',
+        round_id: 'pgateaching_201611.1',
+        entry_id: 'pgateaching_201611.2',
         sort_order: 2,
+        strokes: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       },
       {
-        round_id: 'pgateaching_201609.2',
-        player_id: 'p01',
+        id: 'pgateaching_201611.2.1',
+        round_id: 'pgateaching_201611.2',
+        entry_id: 'pgateaching_201611.1',
         sort_order: 2,
+        strokes: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
       },
       {
-        round_id: 'pgateaching_201609.2',
-        player_id: 'p02',
+        id: 'pgateaching_201611.2.2',
+        round_id: 'pgateaching_201611.2',
+        entry_id: 'pgateaching_201611.2',
         sort_order: 1,
+        strokes: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
       },
     ],
 
@@ -186,51 +167,39 @@ const competitions = [
     'term': '2017年9月21日 〜 22日',
     youtube_url: null,
 
-    'players': [
+    'rounds': [
       {
-        'id': 'p01',
-        'name': 'Trung BB at 2017',
+        'id': 'pgateaching_201709.1',
+        'title': '',
+        play_order: 1,
+      },
+    ],
+
+    'entries': [
+      {
+        'id': 'pgateaching_201709.1',
+        'player_name': 'Trung BB at 2017',
         'retired': false,
       },
       {
-        'id': 'p02',
-        'name': 'Cuong CL at 2017',
-        'retired': true,
+        'id': 'pgateaching_201709.2',
+        'player_name': 'Cuong CL at 2017',
+        'retired': false,
       }
-    ],
-
-    'rounds': [
-      {
-        'id': 'pgateaching_201611.1',
-        'title': '',
-      },
-    ],
-
-    'scores': [
-      {
-        'id': 's01',
-        'strokes': [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
-        'player_id': 'p01',
-        round_id: 'pgateaching_201611.1',
-      },
-      {
-        'id': 's03',
-        'strokes': [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-        'player_id': 'p02',
-        round_id: 'pgateaching_201611.1',
-      },
     ],
 
     round_entries: [
       {
-        round_id: 'pgateaching_201611.1',
-        player_id: 'p01',
-        sort_order: 1,
+        id: 'pgateaching_201709.1.1',
+        round_id: 'pgateaching_201709.1',
+        entry_id: 'pgateaching_201709.1',
+        strokes: [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
       },
       {
-        round_id: 'pgateaching_201611.2',
-        player_id: 'p02',
-        sort_order: 2,
+        id: 'pgateaching_201709.1.2',
+        round_id: 'pgateaching_201709.1',
+        entry_id: 'pgateaching_201709.2',
+        strokes: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
       },
     ],
 
