@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import PlayerListItemContainer from './player-list-item.container'
 import RoundSelectorContainer from './round-selector.container'
 
-const PlayerList = ({players, pars, loading}) => (
+const PlayerList = ({entries, pars, loading}) => (
   <div>
     <h2>出場選手一覧</h2>
     <div className='row mb-2'>
@@ -12,14 +12,14 @@ const PlayerList = ({players, pars, loading}) => (
         <RoundSelectorContainer/>
       </div>
     </div>
-    {players.map(p =>
-      <PlayerListItemContainer key={p.id} pars={pars} loading={loading} {...p} />
+    {entries.map(e =>
+      <PlayerListItemContainer key={e.id} pars={pars} loading={loading} {...e} />
     )}
   </div>
 )
 
 PlayerList.propTypes = {
-  players: PropTypes.array.isRequired,
+  entries: PropTypes.array.isRequired,
   pars: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
 }

@@ -8,7 +8,7 @@ const PlayerListItem = ({
                           name,
                           retired,
                           isEditing,
-                          scoresPerRound,
+                          roundEntries,
                           pars,
                           loading,
                           onClickEditPlayer,
@@ -17,12 +17,12 @@ const PlayerListItem = ({
                           onChangeScore,
                           onChangeRetired,
                         }) => {
-  const totalStrokes = scoresPerRound.map(s =>
-    s.strokes.map(Number).reduce((a, b) => a + b, 0)
+  const totalStrokes = roundEntries.map(re =>
+    re.strokes.map(Number).reduce((a, b) => a + b, 0)
   ).reduce((a, b) => a + b, 0)
 
-  const totalScore = scoresPerRound.map(s =>
-    s.strokes.map(Number).reduce((sum, v, idx) => {
+  const totalScore = roundEntries.map(re =>
+    re.strokes.map(Number).reduce((sum, v, idx) => {
       if (v === 0) return sum
       return sum + (v - pars[idx])
     }, 0)
@@ -81,16 +81,16 @@ const PlayerListItem = ({
               </tr>
               </thead>
               <tbody>
-              {scoresPerRound.map((s, idx) =>
-                <tr key={`PlayerListItem-${s.id}`}>
-                  {s.strokes.map((v, idx) =>
-                    <td key={`PlayerListItem-${s.id}-${idx}`}>
+              {roundEntries.map((re, idx) =>
+                <tr key={`PlayerListItem-${re.id}`}>
+                  {re.strokes.map((v, idx) =>
+                    <td key={`PlayerListItem-${re.id}-${idx}`}>
                       <input type='text' value={v} style={style.scoreInput}
                              disabled={!isEditing || loading}
-                             onChange={e => onChangeScore(s.id, idx, e.target.value)}/>
+                             onChange={e => onChangeScore(re.id, idx, e.target.value)}/>
                     </td>
                   )}
-                  <td>{s.strokes.map(Number).reduce((a, b) => a + b, 0)}</td>
+                  <td>{re.strokes.map(Number).reduce((a, b) => a + b, 0)}</td>
                 </tr>
               )}
               </tbody>
@@ -111,7 +111,7 @@ PlayerListItem.propTypes = {
   name: PropTypes.string.isRequired,
   retired: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
-  scoresPerRound: PropTypes.array.isRequired,
+  roundEntries: PropTypes.array.isRequired,
   pars: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   onClickEditPlayer: PropTypes.func.isRequired,
@@ -121,5 +121,4 @@ PlayerListItem.propTypes = {
   onChangeRetired: PropTypes.func.isRequired,
 }
 
-// export default connect(null, mapDispatchToProps)(PlayerListItem)
 export default PlayerListItem

@@ -2,15 +2,15 @@ import { connect } from 'react-redux'
 import PlayerList from './player-list.component'
 
 const createSortReference = (roundId, roundEntries) => {
-  const sortReference = roundEntries.filter(e => e.round_id === roundId)
-    .map(e => [e.player_id, e.sort_order])
+  const sortReference = roundEntries.filter(re => re.round_id === roundId)
+    .map(re => [re.entry_id, re.sort_order])
   return Object.assign(...sortReference.map(r => ({[r[0]]: r[1]})))
 }
 
-const toEditable = draft => p => {
-  if (draft === null) return p
-  if (draft.player.id !== p.id) return p
-  return {...draft.player, isEditing: true}
+const toEditable = draft => entry => {
+  if (draft === null) return entry
+  if (draft.entry.id !== entry.id) return entry
+  return {...draft.entry, isEditing: true}
 }
 
 const mapStateToProps = state => {
@@ -18,28 +18,27 @@ const mapStateToProps = state => {
     roundToSort,
     roundEntries,
     draft,
-    rounds,
-    scores,
     holes,
     loading,
   } = state.adminApp
   const pars = holes.map(h => h.par)
   const sortReference = createSortReference(roundToSort.id, roundEntries)
 
-  const players = state.adminApp.players.sort((p1, p2) =>
-    sortReference[p1.id] > sortReference[p2.id] ? 1 : -1
+  const entries = state.adminApp.entries.sort((e1, e2) =>
+    sortReference[e1.id] > sortReference[e2.id] ? 1 : -1
   ).map(toEditable(draft))
-    .map(p => {
-      const _scores = p.isEditing ? draft.scores : scores
+    .map(e => {
+      const _roundEntries = e.isEditing ? draft.roundEntries : roundEntries
       return {
-        ...p,
-        scoresPerRound: rounds.map(r =>
-          _scores.find(s => s.player_id === p.id && s.round_id === r.id)
-        )
+        id: e.id,
+        name: e.player_name,
+        retired: e.retired,
+        isEditing: e.isEditing,
+        roundEntries: _roundEntries.filter(re => re.entry_id === e.id)
       }
     })
 
-  return {players, pars, loading}
+  return {entries, pars, loading}
 }
 
 export default connect(mapStateToProps)(PlayerList)

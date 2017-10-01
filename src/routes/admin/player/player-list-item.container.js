@@ -2,24 +2,24 @@ import { connect } from 'react-redux'
 import {
   cancelEdit,
   changeRetired,
-  changeScore,
-  editPlayer,
-  saveDraft
+  changeStroke,
+  editEntry,
+  saveEntry
 } from './player.module'
 import PlayerListItem from './player-list-item.component'
 
 const mapDispatchToProps = dispatch => ({
   onClickEditPlayer: (id) => {
-    dispatch(editPlayer(id))
+    dispatch(editEntry(id))
   },
   onClickCancelEdit: () => {
     dispatch(cancelEdit())
   },
   onClickSavePlayer: () => {
-    dispatch(saveDraft())
+    dispatch(saveEntry())
   },
   onChangeScore: (scoreId, idx, value) => {
-    dispatch(changeScore(scoreId, idx, value))
+    dispatch(changeStroke(scoreId, idx, value))
   },
   onChangeRetired: (retired) => {
     dispatch(changeRetired(retired))

@@ -1,9 +1,9 @@
 import { API_BASE_URL } from './index'
 
-const API_URL = (competitionId) => `${API_BASE_URL}/competitions/${competitionId}/players`
+const API_URL = `${API_BASE_URL}/entries`
 
-export const updateEntry = (competitionId, playerId, params) => {
-  return fetch(`${API_URL(competitionId)}/${playerId}`, {
+export const updateEntry = (id, params) => {
+  return fetch(`${API_URL}/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'

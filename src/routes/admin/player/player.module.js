@@ -1,33 +1,30 @@
 import { updateEntry } from '../../../repositories/entry.repository'
-import { updateScore } from '../../../repositories/score.repository'
+import { updateRoundEntry } from '../../../repositories/round-entry.repository'
 import { getCompetition } from '../../../repositories/competition.repository'
 
-const ENTRY_AND_SCORES_EDIT = 'admin/ENTRY_AND_SCORES_EDIT'
-const ENTRY_AND_SCORES_EDIT_CANCEL = 'admin/ENTRY_AND_SCORES_EDIT_CANCEL'
-const ENTRY_AND_SCORES_SAVE_REQUEST = 'admin/ENTRY_AND_SCORES_SAVE_REQUEST'
-const ENTRY_AND_SCORES_SAVE_SUCCESS = 'admin/ENTRY_AND_SCORES_SAVE_SUCCESS'
-const ENTRY_AND_SCORES_SAVE_ERROR = 'admin/ENTRY_AND_SCORES_SAVE_ERROR'
-const RETIRED_CHANGE = 'admin/PLAYERS_CHANGE_RETIRED'
-const SCORES_CHANGE = 'admin/SCORES_CHANGE'
+const DRAFT_CHANGE = 'admin/DRAFT_CHANGE'
+const DRAFT_REMOVE = 'admin/DRAFT_REMOVE'
+const ENTRY_SAVE_REQUEST = 'admin/ENTRY_SAVE_REQUEST'
+const ENTRY_SAVE_SUCCESS = 'admin/ENTRY_SAVE_SUCCESS'
+const ENTRY_SAVE_ERROR = 'admin/ENTRY_SAVE_ERROR'
 const COMPETITION_GET_REQUEST = 'admin/COMPETITION_GET_REQUEST'
 const COMPETITION_GET_SUCCESS = 'admin/COMPETITION_GET_SUCCESS'
-const ROUND_TO_SORT_CHANGE = 'admin/PLAYERS_CHANGE_SORT_DAY'
+const ROUND_TO_SORT_CHANGE = 'admin/ROUND_TO_SORT_CHANGE'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 
-export const editPlayer = (id) => {
+export const editEntry = (id) => {
   return (dispatch, getState) => {
-    const {players, scores} = getState().adminApp
-    const playerToEdit = players.find(p => p.id === id)
+    const {entries, roundEntries} = getState().adminApp
     const draft = {
-      player: {...playerToEdit},
-      scores: [...scores.filter(s => s.player_id === playerToEdit.id)]
+      entry: {...entries.find(e => e.id === id)},
+      roundEntries: [...roundEntries.filter(re => re.entry_id === id)]
     }
 
     dispatch({
-      type: ENTRY_AND_SCORES_EDIT,
+      type: DRAFT_CHANGE,
       payload: draft,
     })
   }
@@ -35,38 +32,37 @@ export const editPlayer = (id) => {
 
 export function cancelEdit () {
   return {
-    type: ENTRY_AND_SCORES_EDIT_CANCEL,
+    type: DRAFT_REMOVE,
   }
 }
 
-export function saveDraft () {
+export function saveEntry () {
   return async (dispatch, getState) => {
     dispatch({
-      type: ENTRY_AND_SCORES_SAVE_REQUEST
+      type: ENTRY_SAVE_REQUEST
     })
 
     const state = getState().adminApp
-    const competition = state.competition
     const draft = state.draft
 
     const promises = [
-      updateEntry(competition.id, draft.player.id, {
-        retired: draft.player.retired,
+      updateEntry(draft.entry.id, {
+        retired: draft.entry.retired,
       }),
-      ...draft.scores.map(s => updateScore(s.id, {
-        strokes: s.strokes.map(Number),
+      ...draft.roundEntries.map(re => updateRoundEntry(re.id, {
+        strokes: re.strokes.map(Number),
       }))
     ]
 
     try {
       await Promise.all(promises)
       dispatch({
-        type: ENTRY_AND_SCORES_SAVE_SUCCESS
+        type: ENTRY_SAVE_SUCCESS
       })
     } catch (e) {
       console.error(e)
       dispatch({
-        type: ENTRY_AND_SCORES_SAVE_ERROR,
+        type: ENTRY_SAVE_ERROR,
         payload: {
           level: 'error',
           message: 'Something bad happened.',
@@ -81,14 +77,36 @@ export const changeRetired = (retired) => {
     const draft = getState().adminApp.draft
     const newDraft = {
       ...draft,
-      player: {
-        ...draft.player,
+      entry: {
+        ...draft.entry,
         retired: retired
       }
     }
 
     dispatch({
-      type: RETIRED_CHANGE,
+      type: DRAFT_CHANGE,
+      payload: newDraft
+    })
+  }
+}
+
+export const changeStroke = (roundEntryId, idx, value) => {
+  return (dispatch, getState) => {
+    const draft = getState().adminApp.draft
+    const newDraft = {
+      ...draft,
+      roundEntries: draft.roundEntries.map(re => {
+        if (roundEntryId !== re.id) return re
+
+        const strokes = [...re.strokes]
+        strokes[idx] = value
+
+        return {...re, strokes}
+      })
+    }
+
+    dispatch({
+      type: DRAFT_CHANGE,
       payload: newDraft
     })
   }
@@ -101,28 +119,6 @@ export const changeRoundToSort = (roundId) => {
     dispatch({
       type: ROUND_TO_SORT_CHANGE,
       payload: {...roundToSort},
-    })
-  }
-}
-
-export const changeScore = (scoreId, idx, value) => {
-  return (dispatch, getState) => {
-    const draft = getState().adminApp.draft
-    const newDraft = {
-      ...draft,
-      scores: draft.scores.map(s => {
-        if (scoreId !== s.id) return s
-
-        const strokes = [...s.strokes]
-        strokes[idx] = value
-
-        return {...s, strokes}
-      })
-    }
-
-    dispatch({
-      type: SCORES_CHANGE,
-      payload: newDraft
     })
   }
 }
@@ -148,14 +144,14 @@ export const fetchCompetition = (id) => {
 // ------------------------------------
 
 const ACTION_HANDLERS = {
-  [ENTRY_AND_SCORES_EDIT]: (state, action) => {
+  [DRAFT_CHANGE]: (state, action) => {
     return {
       ...state,
-      draft: action.payload,
+      draft: action.payload
     }
   },
 
-  [ENTRY_AND_SCORES_EDIT_CANCEL]: (state, action) => {
+  [DRAFT_REMOVE]: (state, action) => {
     return {
       ...state,
       draft: null
@@ -169,50 +165,36 @@ const ACTION_HANDLERS = {
     }
   },
 
-  [RETIRED_CHANGE]: (state, action) => {
-    return {
-      ...state,
-      draft: action.payload,
-    }
-  },
-
-  [SCORES_CHANGE]: (state, action) => {
-    return {
-      ...state,
-      draft: action.payload
-    }
-  },
-
-  [ENTRY_AND_SCORES_SAVE_REQUEST]: (state, action) => {
+  [ENTRY_SAVE_REQUEST]: (state, action) => {
     return {
       ...state,
       loading: true,
     }
   },
 
-  [ENTRY_AND_SCORES_SAVE_SUCCESS]: (state, action) => {
+  [ENTRY_SAVE_SUCCESS]: (state, action) => {
     const draft = state.draft
 
-    const players = state.players.map(p => {
-      if (p.id === draft.player.id) return draft.player
-      return p
+    const entries = state.entries.map(e => {
+      if (e.id === draft.entry.id) return draft.entry
+      return e
     })
-    const scores = state.scores.map(s => {
-      const updatedScore = draft.scores.find(ds => ds.id === s.id)
-      if (updatedScore) return updatedScore
-      return s
+    const roundEntries = state.roundEntries.map(re => {
+      const updated = draft.roundEntries.find(dre => dre.id === re.id)
+      if (updated) return updated
+      return re
     })
 
     return {
       ...state,
-      players,
-      scores,
+      entries,
+      roundEntries,
       draft: null,
       loading: false
     }
   },
 
-  [ENTRY_AND_SCORES_SAVE_ERROR]: (state, action) => {
+  [ENTRY_SAVE_ERROR]: (state, action) => {
     return {
       ...state,
       draft: null,
@@ -229,15 +211,14 @@ const ACTION_HANDLERS = {
   },
 
   [COMPETITION_GET_SUCCESS]: (state, action) => {
-    const {players, rounds, scores, holes, round_entries, ...competition} = action.payload
+    const {entries, rounds, round_entries, holes, ...competition} = action.payload
     return {
       ...state,
       competition,
-      players,
+      entries,
       rounds,
-      scores,
-      holes,
       roundEntries: round_entries,
+      holes,
       roundToSort: {...rounds[0]},
       loading: false,
     }
@@ -250,11 +231,10 @@ const ACTION_HANDLERS = {
 
 const initialState = {
   competition: {},
-  players: [],
+  entries: [],
   rounds: [],
-  scores: [],
-  holes: [],
   roundEntries: [],
+  holes: [],
   loading: false,
   draft: null,
   roundToSort: null,
