@@ -1,7 +1,7 @@
 import { getCompetition } from '../../repositories/competition.repository'
 
-const COMPETITION_GET_REQUEST = 'PLAYERS_FETCH_REQUEST'
-const COMPETITION_GET_SUCCESS = 'PLAYERS_FETCH_SUCCESS'
+const COMPETITION_GET_REQUEST = 'COMPETITION_GET_REQUEST'
+const COMPETITION_GET_SUCCESS = 'COMPETITION_GET_SUCCESS'
 
 // ------------------------------------
 // Actions

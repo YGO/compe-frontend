@@ -1,9 +1,8 @@
 import React from 'react'
 import Radium from 'radium'
 import PropTypes from 'prop-types'
-import LeadersBoardContainer from './competition-leadersboard.container'
-// eslint-disable-next-line max-len
-import ScoreToggler from '../../components/leadersboard/leadersboard-score-toggler.component'
+import LeadersBoardContainer from './leadersboard.container'
+import ScoreToggler from '../../components/leadersboard/score-toggler.component'
 import lineBtnImg from './assets/linebutton_82x20.png'
 import gnIconImg from './assets/gn_icon.png'
 import appStoreImg from './assets/appstore.svg'
@@ -12,7 +11,7 @@ import Helmet from 'react-helmet/es/Helmet'
 import { alignCenter } from '../common.styles'
 import { style } from './competition-show.styles'
 import { connect } from 'react-redux'
-import Header from './competition-show-header.component'
+import Header from './header.component'
 
 let SHARE_URL
 if (process.env.NODE_ENV === 'development') {
