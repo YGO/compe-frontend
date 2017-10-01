@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import PlayerListItemContainer from './player-list-item.container'
+import EntryListItemContainer from './entry-list-item.container'
 import RoundSelectorContainer from './round-selector.container'
 
-const PlayerList = ({entries, pars, loading}) => (
+const EntryList = ({entries, pars, loading}) => (
   <div>
     <h2>出場選手一覧</h2>
     <div className='row mb-2'>
@@ -13,15 +13,15 @@ const PlayerList = ({entries, pars, loading}) => (
       </div>
     </div>
     {entries.map(e =>
-      <PlayerListItemContainer key={e.id} pars={pars} loading={loading} {...e} />
+      <EntryListItemContainer key={e.id} pars={pars} loading={loading} {...e} />
     )}
   </div>
 )
 
-PlayerList.propTypes = {
+EntryList.propTypes = {
   entries: PropTypes.array.isRequired,
   pars: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
 }
 
-export default PlayerList
+export default EntryList

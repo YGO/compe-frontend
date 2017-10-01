@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { changeRoundToSort } from './player.module'
+import { changeRoundToSort } from './competition-show.module'
 import RoundSelector from './round-selector.component'
 
 const mapStateToProps = state => ({

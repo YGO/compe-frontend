@@ -5,8 +5,8 @@ import {
   changeStroke,
   editEntry,
   saveEntry
-} from './player.module'
-import PlayerListItem from './player-list-item.component'
+} from './competition-show.module'
+import EntryListItem from './entry-list-item.component'
 
 const mapDispatchToProps = dispatch => ({
   onClickEditPlayer: (id) => {
@@ -26,4 +26,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(null, mapDispatchToProps)(PlayerListItem)
+export default connect(null, mapDispatchToProps)(EntryListItem)

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import PlayerListContainer from './player-list.container'
+import EntryListContainer from './entry-list.container'
 import Helmet from 'react-helmet/es/Helmet'
 import { Link } from 'react-router'
-import style from './player-index.styles'
+import style from './compeitition-show.styles'
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => {
@@ -65,7 +65,7 @@ const PlayerIndex = ({
     </section>
 
     <section id='players' style={style.section}>
-      <PlayerListContainer/>
+      <EntryListContainer/>
     </section>
   </div>
 )

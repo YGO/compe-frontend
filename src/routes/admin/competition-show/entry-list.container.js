@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import PlayerList from './player-list.component'
+import EntryList from './entry-list.component'
 
 const createSortReference = (roundId, roundEntries) => {
   const sortReference = roundEntries.filter(re => re.round_id === roundId)
@@ -41,4 +41,4 @@ const mapStateToProps = state => {
   return {entries, pars, loading}
 }
 
-export default connect(mapStateToProps)(PlayerList)
+export default connect(mapStateToProps)(EntryList)

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import style from './player-list.styles'
+import style from './entry-list.styles'
 import classNames from 'classnames'
 
-const PlayerListItem = ({
+const EntryListItem = ({
                           id,
                           name,
                           retired,
@@ -102,11 +102,11 @@ const PlayerListItem = ({
   )
 }
 
-PlayerListItem.defaultProps = {
+EntryListItem.defaultProps = {
   isEditing: false
 }
 
-PlayerListItem.propTypes = {
+EntryListItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   retired: PropTypes.bool.isRequired,
@@ -121,4 +121,4 @@ PlayerListItem.propTypes = {
   onChangeRetired: PropTypes.func.isRequired,
 }
 
-export default PlayerListItem
+export default EntryListItem
