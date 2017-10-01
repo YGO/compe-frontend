@@ -9,13 +9,13 @@ import {
 import EntryListItem from './entry-list-item.component'
 
 const mapDispatchToProps = dispatch => ({
-  onClickEditPlayer: (id) => {
+  onClickEdit: (id) => {
     dispatch(editEntry(id))
   },
-  onClickCancelEdit: () => {
+  onClickCancel: () => {
     dispatch(cancelEdit())
   },
-  onClickSavePlayer: () => {
+  onClickSave: () => {
     dispatch(saveEntry())
   },
   onChangeScore: (scoreId, idx, value) => {

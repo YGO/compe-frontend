@@ -13,7 +13,10 @@ const EntryList = ({entries, pars, loading}) => (
       </div>
     </div>
     {entries.map(e =>
-      <EntryListItemContainer key={e.id} pars={pars} loading={loading} {...e} />
+      <EntryListItemContainer key={`EntryList-${e.id}`}
+                              pars={pars}
+                              loading={loading}
+                              {...e} />
     )}
   </div>
 )

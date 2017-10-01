@@ -13,7 +13,7 @@ const mapStateToProps = state => {
   }
 }
 
-const PlayerIndex = ({
+const CompetitionShow = ({
                        competition,
                        holes,
                      }) => (
@@ -64,16 +64,16 @@ const PlayerIndex = ({
       </div>
     </section>
 
-    <section id='players' style={style.section}>
+    <section id='entries' style={style.section}>
       <EntryListContainer/>
     </section>
   </div>
 )
 
-PlayerIndex.propTypes = {
+CompetitionShow.propTypes = {
   competition: PropTypes.object.isRequired,
   holes: PropTypes.array.isRequired,
 }
 
 // noinspection JSUnusedGlobalSymbols
-export default connect(mapStateToProps)(PlayerIndex)
+export default connect(mapStateToProps)(CompetitionShow)

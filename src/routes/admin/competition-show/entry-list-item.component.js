@@ -4,19 +4,19 @@ import style from './entry-list.styles'
 import classNames from 'classnames'
 
 const EntryListItem = ({
-                          id,
-                          name,
-                          retired,
-                          isEditing,
-                          roundEntries,
-                          pars,
-                          loading,
-                          onClickEditPlayer,
-                          onClickCancelEdit,
-                          onClickSavePlayer,
-                          onChangeScore,
-                          onChangeRetired,
-                        }) => {
+                         id,
+                         name,
+                         retired,
+                         isEditing,
+                         roundEntries,
+                         pars,
+                         loading,
+                         onClickEdit,
+                         onClickCancel,
+                         onClickSave,
+                         onChangeScore,
+                         onChangeRetired,
+                       }) => {
   const totalStrokes = roundEntries.map(re =>
     re.strokes.map(Number).reduce((a, b) => a + b, 0)
   ).reduce((a, b) => a + b, 0)
@@ -31,7 +31,7 @@ const EntryListItem = ({
   return (
     <div className='row'>
       <div className='col'>
-        <div className='row' style={style.playerRow}>
+        <div className='row' style={style.entryRow}>
           <div className='col-auto'>
             <span className='font-weight-bold'>{name}</span>
           </div>
@@ -49,7 +49,7 @@ const EntryListItem = ({
           {!isEditing &&
           <div className='col-auto'>
             <button type='button' className='btn btn-link' style={style.ctrlBtn}
-                    onClick={() => onClickEditPlayer(id)}
+                    onClick={() => onClickEdit(id)}
                     disabled={loading}>スコア編集
             </button>
           </div>
@@ -57,11 +57,11 @@ const EntryListItem = ({
           {isEditing &&
           <div className='col-auto'>
             <button type='button' className='btn btn-link' style={style.ctrlBtn}
-                    onClick={onClickCancelEdit} disabled={loading}>
+                    onClick={onClickCancel} disabled={loading}>
               キャンセル
             </button>
             <button type='button' className='btn btn-primary btn-sm'
-                    style={style.ctrlBtn} onClick={onClickSavePlayer}
+                    style={style.ctrlBtn} onClick={onClickSave}
                     disabled={loading}>保存
             </button>
           </div>
@@ -74,7 +74,7 @@ const EntryListItem = ({
               <thead>
               <tr>
                 {[...Array(18)].map((_, idx) =>
-                  <th key={`PlayerListItem-h${idx}`}
+                  <th key={`EntryListItem-h${idx}`}
                       style={style.scoreTableHeader}>{idx + 1}</th>
                 )}
                 <th style={style.scoreTableHeader}>合計</th>
@@ -82,9 +82,9 @@ const EntryListItem = ({
               </thead>
               <tbody>
               {roundEntries.map((re, idx) =>
-                <tr key={`PlayerListItem-${re.id}`}>
+                <tr key={`EntryListItem-${re.id}`}>
                   {re.strokes.map((v, idx) =>
-                    <td key={`PlayerListItem-${re.id}-${idx}`}>
+                    <td key={`EntryListItem-${re.id}-${idx}`}>
                       <input type='text' value={v} style={style.scoreInput}
                              disabled={!isEditing || loading}
                              onChange={e => onChangeScore(re.id, idx, e.target.value)}/>
@@ -114,9 +114,9 @@ EntryListItem.propTypes = {
   roundEntries: PropTypes.array.isRequired,
   pars: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  onClickEditPlayer: PropTypes.func.isRequired,
-  onClickCancelEdit: PropTypes.func.isRequired,
-  onClickSavePlayer: PropTypes.func.isRequired,
+  onClickEdit: PropTypes.func.isRequired,
+  onClickCancel: PropTypes.func.isRequired,
+  onClickSave: PropTypes.func.isRequired,
   onChangeScore: PropTypes.func.isRequired,
   onChangeRetired: PropTypes.func.isRequired,
 }
