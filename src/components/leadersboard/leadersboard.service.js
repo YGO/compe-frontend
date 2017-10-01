@@ -4,6 +4,17 @@ const findCurrentRoundIndex = (scoresPerRound) => {
   })
 }
 
+const findLastHole = (scores) => {
+  const playedOrNot = scores.map(s => s === undefined ? 0 : 1)
+  const gradient = playedOrNot.map((v, idx) => {
+    const next = playedOrNot[idx + 1]
+    if (!next) return 0 - v
+    return next - v
+  })
+
+  return gradient.findIndex(g => g === -1) + 1
+}
+
 export const calcTHRU = (scoresPerRound, retired) => {
   if (retired) return 'F'
 
@@ -14,17 +25,6 @@ export const calcTHRU = (scoresPerRound, retired) => {
   if (curRoundIdx === 0 && scores.every(s => s === undefined)) return '-'
   if (scores.every(s => s === undefined)) {
     return `F ${curRoundIdx}/${scoresPerRound.length}`
-  }
-
-  const findLastHole = (scores) => {
-    const playedOrNot = scores.map(s => s === undefined ? 0 : 1)
-    const gradient = playedOrNot.map((b, idx) => {
-      const next = playedOrNot[idx + 1]
-      if (!next) return 0 - b
-      return next - b
-    })
-
-    return gradient.findIndex(g => g === -1) + 1
   }
 
   return findLastHole(scores) + ''
