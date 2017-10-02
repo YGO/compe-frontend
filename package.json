@@ -7,6 +7,7 @@
     "clean": "rimraf dist",
     "compile": "node build/scripts/compile",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
+    "build-staging": "npm run clean && cross-env NODE_ENV=staging npm run compile",
     "start": "cross-env NODE_ENV=development node build/scripts/start",
     "test": "cross-env NODE_ENV=test karma start build/karma.config",
     "test:watch": "npm test -- --watch",
@@ -20,6 +21,7 @@
   "author": "David Zukowski <david@zuko.me> (http://zuko.me)",
   "license": "MIT",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "bootstrap": "4.0.0-beta",
     "classnames": "^2.2.5",
     "compression": "^1.6.2",
@@ -51,6 +53,7 @@
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-env": "^1.4.0",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-runtime": "^6.20.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",

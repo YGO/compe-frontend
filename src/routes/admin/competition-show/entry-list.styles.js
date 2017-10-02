@@ -1,5 +1,5 @@
 const style = {
-  playerRow: {
+  entryRow: {
     fontSize: '1.2em',
   },
   scoreInput: {

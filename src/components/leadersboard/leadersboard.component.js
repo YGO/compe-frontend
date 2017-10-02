@@ -2,17 +2,39 @@ import React from 'react'
 import Radium from 'radium'
 import PropTypes from 'prop-types'
 import style from './leadersboard.styles'
-import { calcTotals } from '../../services/score.service'
-import { calcTHRU, rankPlayers } from './leadersboard.service'
+import { rankPlayers } from './leadersboard.service'
 import LeadersBoardItem from './leadersboard-item.component'
 
-const LeadersBoard = ({players}) => {
-  const leadersBoardPlayers = players.map(p => ({
-    ...p,
-    ...calcTotals(p.scores_day1, p.scores_day2),
-    thru: calcTHRU(p.scores_day1, p.scores_day2, p.retired),
-  }))
-  const rankedPlayers = rankPlayers(leadersBoardPlayers).sort((a, b) => a.rank > b.rank ? 1 : -1)
+const strokesToScores = (pars) => (strokes) => {
+  return strokes.map((s, idx) => {
+    if (s === 0) return undefined
+    return s - pars[idx]
+  })
+}
+
+const calcTotalScore = (scoresPerRound) => {
+  const flattened = Array.prototype.concat(...scoresPerRound)
+  return flattened.filter(s => !!s).reduce((a, b) => a + b, 0)
+}
+
+const LeadersBoard = ({
+                        players,
+                        rounds,
+                        holes,
+                      }) => {
+  const leadersBoardPlayers = players.map(p => {
+    const pars = holes.map(h => h.par)
+    const scoresPerRound = p.strokesPerRound.map(strokesToScores(pars))
+
+    return {
+      ...p,
+      scoresPerRound,
+      totalScore: calcTotalScore(scoresPerRound), // required now to sort
+    }
+  })
+
+  const rankedPlayers = rankPlayers(leadersBoardPlayers)
+    .sort((a, b) => a.rank > b.rank ? 1 : -1)
 
   return (
     <div>
@@ -23,7 +45,7 @@ const LeadersBoard = ({players}) => {
         <div className='col-2' style={[style.cellStop]}>THRU</div>
       </div>
       {rankedPlayers.map(p =>
-        <LeadersBoardItem key={`p${p.id}`} {...p}/>
+        <LeadersBoardItem key={`LeadersBoard-${p.id}`} {...p} rounds={rounds}/>
       )}
     </div>
   )
@@ -32,7 +54,9 @@ const LeadersBoard = ({players}) => {
 LeadersBoard.propTypes = {
   players: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-  }).isRequired).isRequired
+  }).isRequired).isRequired,
+  rounds: PropTypes.array.isRequired,
+  holes: PropTypes.array.isRequired,
 }
 
 export default Radium(LeadersBoard)

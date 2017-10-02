@@ -1,30 +1,39 @@
-export const calcTHRU = (scoresDay1, scoresDay2, retired) => {
+const findCurrentRoundIndex = (scoresPerRound) => {
+  return scoresPerRound.findIndex(scores => {
+    return scores.some(s => s === undefined)
+  })
+}
+
+const findLastHole = (scores) => {
+  const playedOrNot = scores.map(s => s === undefined ? 0 : 1)
+  const gradient = playedOrNot.map((v, idx) => {
+    const next = playedOrNot[idx + 1]
+    if (!next) return 0 - v
+    return next - v
+  })
+
+  return gradient.findIndex(g => g === -1) + 1
+}
+
+export const calcTHRU = (scoresPerRound, retired) => {
   if (retired) return 'F'
-  if (scoresDay1.every(s => s === 0) && scoresDay2.every(s => s === 0)) return '-'
-  if (scoresDay1.every(s => s > 0) && scoresDay2.every(s => s > 0)) return 'Day2 - F'
-  if (scoresDay1.every(s => s > 0) && scoresDay2.every(s => s === 0)) return 'Day1 - F'
 
-  const findLastHole = (scoresOut, scoresIn) => {
-    if (scoresIn.every(s => s === 0)) return scoresOut.filter(s => s > 0).length
-    if (scoresIn.every(s => s > 0) && scoresOut.every(s => s === 0)) return 18
-    if (scoresIn.every(s => s > 0)) return scoresOut.filter(s => s > 0).length
-    return scoresIn.filter(s => s > 0).length + 9
+  const curRoundIdx = findCurrentRoundIndex(scoresPerRound)
+  if (curRoundIdx < 0) return 'F'
+
+  const scores = scoresPerRound[curRoundIdx]
+  if (curRoundIdx === 0 && scores.every(s => s === undefined)) return '-'
+  if (scores.every(s => s === undefined)) {
+    return `F ${curRoundIdx}/${scoresPerRound.length}`
   }
 
-  const scoresOutDay1 = scoresDay1.slice(0, 9)
-  const scoresInDay1 = scoresDay1.slice(9, 18)
-  const scoresOutDay2 = scoresDay2.slice(0, 9)
-  const scoresInDay2 = scoresDay2.slice(9, 18)
-
-  if (scoresDay2.every(s => s === 0)) {
-    return findLastHole(scoresOutDay1, scoresInDay1) + ''
-  }
-  return findLastHole(scoresOutDay2, scoresInDay2) + ''
+  return findLastHole(scores) + ''
 }
 
 export const rankPlayers = (players) => {
   const totalScores = players.map(p => {
     if (p.retired) return Infinity
+    if (!hasScore(p.scoresPerRound)) return Infinity
     return p.totalScore
   })
   const sorted = totalScores.slice().sort((a, b) => a - b)
@@ -34,4 +43,9 @@ export const rankPlayers = (players) => {
     ...p,
     rank: ranks[idx],
   }))
+}
+
+export const hasScore = (scoresPerRound) => {
+  const flattened = Array.prototype.concat(...scoresPerRound)
+  return flattened.some(s => s !== undefined)
 }

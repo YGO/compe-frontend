@@ -21,7 +21,7 @@
   "rules": {
     "key-spacing"          : "off",
     "jsx-quotes"           : [2, "prefer-single"],
-    "max-len"              : [2, 120, 2],
+    "max-len"              : [2, 90, 2],
     "object-curly-spacing" : "off",
     "comma-dangle"         : "off",
     "react/jsx-indent" : "off",
