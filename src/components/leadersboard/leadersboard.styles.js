@@ -78,7 +78,12 @@ const style = {
       backgroundColor: 'transparent'
     }
   },
-  rankBadge: rank => {
+  rankBadge: (rank, canBeRanked) => {
+    if (!canBeRanked) {
+      return {
+        backgroundColor: colors.rank.others
+      }
+    }
     if (rank === 1) {
       return {
         backgroundColor: colors.rank.gold
