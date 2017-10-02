@@ -61,8 +61,7 @@ class EntryListItem extends React.Component {
             {!isEditing &&
             <div className='col-auto'>
               <button type='button' className='btn btn-link' style={style.ctrlBtn}
-                      onClick={() => onClickEdit(id)}
-                      disabled={loading}>スコア編集
+                      onClick={() => onClickEdit(id)}>スコア編集
               </button>
             </div>
             }
@@ -98,7 +97,7 @@ class EntryListItem extends React.Component {
                     {re.strokes.map((v, idx) =>
                       <td key={`EntryListItem-${re.id}-${idx}`}>
                         <input type='text' value={v} style={style.scoreInput}
-                               disabled={!isEditing || loading}
+                               disabled={!isEditing}
                                onChange={e => onChangeScore(re.id, idx, e.target.value)}/>
                       </td>
                     )}
