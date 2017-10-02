@@ -1,27 +1,35 @@
-# Description
-h2. Admin screen for Golf Network
+# YGO/compe-frontend
 
-This project to support get list and update score for players
+## Setup
 
-# React Redux Starter Kit
-
-
-## Requirements
-* node `^5.0.0`
-* yarn `^0.23.0` or npm `^3.0.0`
-
-## Installation
-
+Prepare backend.
 ```bash
-$ git clone
-$ cd <my-project-name>
-$ yarn  # Install project dependencies (or `npm install`)
+git clone https://github.com/YGO/compe-backend.git
+cd compe-backend
+# Follow README in compe-backend.
 ```
 
-## Running the Project
+Install dependencies.
+```bash
+cd compe-frontend
+yarn install
+```
 
-After completing the [installation](#installation) step, you're ready to start the project!
+## Develop
 
 ```bash
-$ yarn start  # Start the development server (or `npm start`)
+yarn start
+open http://localhost:3000/pgateaching_201709
+```
+
+Testing
+```bash
+yarn test:watch
+```
+
+## Deploy
+
+Build. Built files will be under dist directory.
+```bash
+yarn build
 ```
