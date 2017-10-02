@@ -6,6 +6,7 @@ import { alignLeft } from '../common.styles'
 import pgaLogoImg from './assets/pga-logo.png'
 import bg_pgateaching_201611 from './assets/bg-pgateaching_201611.jpg'
 import bg_pgateaching_201709 from './assets/bg-pgateaching_201709.jpg'
+import bg_ks_compe_201710 from './assets/bg-ks_compe_201710.jpg'
 
 const CompetitionShowHeader = ({competitionId, title}) => (
   <header style={[style.self]}>
@@ -46,7 +47,7 @@ const style = {
       backgroundImage: `url(${bg_pgateaching_201709})`
     },
     'ks_compe_201710': {
-      backgroundImage: `url(${bg_pgateaching_201611})`
+      backgroundImage: `url(${bg_ks_compe_201710})`
     },
   },
   main: {
