@@ -34,6 +34,7 @@ const mapStateToProps = state => {
         name: e.player_name,
         retired: e.retired,
         isEditing: e.isEditing,
+        loading: e.isEditing && loading,
         roundEntries: _roundEntries.filter(re => re.entry_id === e.id)
       }
     })
