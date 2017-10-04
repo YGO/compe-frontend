@@ -39,7 +39,7 @@ const mapStateToProps = state => {
       }
     })
 
-  return {entries, pars, loading}
+  return {entries, pars}
 }
 
 export default connect(mapStateToProps)(EntryList)
