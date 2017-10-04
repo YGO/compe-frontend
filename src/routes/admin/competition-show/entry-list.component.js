@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import EntryListItemContainer from './entry-list-item.container'
 import RoundSelectorContainer from './round-selector.container'
 
-const EntryList = ({entries, pars, loading}) => (
+const EntryList = ({entries, pars}) => (
   <div>
     <h2>出場選手一覧</h2>
     <div className='row mb-2'>
@@ -15,7 +15,6 @@ const EntryList = ({entries, pars, loading}) => (
     {entries.map(e =>
       <EntryListItemContainer key={`EntryList-${e.id}`}
                               pars={pars}
-                              loading={loading}
                               {...e} />
     )}
   </div>
@@ -24,7 +23,6 @@ const EntryList = ({entries, pars, loading}) => (
 EntryList.propTypes = {
   entries: PropTypes.array.isRequired,
   pars: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
 }
 
 export default EntryList
