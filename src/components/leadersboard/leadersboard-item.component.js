@@ -24,7 +24,6 @@ const totalScoreToStr = score =>{
   return score
 }
 
-
 @Radium
 class ScoreTable extends React.Component {
   render () {
