@@ -19,6 +19,11 @@ const rankToStr = (rank, canBeRanked) => {
   return String(rank)
 }
 
+const totalScoreToStr = score =>{
+  if (score === undefined) return '-'
+  return score
+}
+
 @Radium
 class ScoreTable extends React.Component {
   render () {
@@ -77,7 +82,7 @@ const LeadersBoardItem = ({
           </div>
           <div className='col-6' style={[style.cell, alignLeft]}><span
             className='text-primary ml-1'>{name}</span></div>
-          <div className='col-2' style={[style.cell]}>{totalScore}</div>
+          <div className='col-2' style={[style.cell]}>{totalScoreToStr(totalScore)}</div>
           <div className='col-2'
                style={[style.cellStop]}>{thru}</div>
         </div>
@@ -120,7 +125,6 @@ LeadersBoardItem.propTypes = {
   name: PropTypes.string.isRequired,
   retired: PropTypes.bool.isRequired,
   scoresPerRound: PropTypes.array.isRequired,
-  totalScore: PropTypes.number.isRequired,
   rank: PropTypes.number.isRequired,
   rounds: PropTypes.array.isRequired,
 }

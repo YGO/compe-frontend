@@ -2,7 +2,7 @@ import React from 'react'
 import Radium from 'radium'
 import PropTypes from 'prop-types'
 import style from './leadersboard.styles'
-import { rankPlayers } from './leadersboard.service'
+import { rankPlayers, hasScore } from './leadersboard.service'
 import LeadersBoardItem from './leadersboard-item.component'
 
 const strokesToScores = (pars) => (strokes) => {
@@ -14,6 +14,7 @@ const strokesToScores = (pars) => (strokes) => {
 
 const calcTotalScore = (scoresPerRound) => {
   const flattened = Array.prototype.concat(...scoresPerRound)
+  if (!hasScore(scoresPerRound)) return undefined
   return flattened.filter(s => !!s).reduce((a, b) => a + b, 0)
 }
 

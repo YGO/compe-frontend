@@ -47,5 +47,5 @@ export const rankPlayers = (players) => {
 
 export const hasScore = (scoresPerRound) => {
   const flattened = Array.prototype.concat(...scoresPerRound)
-  return flattened.some(s => s !== undefined)
+  return flattened.every(s => s !== undefined)
 }
